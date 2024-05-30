@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomerMyPageController">
+   <children>
+      <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
+      </Text>
+      <HBox layoutY="720.0" prefHeight="99.0" prefWidth="450.0">
+         <children>
+            <ToggleButton id="orderbutton" mnemonicParsing="false" onAction="#handleOrderButtonAction" selected="true" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="Order" HBox.hgrow="ALWAYS" />
+            <ToggleButton id="mypizzasbutton" mnemonicParsing="false" onAction="#handleMyPizzasButtonAction" prefWidth="81.0" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Pizzas" HBox.hgrow="ALWAYS" />
+            <ToggleButton id="mypagebutton" mnemonicParsing="false" onAction="#handleMyPageButtonAction" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Page" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <ImageView fitHeight="109.0" fitWidth="133.0" layoutX="18.0" layoutY="60.0">
+         <image>
+            <Image url="@Images/logo.png" />
+         </image>
+      </ImageView>
+      <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleInvisibleButtonAction" opacity="0" prefHeight="134.0" prefWidth="450.0" />
+      <Pane id="MainField" layoutY="169.0" prefHeight="541.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutY="135.0" prefHeight="412.0" prefWidth="450.0" vbarPolicy="NEVER">
+               <content>
+                  <AnchorPane prefHeight="1446.0" prefWidth="449.0">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="56.0">
+                           <image>
+                              <Image url="@Images/고구마피자.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="225.0" layoutY="56.0">
+                           <image>
+                              <Image url="@Images/베이컨체더치즈피자.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="285.0">
+                           <image>
+                              <Image url="@Images/불고기피자.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="517.0">
+                           <image>
+                              <Image url="@Images/소시지맥스맵퍼로니피자.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="225.0" layoutY="517.0">
+                           <image>
+                              <Image url="@Images/슈프림피자.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="225.0" layoutY="747.0">
+                           <image>
+                              <Image url="@Images/스테이크피자.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="747.0">
+                           <image>
+                              <Image url="@Images/치즈피자.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="225.0" layoutY="291.0">
+                           <image>
+                              <Image url="@Images/치즈크레이프피자.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="975.0">
+                           <image>
+                              <Image url="@Images/페퍼로니피자.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="225.0" layoutY="975.0">
+                           <image>
+                              <Image url="@Images/아보카도새우피자.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content></ScrollPane>
+            <HBox layoutY="60.0" prefHeight="75.0" prefWidth="450.0">
+               <children>
+                  <ToggleButton mnemonicParsing="false" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: FEC88E;" text="Standard Pizzas">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </ToggleButton>
+                  <ToggleButton mnemonicParsing="false" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: FFEEDD;" text="My Custom Pizzas">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </ToggleButton>
+               </children>
+            </HBox>
+            <Text layoutX="150.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Pizza(s)" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

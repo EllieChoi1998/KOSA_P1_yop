@@ -30,7 +30,7 @@ public class CustomerMainController {
     @FXML
     private void handleOrderButtonAction() throws IOException{
         Stage stage = (Stage) AppMain.getPrimaryStage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppOrderStandard.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 450, 820);
         stage.setScene(scene);
     }
