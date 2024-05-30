@@ -10,47 +10,48 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="414.0" prefWidth="239.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView id="logo" fitHeight="49.0" fitWidth="59.0" layoutX="28.0" layoutY="28.0">
-         <image>
-            <Image url="@../도미노메뉴/그외/logo.png" />
-         </image>
-      </ImageView>
-      <Text id="appname" layoutX="81.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 18;" text="Your Own Pizza" textAlignment="CENTER" />
-      <Pane id="MainField" layoutX="-2.0" layoutY="80.0" prefHeight="292.0" prefWidth="241.0" style="-fx-background-color: #FFFFFF;">
+      <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
+         </Text>
+      <Pane id="MainField" layoutX="-2.0" layoutY="178.0" prefHeight="541.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <ImageView id="usericon" fitHeight="61.0" fitWidth="61.0" layoutX="34.0" layoutY="10.0">
-               <image>
-                  <Image url="@../도미노메뉴/그외/UserIcon.png" />
-               </image>
-            </ImageView>
-            <Text id="username" layoutX="98.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 15;" text="Username" textAlignment="CENTER" />
-            <Text id="userid" layoutX="99.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 9;" text="User id" textAlignment="CENTER" />
-            <ImageView id="rewardsicon" fitHeight="15.0" fitWidth="15.0" layoutX="99.0" layoutY="51.0">
-               <image>
-                  <Image url="@../도미노메뉴/그외/rewardIcon.png" />
-               </image>
-            </ImageView>
-            <Text id="rewardsamount" layoutX="116.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 10;" text="rewardspointamount" textAlignment="CENTER" />
-            <VBox accessibleRole="BUTTON" layoutX="1.0" layoutY="81.0" prefHeight="209.0" prefWidth="240.0">
+            <Text id="username" layoutX="191.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 30;" text="Username" textAlignment="CENTER" />
+            <Text id="userid" layoutX="195.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 18;" text="User id" textAlignment="CENTER" />
+            <Text id="rewardsamount" layoutX="232.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 20;" text="rewardspointamount" textAlignment="CENTER" />
+            <VBox accessibleRole="BUTTON" layoutY="150.0" prefHeight="391.0" prefWidth="450.0">
                <children>
-                  <Button id="orderstatus" mnemonicParsing="false" prefHeight="36.0" prefWidth="240.0" style="-fx-background-color: FEC88E;" text="Current Order Status" />
-                  <Button id="orderhistory" mnemonicParsing="false" prefHeight="36.0" prefWidth="240.0" style="-fx-background-color: FEC88E;" text="Order History" />
-                  <Button id="changepassword" mnemonicParsing="false" prefHeight="36.0" prefWidth="240.0" style="-fx-background-color: FEC88E;" text="Change Password" />
-                  <Button id="changeusername" mnemonicParsing="false" prefHeight="36.0" prefWidth="240.0" style="-fx-background-color: FEC88E;" text="Change User Name" />
-                  <Button id="logout" mnemonicParsing="false" prefHeight="36.0" prefWidth="240.0" style="-fx-background-color: FEC88E;" text="Log Out" />
-                  <Button id="signout" mnemonicParsing="false" prefHeight="36.0" prefWidth="240.0" style="-fx-background-color: FEC88E;" text="Sign Out" />
+                  <Button id="orderstatus" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Current Order Status" />
+                  <Button id="orderhistory" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Order History" />
+                  <Button id="changepassword" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change Password" />
+                  <Button id="changeusername" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change User Name" />
+                  <Button id="logout" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Log Out" />
+                  <Button id="signout" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Sign Out" />
                </children>
             </VBox>
+            <ImageView fitHeight="109.0" fitWidth="113.0" layoutX="62.0" layoutY="20.0">
+               <image>
+                  <Image url="@Images/UserIcon.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="191.0" layoutY="89.0">
+               <image>
+                  <Image url="@Images/rewardIcon.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
-      <HBox layoutY="372.0" prefHeight="47.0" prefWidth="239.0">
+      <HBox layoutY="720.0" prefHeight="99.0" prefWidth="450.0">
          <children>
-            <ToggleButton id="orderbutton" mnemonicParsing="false" selected="true" style="-fx-pref-height: 500; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="Order" HBox.hgrow="ALWAYS" />
-            <ToggleButton id="mypizzasbutton" mnemonicParsing="false" prefWidth="81.0" style="-fx-pref-height: 500; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Pizzas" HBox.hgrow="ALWAYS" />
-            <ToggleButton id="mypagebutton" mnemonicParsing="false" style="-fx-pref-height: 500; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Page" HBox.hgrow="ALWAYS" />
+            <ToggleButton mnemonicParsing="false" selected="true" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="Order" HBox.hgrow="ALWAYS" />
+            <ToggleButton id="mypizzasbutton" mnemonicParsing="false" prefWidth="81.0" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Pizzas" HBox.hgrow="ALWAYS" />
+            <ToggleButton id="mypagebutton" mnemonicParsing="false" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Page" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
+      <ImageView fitHeight="109.0" fitWidth="133.0" layoutX="18.0" layoutY="60.0">
+         <image>
+            <Image url="@Images/logo.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
