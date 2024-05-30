@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2017, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="414.0" prefWidth="239.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView id="logo" fitHeight="49.0" fitWidth="59.0" layoutX="28.0" layoutY="28.0">
+         <image>
+            <Image url="@../도미노메뉴/그외/logo.png" />
+         </image>
+      </ImageView>
+      <Text id="appname" layoutX="81.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 18;" text="Your Own Pizza" textAlignment="CENTER" />
+      <Pane id="MainField" layoutX="-2.0" layoutY="80.0" prefHeight="292.0" prefWidth="241.0" style="-fx-background-color: #FFFFFF;" />
+      <HBox layoutY="372.0" prefHeight="47.0" prefWidth="239.0">
+         <children>
+            <ToggleButton id="orderbutton" mnemonicParsing="false" selected="true" style="-fx-pref-height: 500; -fx-background-color: FEC88E; -fx-pref-width: 300;" text="Order" HBox.hgrow="ALWAYS" />
+            <ToggleButton id="mypizzasbutton" mnemonicParsing="false" prefWidth="81.0" style="-fx-pref-height: 500; -fx-background-color: FEC88E; -fx-pref-width: 300;" text="My Pizzas" HBox.hgrow="ALWAYS" />
+            <ToggleButton id="mypagebutton" mnemonicParsing="false" style="-fx-pref-height: 500; -fx-background-color: FEC88E; -fx-pref-width: 300;" text="My Page" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
