@@ -8,21 +8,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text fx:id="appname" layoutX="99.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER" />
+      <Text id="appname" layoutX="99.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER" />
       <ImageView fitHeight="204.0" fitWidth="252.0" layoutX="99.0" layoutY="76.0">
          <image>
             <Image url="@Images/logo.png" />
          </image>
       </ImageView>
-      <Text fx:id="copyright" layoutX="145.0" layoutY="764.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\@copyright on KOSA5 Pizzazo" />
-      <TextField fx:id="idinput" layoutX="163.0" layoutY="383.0" prefHeight="53.0" prefWidth="252.0" style="-fx-background-color: FFFEED; -fx-font-size: 25;" />
-      <Text fx:id="idtext" layoutX="88.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25;" text="ID" />
-      <Text fx:id="passwordtext" layoutX="50.0" layoutY="485.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25;" text="Password" />
-      <PasswordField fx:id="passwordinput" layoutX="163.0" layoutY="453.0" prefHeight="53.0" prefWidth="252.0" style="-fx-background-color: FFFEED; -fx-font-size: 25;" />
-      <Button fx:id="signupbutton" layoutX="175.0" layoutY="631.0" maxHeight="95.0" maxWidth="100.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="100.0" style="-fx-background-radius: 60em; -fx-background-color: FEC88E; -fx-min-width: 100; -fx-min-height: 100; -fx-max-height: 100; -fx-max-width: 100; -fx-font-size: 20;" text="Sign Up" />
-      <TextField fx:id="usernameinput" layoutX="163.0" layoutY="527.0" prefHeight="53.0" prefWidth="252.0" style="-fx-background-color: FFFEED; -fx-font-size: 25;" />
-      <Text fx:id="usernametext" layoutX="34.0" layoutY="559.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25;" text="User Name" />
+      <Text id="copyright" layoutX="145.0" layoutY="764.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\@copyright on KOSA5 Pizzazo" />
+      <TextField id="idinput" layoutX="163.0" layoutY="383.0" prefHeight="53.0" prefWidth="252.0" style="-fx-background-color: FFFEED; -fx-font-size: 25;" />
+      <Text id="idtext" layoutX="88.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25;" text="ID" />
+      <Text id="passwordtext" layoutX="50.0" layoutY="485.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25;" text="Password" />
+      <PasswordField id="passwordinput" layoutX="163.0" layoutY="453.0" prefHeight="53.0" prefWidth="252.0" style="-fx-background-color: FFFEED; -fx-font-size: 25;" />
+      <Button id="signupbutton" layoutX="175.0" layoutY="631.0" maxHeight="95.0" maxWidth="100.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="100.0" style="-fx-background-radius: 60em; -fx-background-color: FEC88E; -fx-min-width: 100; -fx-min-height: 100; -fx-max-height: 100; -fx-max-width: 100; -fx-font-size: 20;" text="Sign Up" />
+      <TextField id="usernameinput" layoutX="163.0" layoutY="527.0" prefHeight="53.0" prefWidth="252.0" style="-fx-background-color: FFFEED; -fx-font-size: 25;" />
+      <Text id="usernametext" layoutX="34.0" layoutY="559.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25;" text="User Name" />
    </children>
 </AnchorPane>

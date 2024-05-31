@@ -30,7 +30,7 @@
       <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleInvisibleButtonAction" opacity="0" prefHeight="134.0" prefWidth="450.0" />
       <Pane id="MainField" layoutY="169.0" prefHeight="541.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutY="135.0" prefHeight="412.0" prefWidth="450.0" vbarPolicy="NEVER">
+            <ScrollPane id="scrollPane" hbarPolicy="NEVER" layoutY="135.0" prefHeight="412.0" prefWidth="450.0" vbarPolicy="NEVER">
                <content>
                   <AnchorPane prefHeight="1446.0" prefWidth="449.0">
                      <children>
