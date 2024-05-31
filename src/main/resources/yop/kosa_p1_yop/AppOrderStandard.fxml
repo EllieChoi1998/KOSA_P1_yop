@@ -39,62 +39,72 @@
                               <Image url="@Images/고구마피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="225.0" layoutY="56.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="56.0">
                            <image>
                               <Image url="@Images/베이컨체더치즈피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="285.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="301.0">
                            <image>
                               <Image url="@Images/불고기피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="517.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="553.0">
                            <image>
                               <Image url="@Images/소시지맥스맵퍼로니피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="225.0" layoutY="517.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="553.0">
                            <image>
                               <Image url="@Images/슈프림피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="225.0" layoutY="747.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="854.0">
                            <image>
                               <Image url="@Images/스테이크피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="747.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="854.0">
                            <image>
                               <Image url="@Images/치즈피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="225.0" layoutY="291.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="301.0">
                            <image>
                               <Image url="@Images/치즈크레이프피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="975.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="1137.0">
                            <image>
                               <Image url="@Images/페퍼로니피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="225.0" layoutY="975.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="1137.0">
                            <image>
                               <Image url="@Images/아보카도새우피자.jpg" />
                            </image>
                         </ImageView>
+                        <Button id="caloriesbtn1" layoutX="14.0" layoutY="56.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
+                        <Button id="caloriesbtn2" layoutX="235.0" layoutY="56.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
+                        <Button id="caloriesbtn5" layoutX="14.0" layoutY="553.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
+                        <Button id="caloriesbtn7" layoutX="14.0" layoutY="854.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
+                        <Button id="caloriesbtn8" layoutX="235.0" layoutY="854.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
+                        <Button id="caloriesbtn6" layoutX="235.0" layoutY="553.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
+                        <Button id="caloriesbtn9" layoutX="14.0" layoutY="1137.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
+                        <Button id="caloriesbtn10" layoutX="235.0" layoutY="1137.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
+                        <Button id="caloriesbtn4" layoutX="235.0" layoutY="301.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
+                        <Button id="caloriesbtn3" layoutX="14.0" layoutY="301.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
                      </children>
                   </AnchorPane>
                </content></ScrollPane>
             <HBox layoutY="60.0" prefHeight="75.0" prefWidth="450.0">
                <children>
-                  <ToggleButton mnemonicParsing="false" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: FEC88E;" text="Standard Pizzas">
+                  <ToggleButton id="standardpizaasbtn" mnemonicParsing="false" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: FEC88E;" text="Standard Pizzas">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </ToggleButton>
-                  <ToggleButton mnemonicParsing="false" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: FFEEDD;" text="My Custom Pizzas">
+                  <ToggleButton id="mycustompizzasbtn" mnemonicParsing="false" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: FFEEDD;" text="My Custom Pizzas" onAction="#handleMoveToCustomButtonAction">
                      <font>
                         <Font size="18.0" />
                      </font>
