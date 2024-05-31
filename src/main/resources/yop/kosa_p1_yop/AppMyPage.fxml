@@ -10,23 +10,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomerMyPageController">
+<AnchorPane fx:id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomerMyPageController">
    <children>
-      <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
+      <Text fx:id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
          </Text>
-      <Pane id="MainField" layoutX="-2.0" layoutY="178.0" prefHeight="541.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
+      <Pane fx:id="MainField" layoutX="-2.0" layoutY="178.0" prefHeight="541.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Text id="username" layoutX="191.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 30;" text="Username" textAlignment="CENTER" />
-            <Text id="userid" layoutX="195.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 18;" text="User id" textAlignment="CENTER" />
-            <Text id="rewardsamount" layoutX="232.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 20;" text="rewardspointamount" textAlignment="CENTER" />
+            <Text fx:id="username" layoutX="191.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 30;" text="Username" textAlignment="CENTER" />
+            <Text fx:id="userid" layoutX="195.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 18;" text="User fx:id" textAlignment="CENTER" />
+            <Text fx:id="rewardsamount" layoutX="232.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 20;" text="rewardspointamount" textAlignment="CENTER" />
             <VBox accessibleRole="BUTTON" layoutY="150.0" prefHeight="391.0" prefWidth="450.0">
                <children>
-                  <Button id="orderstatus" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Current Order Status" />
-                  <Button id="orderhistory" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Order History" />
-                  <Button id="changepassword" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change Password" />
-                  <Button id="changeusername" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change User Name" />
-                  <Button id="logout" mnemonicParsing="false" onAction="#handleLogOutButtonAction" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Log Out" />
-                  <Button id="signout" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Sign Out" />
+                  <Button fx:id="orderstatus" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Current Order Status" />
+                  <Button fx:id="orderhistory" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Order History" />
+                  <Button fx:id="changepassword" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change Password" />
+                  <Button fx:id="changeusername" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change User Name" />
+                  <Button fx:id="logout" mnemonicParsing="false" onAction="#handleLogOutButtonAction" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Log Out" />
+                  <Button fx:id="signout" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Sign Out" />
                </children>
             </VBox>
             <ImageView fitHeight="109.0" fitWidth="113.0" layoutX="62.0" layoutY="20.0">
@@ -44,8 +44,8 @@
       <HBox layoutY="720.0" prefHeight="99.0" prefWidth="450.0">
          <children>
             <ToggleButton mnemonicParsing="false" selected="true" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="Order" HBox.hgrow="ALWAYS" />
-            <ToggleButton id="mypizzasbutton" mnemonicParsing="false" prefWidth="81.0" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Pizzas" HBox.hgrow="ALWAYS" />
-            <ToggleButton id="mypagebutton" mnemonicParsing="false" onAction="#handleMyPageButtonAction" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Page" HBox.hgrow="ALWAYS" />
+            <ToggleButton fx:id="mypizzasbutton" mnemonicParsing="false" prefWidth="81.0" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Pizzas" HBox.hgrow="ALWAYS" />
+            <ToggleButton fx:id="mypagebutton" mnemonicParsing="false" onAction="#handleMyPageButtonAction" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Page" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <ImageView fitHeight="109.0" fitWidth="133.0" layoutX="18.0" layoutY="60.0">
@@ -53,6 +53,6 @@
             <Image url="@Images/logo.png" />
          </image>
       </ImageView>
-      <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" prefHeight="134.0" prefWidth="450.0" opacity="0" onAction="#handleInvisibleButtonAction"/>
+      <Button fx:id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" prefHeight="134.0" prefWidth="450.0" opacity="0" onAction="#handleInvisibleButtonAction"/>
    </children>
 </AnchorPane>

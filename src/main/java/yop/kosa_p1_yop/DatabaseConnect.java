@@ -8,22 +8,24 @@ public class DatabaseConnect {
 
     	Connection conn = null;
         ResultSet rs = null;
-        String userid = "scott";
-        String passwd = "tiger";
-
+        String userid = "pizza_admin";
+        String passwd = "admin";
+        int count  = 0;
         try {
             
         	conn = serverConnect(userid, passwd);
 
-            String sql = "select deptno, dname, loc from dept";
-            
+            //String sql = "select deptno, dname, loc from dept";
+            String sql = "select COUNT(*) from users";
             rs = getSQLResult(conn, sql);
 
             while (rs.next()) {
-                int deptno = rs.getInt("deptno");
-                String dname = rs.getString("dname");
-                String loc = rs.getString("loc");
-                System.out.println(deptno + "\t" + dname + "\t" + loc);
+//                int deptno = rs.getInt("deptno");
+//                String dname = rs.getString("dname");
+//                String loc = rs.getString("loc");
+//                System.out.println(deptno + "\t" + dname + "\t" + loc);
+                count = rs.getInt(1);
+                System.out.println("\n=====\n"+count+"\n=========");
             }
             
             closeResources(rs, conn);

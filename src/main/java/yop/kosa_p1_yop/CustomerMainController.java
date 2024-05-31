@@ -8,6 +8,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class CustomerMainController {
+
+    CustomerUser user;
+
+    public void setCustomerMainController(CustomerUser user){
+        this.user = user;
+    }
+
     @FXML
     private void handleMyPageButtonAction() throws IOException {
         Stage stage = (Stage) AppMain.getPrimaryStage();

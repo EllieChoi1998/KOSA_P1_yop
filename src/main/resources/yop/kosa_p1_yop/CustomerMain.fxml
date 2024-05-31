@@ -10,16 +10,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomerMyPageController">
+<AnchorPane fx:id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomerMyPageController">
    <children>
-      <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
+      <Text fx:id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
       </Text>
 
       <HBox layoutY="720.0" prefHeight="99.0" prefWidth="450.0">
          <children>
-            <ToggleButton id="orderbutton" mnemonicParsing="false" selected="true" onAction="#handleOrderButtonAction" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="Order" HBox.hgrow="ALWAYS" />
-            <ToggleButton id="mypizzasbutton" mnemonicParsing="false" prefWidth="81.0" onAction="#handleMyPizzasButtonAction" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Pizzas" HBox.hgrow="ALWAYS" />
-            <ToggleButton id="mypagebutton" mnemonicParsing="false" onAction="#handleMyPageButtonAction" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Page" HBox.hgrow="ALWAYS" />
+            <ToggleButton fx:id="orderbutton" mnemonicParsing="false" selected="true" onAction="#handleOrderButtonAction" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="Order" HBox.hgrow="ALWAYS" />
+            <ToggleButton fx:id="mypizzasbutton" mnemonicParsing="false" prefWidth="81.0" onAction="#handleMyPizzasButtonAction" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Pizzas" HBox.hgrow="ALWAYS" />
+            <ToggleButton fx:id="mypagebutton" mnemonicParsing="false" onAction="#handleMyPageButtonAction" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Page" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <ImageView fitHeight="109.0" fitWidth="133.0" layoutX="18.0" layoutY="60.0">
@@ -27,6 +27,6 @@
             <Image url="@Images/logo.png" />
          </image>
       </ImageView>
-      <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" prefHeight="134.0" prefWidth="450.0" opacity="0" onAction="#handleInvisibleButtonAction"/>
+      <Button fx:id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" prefHeight="134.0" prefWidth="450.0" opacity="0" onAction="#handleInvisibleButtonAction"/>
    </children>
 </AnchorPane>

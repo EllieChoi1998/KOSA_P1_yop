@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class CustomerMyPageController extends CustomerMainController{
+
+
     @FXML
     private void handleLogOutButtonAction() throws IOException {
         Stage stage = (Stage) AppMain.getPrimaryStage();
