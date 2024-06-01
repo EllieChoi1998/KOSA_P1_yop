@@ -62,4 +62,26 @@ public class CustomerMyPageController extends CustomerMainController{
         stage.close();
     }
 
+    @FXML
+    private void handleMyPizzasButtonAction() throws IOException{
+        Stage stage = (Stage) AppMain.getPrimaryStage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPizzas.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+        stage.setScene(scene);
+    }
+    @FXML
+    private void handleCreateNewCustomButtonAction() throws IOException{
+        Stage stage = (Stage) AppMain.getPrimaryStage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DowAndSizeAndsauce.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+        stage.setScene(scene);
+    }
+    @FXML
+    private void handleAddToppingButtonAction() throws IOException{
+        Stage stage = (Stage) AppMain.getPrimaryStage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ToppingSelection.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+        stage.setScene(scene);
+    }
 }
+
