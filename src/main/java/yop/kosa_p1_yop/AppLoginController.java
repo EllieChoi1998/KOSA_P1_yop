@@ -2,6 +2,7 @@ package yop.kosa_p1_yop;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -28,6 +29,15 @@ public class AppLoginController {
             FXMLLoader fxmlLoader = new FXMLLoader(
                     getClass().getResource("CustomerMain.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+            stage.setScene(scene);
+        } else if(authenticated == 1){
+            Stage stage = (Stage) AppMain.getPrimaryStage();
+            FXMLLoader fxmlLoader = new FXMLLoader(
+                    getClass().getResource("AppAdminPage.fxml"));
+            Parent root = fxmlLoader.load();
+            AdminMainController controller = fxmlLoader.getController();
+            controller.setTextElements(AdminUser.getName(), AdminUser.getId(), AdminUser.getmyrole());
+            Scene scene = new Scene(root, 450, 820);
             stage.setScene(scene);
         }
         else System.out.println("Invalid user");
@@ -59,6 +69,7 @@ public class AppLoginController {
                     return 0;
                 }
                 else if(role.equals("A")){
+                    AdminUser.initialize(id, pwd, name);
                     return 1;
                 }
             }

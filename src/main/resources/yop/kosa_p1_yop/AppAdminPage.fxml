@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.AdminMainController">
+   <children>
+      <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
+         </Text>
+      <Pane id="MainField" layoutX="-2.0" layoutY="178.0" prefHeight="541.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <Text id="username" fx:id="username" layoutX="191.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 30;" text="Username" textAlignment="CENTER" />
+            <Text id="userid" fx:id="userid" layoutX="195.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 18;" text="User id" textAlignment="CENTER" />
+            <Text id="myrole" fx:id="myrole" layoutX="195.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 20;" text="MyRole" textAlignment="CENTER" />
+            <VBox accessibleRole="BUTTON" layoutY="150.0" prefHeight="484.0" prefWidth="450.0">
+               <children>
+                  <Button id="orderstatus" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Current Orders" />
+                  <Button id="orderhistory" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="All Orders" />
+                  <Button id="changepassword" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change Password" />
+                  <Button id="changeusername" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change User Name" />
+                  <Button id="changeuserroles" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change User Roles" />
+                  <Button id="logout" mnemonicParsing="false" onAction="#handleLogOutButtonAction" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Log Out" />
+               </children>
+            </VBox>
+            <ImageView fitHeight="109.0" fitWidth="113.0" layoutX="62.0" layoutY="20.0">
+               <image>
+                  <Image url="@Images/UserIcon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <ImageView fitHeight="109.0" fitWidth="133.0" layoutX="18.0" layoutY="60.0">
+         <image>
+            <Image url="@Images/logo.png" />
+         </image>
+      </ImageView>
+      <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleInvisibleButtonAction" opacity="0" prefHeight="134.0" prefWidth="450.0" />
+   </children>
+</AnchorPane>
