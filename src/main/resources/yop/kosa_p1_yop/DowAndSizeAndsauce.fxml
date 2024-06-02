@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -29,7 +29,7 @@
          </image>
       </ImageView>
       <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleInvisibleButtonAction" opacity="0" prefHeight="134.0" prefWidth="450.0" />
-      <Pane id="MainField" layoutY="169.0" prefHeight="489.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
+      <Pane id="MainField" layoutY="169.0" prefHeight="541.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <ImageView fitHeight="212.0" fitWidth="330.0" layoutX="60.0">
                <image>
@@ -46,11 +46,6 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <TextArea layoutX="-5.0" layoutY="486.0" prefHeight="55.0" prefWidth="455.0" style="-fx-background-color: FFFEED;" text="                                     현재 칼로리 :          102kcal &#10;                                     현재 가격 :             10200 ₩">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextArea>
             <Text id="appname" layoutX="60.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New;" text="오리지널" textAlignment="CENTER">
                <font>
                   <Font size="16.0" />
@@ -71,9 +66,19 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <Button id="addtopping" layoutX="121.0" layoutY="450.0" onAction="#handleAddToppingButtonAction" mnemonicParsing="false" prefHeight="25.0" prefWidth="208.0" style="-fx-background-color: FEC88E;" text="토핑 추가하러 가기" />
-            <CheckBox id="tomatosaucecheck" layoutX="136.0" layoutY="419.0" mnemonicParsing="false" />
-            <CheckBox id="bulgogisaucecheck" layoutX="302.0" layoutY="419.0" mnemonicParsing="false" />
+            <Button id="addtopping" layoutX="121.0" layoutY="450.0" mnemonicParsing="false" onAction="#handleAddToppingButtonAction" prefHeight="25.0" prefWidth="208.0" style="-fx-background-color: FEC88E;" text="토핑 추가하러 가기" />
+            <RadioButton id="tomatosaucecheck" layoutX="136.0" layoutY="419.0" mnemonicParsing="false">
+               <toggleGroup>
+                  <ToggleGroup fx:id="group" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton id="bulgogisaucecheck" layoutX="302.0" layoutY="419.0" mnemonicParsing="false" toggleGroup="$group" />
+            <Pane layoutY="498.0" prefHeight="49.0" prefWidth="450.0" style="-fx-background-color: FFFEED;">
+               <children>
+                  <Text layoutX="144.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="현재 칼로리:" wrappingWidth="162.171875" />
+                  <Text layoutX="144.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="현재 가격:" wrappingWidth="162.171875" />
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>

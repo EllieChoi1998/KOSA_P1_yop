@@ -23,6 +23,14 @@ public class CustomerMyPageController extends CustomerMainController{
     }
 
     @FXML
+    private void handleOrderHistoryButtonAction() throws IOException {
+        Stage stage = (Stage) AppMain.getPrimaryStage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppOrderHistory.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+        stage.setScene(scene);
+    }
+
+    @FXML
     private void handleMoveToStandardButtonAction() throws IOException {
         Stage stage = (Stage) AppMain.getPrimaryStage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppOrderStandard.fxml"));
