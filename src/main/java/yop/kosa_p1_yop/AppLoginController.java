@@ -22,8 +22,8 @@ public class AppLoginController {
         String id = idinput.getText();
         String password = passwordinput.getText();
         //System.out.println("=====\n"+id+"\t"+password+"\n======");
-        boolean authenticated = is_user(id, password);
-        if (authenticated) {
+        int authenticated = is_user(id, password);
+        if (authenticated == 0) {
             Stage stage = (Stage) AppMain.getPrimaryStage();
             FXMLLoader fxmlLoader = new FXMLLoader(
                     getClass().getResource("CustomerMain.fxml"));
@@ -33,7 +33,7 @@ public class AppLoginController {
         else System.out.println("Invalid user");
     }
 
-    private boolean is_user(String id, String pwd) {
+    private int is_user(String id, String pwd) {
 
         Connection conn = null;
         ResultSet rs = null;
@@ -44,42 +44,32 @@ public class AppLoginController {
 
             conn = DatabaseConnect.serverConnect(userid, passwd);
 
-            String sql = "SELECT name, role FROM users WHERE id = '" + id + "' AND pwd = '" + pwd + "'";
+            String sql = "SELECT name, role, credits FROM users WHERE id = '" + id + "' AND pwd = '" + pwd + "'";
 
             rs = DatabaseConnect.getSQLResult(conn, sql);
 
             if (rs.next()) {
                 String role = rs.getString("role");
                 String name = rs.getString("name");
+                long credits = rs.getLong("credits");
 
                 if(role.equals("C"))
                 {
-                    CustomerUser user = new CustomerUser(userid, name);
-                    System.out.println("===========\n"+name+"\n========");
-                    return true;
+                    CustomerUser.initialize(id,pwd,name,credits);
+                    return 0;
                 }
-
-//                if (role == "C") {
-//                    String name = rs.getString("name");
-//                    CustomerUser user = new CustomerUser(userid, name);
-//                    System.out.println("===========\n"+name+"\n========");
-//                    return true;
-//                }
+                else if(role.equals("A")){
+                    return 1;
+                }
             }
 
-            DatabaseConnect.closeResources(rs, conn);
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
 
         } catch (Exception e) {
             e.printStackTrace();  // Print stack trace to console
-        } finally {
-            try {
-                if (rs != null) rs.close();
-            } catch (Exception e) {
-                System.out.println("EROOR");
-                e.printStackTrace();  // Print stack trace to console
-            }
         }
-        return false;
+        return 2;
     }
 
 }

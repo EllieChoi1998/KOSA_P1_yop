@@ -28,7 +28,8 @@ public class DatabaseConnect {
                 System.out.println("\n=====\n"+count+"\n=========");
             }
             
-            closeResources(rs, conn);
+            closeResultSet(rs);
+            closeConnection(conn);
             
         } catch (Exception e) {
             e.printStackTrace();  // Print stack trace to console
@@ -68,7 +69,15 @@ public class DatabaseConnect {
         }
     }
 
-    public static void closeResources(ResultSet rs, Connection con) {
+    public static void commit(Connection con){
+        try{
+            con.createStatement().executeQuery("commit");
+        } catch (SQLException e){
+            System.out.println("Cannot commit : " + e.getMessage());
+        }
+    }
+
+    public static void closeResultSet(ResultSet rs) {
         if (rs != null) {
             try {
                 rs.close();
@@ -76,7 +85,9 @@ public class DatabaseConnect {
                 System.out.println("Cannot close ResultSet: " + e.getMessage());
             }
         }
+    }
 
+    public static void closeConnection(Connection con) {
         if (con != null) {
             try {
                 con.close();
@@ -85,4 +96,5 @@ public class DatabaseConnect {
             }
         }
     }
+
 }

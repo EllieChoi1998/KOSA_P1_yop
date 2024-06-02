@@ -1,25 +1,22 @@
 package yop.kosa_p1_yop;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class CustomerMainController {
 
-    CustomerUser user;
-
-    public void setCustomerMainController(CustomerUser user){
-        this.user = user;
-    }
 
     @FXML
     private void handleMyPageButtonAction() throws IOException {
         Stage stage = (Stage) AppMain.getPrimaryStage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+        Parent root = fxmlLoader.load();
+        CustomerMyPageController controller = fxmlLoader.getController();
+        controller.setTextElements(CustomerUser.getName(), CustomerUser.getId(), CustomerUser.getCredits() );
+        Scene scene = new Scene(root, 450, 820);
         stage.setScene(scene);
     }
 

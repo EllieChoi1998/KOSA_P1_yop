@@ -16,9 +16,9 @@
          </Text>
       <Pane id="MainField" layoutX="-2.0" layoutY="178.0" prefHeight="541.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Text id="username" layoutX="191.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 30;" text="Username" textAlignment="CENTER" />
-            <Text id="userid" layoutX="195.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 18;" text="User id" textAlignment="CENTER" />
-            <Text id="rewardsamount" layoutX="232.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 20;" text="rewardspointamount" textAlignment="CENTER" />
+            <Text id="username" fx:id="username" layoutX="191.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 30;" text="Username" textAlignment="CENTER" />
+            <Text id="userid" fx:id="userid" layoutX="195.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 18;" text="User id" textAlignment="CENTER" />
+            <Text id="rewardsamount" fx:id="credits" layoutX="232.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 20;" text="rewardspointamount" textAlignment="CENTER" />
             <VBox accessibleRole="BUTTON" layoutY="150.0" prefHeight="391.0" prefWidth="450.0">
                <children>
                   <Button id="orderstatus" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Current Order Status" />
@@ -26,7 +26,7 @@
                   <Button id="changepassword" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change Password" />
                   <Button id="changeusername" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change User Name" />
                   <Button id="logout" mnemonicParsing="false" onAction="#handleLogOutButtonAction" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Log Out" />
-                  <Button id="signout" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Sign Out" />
+                  <Button id="signout" mnemonicParsing="false" onAction="#handleSignOutButtonAction" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Sign Out" />
                </children>
             </VBox>
             <ImageView fitHeight="109.0" fitWidth="113.0" layoutX="62.0" layoutY="20.0">
