@@ -1,8 +1,10 @@
 package yop.kosa_p1_yop;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -45,6 +47,24 @@ public class CustomerMainController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 450, 820);
         stage.setScene(scene);
+    }
+
+    @FXML
+    private void popup(ActionEvent event) {
+        try {
+            // calories.fxml 파일 로드
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("AppCaloriesPage.fxml"));
+            Parent root = loader.load();
+
+            // 현재의 스테이지 얻기
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED); // 타이틀 바 제거
+            stage.setScene(new Scene(root));
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

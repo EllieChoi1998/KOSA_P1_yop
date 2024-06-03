@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomerMyPageController">
+<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomPizzaController">
    <children>
       <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
       </Text>

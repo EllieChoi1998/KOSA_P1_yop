@@ -82,23 +82,7 @@ public class CustomerMyPageController extends CustomerMainController{
         Scene scene = new Scene(fxmlLoader.load(), 450, 820);
         stage.setScene(scene);
     }
-    @FXML
-    private void popup(ActionEvent event) {
-        try {
-            // calories.fxml 파일 로드
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AppCaloriesPage.fxml"));
-            Parent root = loader.load();
 
-            // 현재의 스테이지 얻기
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED); // 타이틀 바 제거
-            stage.setScene(new Scene(root));
-
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
@@ -114,19 +98,7 @@ public class CustomerMyPageController extends CustomerMainController{
         Scene scene = new Scene(fxmlLoader.load(), 450, 820);
         stage.setScene(scene);
     }
-    @FXML
-    private void handleCreateNewCustomButtonAction() throws IOException{
-        Stage stage = (Stage) AppMain.getPrimaryStage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DowAndSizeAndsauce.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 450, 820);
-        stage.setScene(scene);
-    }
-    @FXML
-    private void handleAddToppingButtonAction() throws IOException{
-        Stage stage = (Stage) AppMain.getPrimaryStage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ToppingSelection.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 450, 820);
-        stage.setScene(scene);
-    }
+
+
 }
 
