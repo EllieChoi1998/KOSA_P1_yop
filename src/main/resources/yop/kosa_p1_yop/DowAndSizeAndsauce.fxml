@@ -69,16 +69,33 @@
             <Button id="addtopping" layoutX="121.0" layoutY="450.0" mnemonicParsing="false" onAction="#handleAddToppingButtonAction" prefHeight="25.0" prefWidth="208.0" style="-fx-background-color: FEC88E;" text="토핑 추가하러 가기" />
             <RadioButton id="tomatosaucecheck" layoutX="136.0" layoutY="419.0" mnemonicParsing="false">
                <toggleGroup>
-                  <ToggleGroup fx:id="group" />
+                  <ToggleGroup fx:id="saucegroup" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton id="bulgogisaucecheck" layoutX="302.0" layoutY="419.0" mnemonicParsing="false" toggleGroup="$group" />
+            <RadioButton id="bulgogisaucecheck" layoutX="302.0" layoutY="419.0" mnemonicParsing="false" toggleGroup="$saucegroup" />
             <Pane layoutY="498.0" prefHeight="49.0" prefWidth="450.0" style="-fx-background-color: FFFEED;">
                <children>
                   <Text layoutX="144.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="현재 칼로리:" wrappingWidth="162.171875" />
                   <Text layoutX="144.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="현재 가격:" wrappingWidth="162.171875" />
                </children>
             </Pane>
+            <RadioButton id="originalL" layoutX="170.0" layoutY="268.0" mnemonicParsing="false">
+               <toggleGroup>
+                  <ToggleGroup fx:id="dow" />
+               </toggleGroup></RadioButton>
+            <RadioButton id="originalM" layoutX="310.0" layoutY="268.0" mnemonicParsing="false" toggleGroup="$dow" />
+            <RadioButton id="thinL" layoutX="170.0" layoutY="308.0" mnemonicParsing="false" toggleGroup="$dow" />
+            <RadioButton id="thinM" layoutX="310.0" layoutY="308.0" mnemonicParsing="false" toggleGroup="$dow" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="165.0" layoutY="228.0">
+               <image>
+                  <Image url="@Images/L.PNG" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="305.0" layoutY="228.0">
+               <image>
+                  <Image url="@Images/M.PNG" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>
