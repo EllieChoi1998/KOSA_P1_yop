@@ -11,11 +11,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.layout.VBox?>
 <AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.AddToppingsController">
    <children>
       <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
       </Text>
       <HBox layoutY="720.0" prefHeight="99.0" prefWidth="450.0">
+
          <children>
             <ToggleButton id="orderbutton" mnemonicParsing="false" onAction="#handleOrderButtonAction" selected="true" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="Order" HBox.hgrow="ALWAYS" />
             <ToggleButton id="mypizzasbutton" mnemonicParsing="false" onAction="#handleMyPizzasButtonAction" prefWidth="81.0" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Pizzas" HBox.hgrow="ALWAYS" />
@@ -30,92 +32,11 @@
       <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleInvisibleButtonAction" opacity="0" prefHeight="134.0" prefWidth="450.0" />
       <Pane id="MainField" layoutY="169.0" prefHeight="494.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <ScrollPane hbarPolicy="NEVER" layoutY="214.0" prefHeight="281.0" prefWidth="450.0" vbarPolicy="NEVER">
+            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutY="214.0" prefHeight="281.0" prefWidth="450.0" vbarPolicy="NEVER">
                <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="757.0" prefWidth="450.0">
-                     <children>
-                        <Text id="addtopping" layoutX="23.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New;" text="토핑 추가" textAlignment="CENTER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Text id="pepperoni" layoutX="74.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New;" text="페퍼로니" textAlignment="CENTER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Text id="bacon" layoutX="74.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New;" text="베이컨" textAlignment="CENTER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Text id="ham" layoutX="74.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New;" text="햄" textAlignment="CENTER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Text id="shrimp" layoutX="74.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New;" text="꼬리 알새우" textAlignment="CENTER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Text id="bulgogi" layoutX="74.0" layoutY="503.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New;" text="불고기" textAlignment="CENTER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Text id="onion" layoutX="61.0" layoutY="562.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New;" text="양파" textAlignment="CENTER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Text id="capsicum" layoutX="61.0" layoutY="618.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New;" text="피망" textAlignment="CENTER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <Text id="pineapple" layoutX="81.0" layoutY="654.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New;" text="파인애플" textAlignment="CENTER">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-
-                        <Button fx:id="pepperoniaddbtn" layoutX="256.0" layoutY="173.0" mnemonicParsing="false" text="+" onAction="#handlePepperoniAddAction"/>
-                        <Button fx:id="pepperonideletebtn" layoutX="235.0" layoutY="173.0" mnemonicParsing="false" text="-" onAction="#handlePepperoniDeleteAction"/>
-                        <Button fx:id="caloriebtn_pepperoni" layoutX="309.0" layoutY="172.0" mnemonicParsing="false" onAction="#popup" text="영양성분" />
-
-                        <Button fx:id="baconaddbtn" layoutX="256.0" layoutY="245.0" mnemonicParsing="false" text="+" onAction="#handleBaconAddAction"/>
-                        <Button fx:id="bacondeletebtn" layoutX="235.0" layoutY="245.0" mnemonicParsing="false" text="-" onAction="#handleBaconDeleteAction"/>
-                        <Button fx:id="caloriebtn_bacon" layoutX="309.0" layoutY="245.0" mnemonicParsing="false" onAction="#popup" text="영양성분" />
-
-
-                        <Button fx:id="hamaddbtn" layoutX="256.0" layoutY="334.0" mnemonicParsing="false" text="+" onAction="#handleHamAddAction"/>
-                        <Button fx:id="hamdeletebtn" layoutX="235.0" layoutY="334.0" mnemonicParsing="false" text="-" onAction="#handleHamDeleteAction"/>
-                        <Button fx:id="caloriebtn_ham" layoutX="309.0" layoutY="333.0" mnemonicParsing="false" onAction="#popup" text="영양성분" />
-
-                        <Button fx:id="shrimpaddbtn" layoutX="256.0" layoutY="430.0" mnemonicParsing="false" text="+" onAction="#handleShrimpAddAction"/>
-                        <Button fx:id="shrimpdeletebtn" layoutX="235.0" layoutY="430.0" mnemonicParsing="false" text="-" onAction="#handleShrimpDeleteAction"/>
-                        <Button fx:id="caloriebtn_shrimp" layoutX="309.0" layoutY="429.0" mnemonicParsing="false" onAction="#popup" text="영양성분" />
-
-
-                        <Button fx:id="bulgogiaddbtn" layoutX="252.0" layoutY="487.0" mnemonicParsing="false" text="+" onAction="#handleBulgogiAddAction"/>
-                        <Button fx:id="bulgogideletebtn" layoutX="235.0" layoutY="487.0" mnemonicParsing="false" text="-" onAction="#handleBulgogiDeleteAction"/>
-                        <Button fx:id="caloriebtn_bulgogi" layoutX="305.0" layoutY="486.0" mnemonicParsing="false" onAction="#popup" text="영양성분" />
-
-
-                        <Button fx:id="onionaddbtn" layoutX="256.0" layoutY="547.0" mnemonicParsing="false" text="+" onAction="#handleOnionAddAction"/>
-                        <Button fx:id="oniondeletebtn" layoutX="235.0" layoutY="547.0" mnemonicParsing="false" text="-" onAction="#handleOnionDeleteAction"/>
-                        <Button fx:id="caloriebtn_onion" layoutX="309.0" layoutY="546.0" mnemonicParsing="false" onAction="#popup" text="영양성분" />
-
-                        <Button fx:id="capsicumaddbtn" layoutX="256.0" layoutY="594.0" mnemonicParsing="false" text="+" onAction="#handleCapsicumAddAction"/>
-                        <Button fx:id="capsicumdeletebtn" layoutX="235.0" layoutY="594.0" mnemonicParsing="false" text="-" onAction="#handleCapsicumDeleteAction"/>
-                        <Button fx:id="caloriebtn_capsicum" layoutX="309.0" layoutY="593.0" mnemonicParsing="false" onAction="#popup" text="영양성분" />
-
-                        <Button fx:id="pineappleaddbtn" layoutX="252.0" layoutY="639.0" mnemonicParsing="false" text="+" onAction="#handlePinaeappleAddAction"/>
-                        <Button fx:id="pineappledeletebtn" layoutX="235.0" layoutY="639.0" mnemonicParsing="false" text="-" onAction="#handlePineappleDeleteAction"/>
-                        <Button fx:id="caloriebtn_pineapple" layoutX="305.0" layoutY="638.0" mnemonicParsing="false" onAction="#popup" text="영양성분" />
-                     </children>
-                  </AnchorPane>
+                  <VBox fx:id="toppingsContainer" minHeight="0.0" minWidth="0.0"  prefWidth="450.0">
+                     <!-- 여기에 동적으로 추가된 토핑들이 들어갑니다 -->
+                  </VBox>
                </content>
             </ScrollPane>
             <ImageView id="toppingstart" fitHeight="212.0" fitWidth="300.0" layoutX="75.0">
