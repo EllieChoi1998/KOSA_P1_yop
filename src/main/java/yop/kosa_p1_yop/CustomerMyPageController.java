@@ -85,13 +85,6 @@ public class CustomerMyPageController extends CustomerMainController{
 
 
     @FXML
-    private void handleCloseButtonAction(ActionEvent event) {
-        // 현재 창을 닫기
-        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
     private void handleMyPizzasButtonAction() throws IOException{
         Stage stage = (Stage) AppMain.getPrimaryStage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPizzas.fxml"));

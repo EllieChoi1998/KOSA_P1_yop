@@ -3,6 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -65,6 +66,12 @@ public class CustomerMainController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    private void handleCloseButtonAction(ActionEvent event) {
+        // 현재 창을 닫기
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 
 

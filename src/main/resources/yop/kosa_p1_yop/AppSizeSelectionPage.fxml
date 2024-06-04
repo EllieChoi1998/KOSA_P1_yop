@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.SizeSelectionController">
+    <children>
+        <Text layoutX="172.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Size" />
+        <Button id="close" layoutX="362.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" prefHeight="22.0" prefWidth="15.0" text="X" />
+      <Button layoutX="137.0" layoutY="197.0" mnemonicParsing="false" text="Add to current order" />
+      <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="73.0" layoutY="68.0">
+         <image>
+            <Image url="@Images/L.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="254.0" layoutY="68.0">
+         <image>
+            <Image url="@Images/M.PNG" />
+         </image>
+      </ImageView>
+        <Button id="Lsizeplus" layoutX="126.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleLsizePlus" text="+" />
+        <Button id="Lsizeminus" layoutX="80.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleLsizeMinus" text="-" />
+        <Button id="Msizeplus" layoutX="306.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleMsizePlus" text="+" />
+        <Button id="Msizeminus" layoutX="262.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleMsizeMinus" text="-" />
+      <TextField fx:id="LsizeField" layoutX="101.0" layoutY="160.0" prefHeight="22.0" prefWidth="24.0" text="0" />
+      <TextField fx:id="MsizeField" layoutX="282.0" layoutY="160.0" prefHeight="22.0" prefWidth="24.0" text="0" />
+    </children>
+</AnchorPane>
