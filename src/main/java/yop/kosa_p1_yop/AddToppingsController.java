@@ -6,34 +6,37 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class AddToppingsController extends CustomPizzaController {
     @FXML
     private VBox toppingsContainer;
 
     @FXML
-    private ImageView pineappletopping;
+    private ImageView pineappletopping, bacontopping, bulgogitopping, shrimptopping, oniontopping, pepperonitopping, capsicumtopping, hamtopping;
     @FXML
-    private ImageView bacontopping;
+    private Text caloriesText;
     @FXML
-    private ImageView bulgogitopping;
-    @FXML
-    private ImageView shrimptopping;
-    @FXML
-    private ImageView oniontopping;
-    @FXML
-    private ImageView pepperonitopping;
-    @FXML
-    private ImageView capsicumtopping;
-    @FXML
-    private ImageView hamtopping;
+    private Text priceText;
+
+    private int totalCalories ;
+    private int totalPrice ;
 
     @FXML
     public void initialize() {
         loadToppingsFromDatabase();
+        updateTotalCaloriesAndPrice();
+    }
+    public void setInitialValues(int initialCalories, int initialPrice) {
+        totalCalories = initialCalories;
+        totalPrice = initialPrice;
+        updateTotalCaloriesAndPrice();
     }
 
     private void loadToppingsFromDatabase() {
@@ -60,19 +63,15 @@ public class AddToppingsController extends CustomPizzaController {
         }
     }
 
-    private void addToppingToUI(int id, String name) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ToppingItem.fxml"));
-            AnchorPane toppingItem = loader.load();
+    private void addToppingToUI(int id, String name) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ToppingItem.fxml"));
+        AnchorPane toppingItem = loader.load();
 
-            ToppingItemController controller = loader.getController();
-            controller.setName(name);
-            controller.setAddToppingsController(this);
+        ToppingItemController controller = loader.getController();
+        controller.setName(name);
+        controller.setAddToppingsController(this);
 
-            toppingsContainer.getChildren().add(toppingItem);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        toppingsContainer.getChildren().add(toppingItem);
     }
 
     public void showToppingImage(String toppingName) {
@@ -135,6 +134,54 @@ public class AddToppingsController extends CustomPizzaController {
             default:
                 break;
         }
+    }
+    public void addTopping(String toppingName) {
+        String query = "SELECT calories, price FROM ingredients WHERE name = ?";
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            conn = DatabaseConnect.serverConnect("pizza_admin", "admin");
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, toppingName);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                totalCalories += rs.getInt("calories");
+                totalPrice += rs.getInt("price");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
+        }
+        updateTotalCaloriesAndPrice();
+    }
+
+    public void removeTopping(String toppingName) {
+        String query = "SELECT calories, price FROM ingredients WHERE name = ?";
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            conn = DatabaseConnect.serverConnect("pizza_admin", "admin");
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, toppingName);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                totalCalories -= rs.getInt("calories");
+                totalPrice -= rs.getInt("price");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
+        }
+        updateTotalCaloriesAndPrice();
+    }
+
+    private void updateTotalCaloriesAndPrice() {
+        caloriesText.setText(String.valueOf(totalCalories));
+        priceText.setText(String.valueOf(totalPrice));
     }
 }
 

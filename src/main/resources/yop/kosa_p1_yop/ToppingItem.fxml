@@ -10,7 +10,7 @@
         <Text fx:id="toppingName" layoutX="80.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 18;" />
         <Button fx:id="removeButton" layoutX="300.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleRemoveTopping" text="-" />
         <Button fx:id="addButton" layoutX="344.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleAddTopping" text="+" />
-        <Button layoutX="380.0" layoutY="25.0" mnemonicParsing="false" onAction="#popup" text="영양성분" />
+        <Button layoutX="380.0" layoutY="25.0" mnemonicParsing="false" onAction="#Toppingpopup" text="영양성분" />
       <TextField fx:id="toppingcnt" layoutX="323.0" layoutY="25.0" prefHeight="22.0" prefWidth="21.0" text="0" />
     </children>
 </AnchorPane>

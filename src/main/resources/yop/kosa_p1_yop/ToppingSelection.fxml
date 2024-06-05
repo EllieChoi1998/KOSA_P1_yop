@@ -90,6 +90,8 @@
          <children>
             <Text layoutX="144.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="현재 칼로리:" wrappingWidth="162.171875" />
             <Text layoutX="144.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="현재 가격:" wrappingWidth="162.171875" />
+            <Text fx:id="caloriesText" layoutX="311.0" layoutY="8.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="32.0" />
+            <Text fx:id="priceText" layoutX="308.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="39.0" />
          </children>
       </Pane>
    </children>
