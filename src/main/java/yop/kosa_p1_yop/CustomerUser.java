@@ -5,11 +5,10 @@ import java.sql.ResultSet;
 import java.util.*;
 
 public class CustomerUser {
-    private static String id = null;
-    private static String pwd = null;
     static String name = null;
     static double credits;
-
+    private static String id = null;
+    private static String pwd = null;
     private static Map<String, Map<Integer, Integer>> bucket;
     private static Map<String, Map<Integer, Integer>> order;
     private static Map<Integer, List<String>> history;
@@ -40,7 +39,7 @@ public class CustomerUser {
         return name;
     }
 
-    public static double getCredits(){
+    public static double getCredits() {
         return credits;
     }
 
@@ -94,7 +93,7 @@ public class CustomerUser {
 
             conn = DatabaseConnect.serverConnect(userid, passwd);
             System.out.println("Before");
-            String sql = "DELETE FROM customer WHERE id = '"+id+"' AND pwd = '"+pwd+"'";
+            String sql = "DELETE FROM customer WHERE id = '" + id + "' AND pwd = '" + pwd + "'";
 
             rs = DatabaseConnect.getSQLResult(conn, sql);
 
@@ -117,7 +116,7 @@ public class CustomerUser {
         logout();
     }
 
-    public static void changepwd(String id, String old_pwd, String new_pwd){
+    public static void changepwdOrname(String id, String old_pwd, String new_change, int type) {
         Connection conn = null;
         ResultSet rs = null;
         String userid = "pizza_admin";
@@ -126,15 +125,25 @@ public class CustomerUser {
         try {
 
             conn = DatabaseConnect.serverConnect(userid, passwd);
+            if (type == 1) {
+                String sql = "UPDATE customer SET pwd = '" + new_change + "' WHERE id = '" + id + "' AND pwd = '" + old_pwd + "'";
 
-            String sql = "UPDATE customer SET pwd = '" + new_pwd + "' WHERE id = '" + id + "' AND pwd = '" + old_pwd + "'";
+                rs = DatabaseConnect.getSQLResult(conn, sql);
 
+                DatabaseConnect.closeResultSet(rs);
 
-            rs = DatabaseConnect.getSQLResult(conn, sql);
+                DatabaseConnect.commit(conn);
+            } else if (type == 2) {
+                String sql = "UPDATE customer SET name = '" + new_change + "' WHERE id = '" + id + "'";
 
-            DatabaseConnect.closeResultSet(rs);
+                rs = DatabaseConnect.getSQLResult(conn, sql);
 
-            DatabaseConnect.commit(conn);
+                DatabaseConnect.closeResultSet(rs);
+
+                DatabaseConnect.commit(conn);
+
+                CustomerUser.initialize(CustomerUser.getId(), CustomerUser.getPwd(), new_change, CustomerUser.getCredits());
+            }
 
             DatabaseConnect.closeConnection(conn);
 
@@ -155,7 +164,7 @@ public class CustomerUser {
             conn = DatabaseConnect.serverConnect(userid, passwd);
 
             // get all orders for specific customer user by its id
-            String sql1 = "select * from orders o, orders_item oi where o.id = oi.orders_id and o.customer_id = '"+CustomerUser.getId()+"'";
+            String sql1 = "select * from orders o, orders_item oi where o.id = oi.orders_id and o.customer_id = '" + CustomerUser.getId() + "'";
             rs = DatabaseConnect.getSQLResult(conn, sql1);
 
             while (rs.next()) {
@@ -186,12 +195,12 @@ public class CustomerUser {
         }
     }
 
-    public static Map<Integer, List<String>> getHistory(){
+    public static Map<Integer, List<String>> getHistory() {
         CustomerUser.setHistoryOrders();
         return history;
     }
 
-    public static Map<String, Map<Integer, Map<String, Integer>>> getDetailedHistory(int order_id){
+    public static Map<String, Map<Integer, Map<String, Integer>>> getDetailedHistory(int order_id) {
         // initialize detailedhistory hashmap
         Map<String, Map<Integer, Map<String, Integer>>> detailedhistory = new HashMap<>();
         detailedhistory.put("Pizzas", new HashMap<>());
@@ -209,7 +218,7 @@ public class CustomerUser {
             String sql1 = "SELECT oi.pizza_id, p.name, COUNT(*) AS quantity " +
                     "FROM orders_item oi " +
                     "INNER JOIN pizza p ON oi.pizza_id = p.id " +
-                    "WHERE oi.orders_id = '"+order_id+"' " +
+                    "WHERE oi.orders_id = '" + order_id + "' " +
                     "GROUP BY oi.pizza_id, p.name";
             rs = DatabaseConnect.getSQLResult(conn, sql1);
 
@@ -233,7 +242,7 @@ public class CustomerUser {
                 }
             }
 
-// Store the pizza details map in the detailed history map
+            // Store the pizza details map in the detailed history map
             detailedhistory.put("Pizzas", pizzas);
 
             DatabaseConnect.closeResultSet(rs);
@@ -242,7 +251,7 @@ public class CustomerUser {
             String sql2 = "SELECT oi.options_id, o.name, COUNT(*) AS quantity " +
                     "FROM orders_item oi " +
                     "INNER JOIN options o ON oi.options_id = o.id " +
-                    "WHERE oi.orders_id = '"+ order_id +"' " +
+                    "WHERE oi.orders_id = '" + order_id + "' " +
                     "GROUP BY oi.options_id, o.name";
             rs = DatabaseConnect.getSQLResult(conn, sql2);
 
@@ -266,7 +275,7 @@ public class CustomerUser {
                 }
             }
 
-// Store the options details map in the detailed history map
+            // Store the options details map in the detailed history map
             detailedhistory.put("Options", options);
 
             DatabaseConnect.closeResultSet(rs);
