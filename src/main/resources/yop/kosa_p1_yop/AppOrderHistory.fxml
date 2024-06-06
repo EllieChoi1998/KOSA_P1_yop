@@ -6,11 +6,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomerMyPageController">
+<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomerHistoryController">
    <children>
       <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
       </Text>
@@ -27,14 +26,7 @@
          </image>
       </ImageView>
       <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleInvisibleButtonAction" opacity="0" prefHeight="134.0" prefWidth="450.0" />
-      <Pane id="MainField" layoutY="169.0" prefHeight="541.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
-         <children>
-            <Text layoutX="140.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order History" wrappingWidth="169.2578125">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-         </children>
-      </Pane>
+      <VBox fx:id="orderInfoVBox" layoutY="210.0" prefHeight="515.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;" />
+      <Text layoutX="135.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 30;" text="Order History" />
    </children>
 </AnchorPane>
