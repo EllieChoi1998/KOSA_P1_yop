@@ -69,6 +69,8 @@ public class ToppingItemController extends CustomerMainController{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ToppingCaloriesPage.fxml"));
             Parent root = loader.load();
 
+            ToppingCaloriesPageController controller = loader.getController();
+            controller.setToppingName(toppingName.getText());
             // 현재의 스테이지 얻기
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED); // 타이틀 바 제거
