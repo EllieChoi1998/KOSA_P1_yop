@@ -23,27 +23,31 @@ public class AppLoginController {
         String id = idinput.getText();
         String password = passwordinput.getText();
         //System.out.println("=====\n"+id+"\t"+password+"\n======");
-        int authenticated = is_user(id, password);
-        if (authenticated == 0) {
+        boolean customer_authenticated = is_customer(id, password);
+        if (customer_authenticated) {
             Stage stage = (Stage) AppMain.getPrimaryStage();
             FXMLLoader fxmlLoader = new FXMLLoader(
                     getClass().getResource("CustomerMain.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 450, 820);
             stage.setScene(scene);
-        } else if(authenticated == 1){
-            Stage stage = (Stage) AppMain.getPrimaryStage();
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("AppAdminPage.fxml"));
-            Parent root = fxmlLoader.load();
-            AdminMainController controller = fxmlLoader.getController();
-            controller.setTextElements(AdminUser.getName(), AdminUser.getId(), AdminUser.getmyrole());
-            Scene scene = new Scene(root, 450, 820);
-            stage.setScene(scene);
+        } else {
+            boolean admin_authenticated = is_admin(id, password);
+            if (admin_authenticated) {
+                Stage stage = (Stage) AppMain.getPrimaryStage();
+                FXMLLoader fxmlLoader = new FXMLLoader(
+                        getClass().getResource("AppAdminPage.fxml"));
+                Parent root = fxmlLoader.load();
+                AdminMainController controller = fxmlLoader.getController();
+                controller.setTextElements(AdminUser.getName(), AdminUser.getId(), AdminUser.getmyrole());
+                Scene scene = new Scene(root, 450, 820);
+                stage.setScene(scene);
+            }
+            else System.out.println("Invalid user");
         }
-        else System.out.println("Invalid user");
+
     }
 
-    private int is_user(String id, String pwd) {
+    private boolean is_customer(String id, String pwd) {
 
         Connection conn = null;
         ResultSet rs = null;
@@ -54,24 +58,47 @@ public class AppLoginController {
 
             conn = DatabaseConnect.serverConnect(userid, passwd);
 
-            String sql = "SELECT name, role, credits FROM users WHERE id = '" + id + "' AND pwd = '" + pwd + "'";
+            String sql = "SELECT name, credits FROM customer WHERE id = '" + id + "' AND pwd = '" + pwd + "'";
 
             rs = DatabaseConnect.getSQLResult(conn, sql);
 
             if (rs.next()) {
-                String role = rs.getString("role");
                 String name = rs.getString("name");
                 long credits = rs.getLong("credits");
+                CustomerUser.initialize(id,pwd,name,credits);
+                return true;
+                }
 
-                if(role.equals("C"))
-                {
-                    CustomerUser.initialize(id,pwd,name,credits);
-                    return 0;
-                }
-                else if(role.equals("A")){
-                    AdminUser.initialize(id, pwd, name);
-                    return 1;
-                }
+
+
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
+
+        } catch (Exception e) {
+            e.printStackTrace();  // Print stack trace to console
+        }
+        return false;
+    }
+
+    private boolean is_admin(String id, String pwd) {
+
+        Connection conn = null;
+        ResultSet rs = null;
+        String userid = "pizza_admin";
+        String passwd = "admin";
+
+        try {
+
+            conn = DatabaseConnect.serverConnect(userid, passwd);
+
+            String sql = "SELECT name FROM admin WHERE id = '" + id + "' AND pwd = '" + pwd + "'";
+
+            rs = DatabaseConnect.getSQLResult(conn, sql);
+
+            if (rs.next()) {
+                String name = rs.getString("name");
+                AdminUser.initialize(id,pwd,name);
+                return true;
             }
 
             DatabaseConnect.closeResultSet(rs);
@@ -80,7 +107,7 @@ public class AppLoginController {
         } catch (Exception e) {
             e.printStackTrace();  // Print stack trace to console
         }
-        return 2;
+        return false;
     }
 
 }

@@ -35,8 +35,8 @@ public class AppSignupController {
             String pwd = passwordinput.getText();
             String name = usernameinput.getText();
 
-            if(!is_user(id, pwd, con)){
-                String sql = "INSERT INTO users (id, pwd, name) VALUES ('"+id+"', '"+pwd+"', '"+name+"')";
+            if(!is_customer(id, pwd) && !is_admin(id, pwd)){
+                String sql = "INSERT INTO customer (id, pwd, name) VALUES ('"+id+"', '"+pwd+"', '"+name+"')";
                 DatabaseConnect.getSQLResult(con, sql);
                 DatabaseConnect.commit(con);
                 DatabaseConnect.closeConnection(con);
@@ -55,32 +55,65 @@ public class AppSignupController {
         }
     }
 
-    private boolean is_user(String id, String pwd, Connection conn){
+    private boolean is_customer(String id, String pwd) {
+
+        Connection conn = null;
         ResultSet rs = null;
         String userid = "pizza_admin";
         String passwd = "admin";
 
         try {
-            String sql = "SELECT name FROM users WHERE id = '" + id + "' AND pwd = '" + pwd + "'";
+
+            conn = DatabaseConnect.serverConnect(userid, passwd);
+
+            String sql = "SELECT name, credits FROM customer WHERE id = '" + id + "'";
 
             rs = DatabaseConnect.getSQLResult(conn, sql);
 
             if (rs.next()) {
                 String name = rs.getString("name");
-
-                System.out.println("=========\n"+name+"\n==========");
                 if(name != null)
-                {
                     return true;
-                }
             }
 
+
+
             DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
 
         } catch (Exception e) {
             e.printStackTrace();  // Print stack trace to console
         }
+        return false;
+    }
 
+    private boolean is_admin(String id, String pwd) {
+
+        Connection conn = null;
+        ResultSet rs = null;
+        String userid = "pizza_admin";
+        String passwd = "admin";
+
+        try {
+
+            conn = DatabaseConnect.serverConnect(userid, passwd);
+
+            String sql = "SELECT name FROM admin WHERE id = '" + id + "'";
+
+            rs = DatabaseConnect.getSQLResult(conn, sql);
+
+            if (rs.next()) {
+                String name = rs.getString("name");
+                if(name != null)
+                    return true;
+            }
+
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
+
+        } catch (Exception e) {
+            e.printStackTrace();  // Print stack trace to console
+        }
         return false;
     }
 
