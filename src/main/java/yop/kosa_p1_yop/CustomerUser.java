@@ -116,7 +116,7 @@ public class CustomerUser {
         logout();
     }
 
-    public static void changepwd(String id, String old_pwd, String new_pwd) {
+    public static void changepwdOrname(String id, String old_pwd, String new_change, int type) {
         Connection conn = null;
         ResultSet rs = null;
         String userid = "pizza_admin";
@@ -125,15 +125,25 @@ public class CustomerUser {
         try {
 
             conn = DatabaseConnect.serverConnect(userid, passwd);
+            if (type == 1) {
+                String sql = "UPDATE customer SET pwd = '" + new_change + "' WHERE id = '" + id + "' AND pwd = '" + old_pwd + "'";
 
-            String sql = "UPDATE customer SET pwd = '" + new_pwd + "' WHERE id = '" + id + "' AND pwd = '" + old_pwd + "'";
+                rs = DatabaseConnect.getSQLResult(conn, sql);
 
+                DatabaseConnect.closeResultSet(rs);
 
-            rs = DatabaseConnect.getSQLResult(conn, sql);
+                DatabaseConnect.commit(conn);
+            } else if (type == 2) {
+                String sql = "UPDATE customer SET name = '" + new_change + "' WHERE id = '" + id + "'";
 
-            DatabaseConnect.closeResultSet(rs);
+                rs = DatabaseConnect.getSQLResult(conn, sql);
 
-            DatabaseConnect.commit(conn);
+                DatabaseConnect.closeResultSet(rs);
+
+                DatabaseConnect.commit(conn);
+
+                CustomerUser.initialize(CustomerUser.getId(), CustomerUser.getPwd(), new_change, CustomerUser.getCredits());
+            }
 
             DatabaseConnect.closeConnection(conn);
 

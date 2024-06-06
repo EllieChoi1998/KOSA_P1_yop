@@ -13,7 +13,7 @@ public class CustomerMainController {
 
 
     @FXML
-    private void handleMyPageButtonAction() throws IOException {
+    public void handleMyPageButtonAction() throws IOException {
         Stage stage = (Stage) AppMain.getPrimaryStage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPage.fxml"));
         Parent root = fxmlLoader.load();
@@ -45,7 +45,7 @@ public class CustomerMainController {
     @FXML
     private void handleMyPizzasButtonAction() throws IOException{
         Stage stage = (Stage) AppMain.getPrimaryStage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPizzas.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 450, 820);
         stage.setScene(scene);
     }

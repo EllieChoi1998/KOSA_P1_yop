@@ -97,13 +97,35 @@ public class CustomerMyPageController extends CustomerMainController{
         // Process the user input
         if (!result.isEmpty()) {
             // Handle the new password, e.g., update it in your system
-            CustomerUser.changepwd(CustomerUser.getId(), CustomerUser.getPwd(), result);
+            CustomerUser.changepwdOrname(CustomerUser.getId(), CustomerUser.getPwd(), result, 1);
 
             // Display a message or perform any other actions as needed
             System.out.println("New Password: " + result);
 
             // Optionally, you can show another dialog or perform any other actions here
             showPasswordChangedDialog();
+        }
+    }
+
+    @FXML
+    private void handleChangeNameButtonAction() throws IOException {
+        // Create a TextInputDialog for the user to enter the new password
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Change User Name");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Enter your new user name:");
+
+        // Show the dialog and wait for user input
+        String result = dialog.showAndWait().orElse("");
+
+        // Process the user input
+        if (!result.isEmpty()) {
+            // Handle the new password, e.g., update it in your system
+            CustomerUser.changepwdOrname(CustomerUser.getId(), CustomerUser.getPwd(), result, 2);
+
+
+            // Optionally, you can show another dialog or perform any other actions here
+            showNameChangeDialog();
         }
     }
 
@@ -116,6 +138,18 @@ public class CustomerMyPageController extends CustomerMainController{
 
         alert.showAndWait();
         handleLogOutButtonAction();
+    }
+
+    // Method to show a dialog indicating that the password has been changed
+    private void showNameChangeDialog() throws IOException{
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("User Name Changed");
+        alert.setHeaderText(null);
+        alert.setContentText("User Name has been changed.\nYou can check on the MyPage.");
+
+        alert.showAndWait();
+
+        handleMyPageButtonAction();
     }
 
 }
