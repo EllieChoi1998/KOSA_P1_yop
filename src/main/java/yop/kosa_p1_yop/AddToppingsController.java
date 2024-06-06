@@ -45,7 +45,7 @@ public class AddToppingsController extends CustomPizzaController {
 
         try {
             conn = DatabaseConnect.serverConnect("pizza_admin", "admin");
-            String query = "SELECT id, name, calories, price FROM ingredients WHERE type = 5";
+            String query = "SELECT id, name, calories, price FROM ingredient WHERE ingredient_type_id = 5";
             rs = DatabaseConnect.getSQLResult(conn, query);
 
             while (rs.next()) {
@@ -136,7 +136,7 @@ public class AddToppingsController extends CustomPizzaController {
         }
     }
     public void addTopping(String toppingName) {
-        String query = "SELECT calories, price FROM ingredients WHERE name = ?";
+        String query = "SELECT calories, price FROM ingredient WHERE name = ?";
         Connection conn = null;
         ResultSet rs = null;
         try {
@@ -158,7 +158,7 @@ public class AddToppingsController extends CustomPizzaController {
     }
 
     public void removeTopping(String toppingName) {
-        String query = "SELECT calories, price FROM ingredients WHERE name = ?";
+        String query = "SELECT calories, price FROM ingredient WHERE name = ?";
         Connection conn = null;
         ResultSet rs = null;
         try {

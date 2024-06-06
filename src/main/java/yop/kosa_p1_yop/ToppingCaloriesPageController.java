@@ -27,7 +27,7 @@ public class ToppingCaloriesPageController {
 
         try {
             conn = DatabaseConnect.serverConnect("pizza_admin", "admin");
-            String query = "SELECT weight, calories, proteins, fats, sugars, salts, price FROM ingredients WHERE name = ?";
+            String query = "SELECT weight, calories, proteins, fats, sugars, salts, price FROM ingredient WHERE name = ?";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, toppingName);
             rs = pstmt.executeQuery();

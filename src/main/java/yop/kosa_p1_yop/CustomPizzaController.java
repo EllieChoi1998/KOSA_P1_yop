@@ -96,7 +96,7 @@ public class CustomPizzaController extends CustomerMainController{
 
         try {
             conn = DatabaseConnect.serverConnect("pizza_admin", "admin");
-            String query = "SELECT calories, price FROM ingredients WHERE name= ?";
+            String query = "SELECT calories, price FROM ingredient WHERE name= ?";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, name);
             rs = pstmt.executeQuery();
