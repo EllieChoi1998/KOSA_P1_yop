@@ -153,6 +153,10 @@ public class CustomerUser {
 
     }
 
+    public static void getCurrentOrder(){
+
+    }
+
     public static void setHistoryOrders() {
         CustomerUser.history.clear();
         Connection conn = null;

@@ -43,7 +43,7 @@
       </Pane>
       <HBox layoutY="720.0" prefHeight="99.0" prefWidth="450.0">
          <children>
-            <ToggleButton mnemonicParsing="false" selected="true" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="Order" HBox.hgrow="ALWAYS" />
+            <ToggleButton id="orderbutton" mnemonicParsing="false" onAction="#handleOrderButtonAction" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="Order" HBox.hgrow="ALWAYS" />
             <ToggleButton id="mypizzasbutton" mnemonicParsing="false" onAction="#handleMyPizzasButtonAction" prefWidth="81.0" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Pizzas" HBox.hgrow="ALWAYS" />
             <ToggleButton id="mypagebutton" mnemonicParsing="false" onAction="#handleMyPageButtonAction" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Page" HBox.hgrow="ALWAYS" />
          </children>
