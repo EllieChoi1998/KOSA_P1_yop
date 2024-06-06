@@ -2,14 +2,13 @@ package yop.kosa_p1_yop;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.scene.*;
+import javafx.scene.control.Alert;
 import javafx.scene.text.Text;
+import javafx.stage.*;
+import javafx.fxml.*;
+import javafx.scene.control.TextInputDialog;
+import java.util.Optional;
 
 import java.io.IOException;
 
@@ -85,13 +84,39 @@ public class CustomerMyPageController extends CustomerMainController{
 
 
     @FXML
-    private void handleMyPizzasButtonAction() throws IOException{
-        Stage stage = (Stage) AppMain.getPrimaryStage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPizzas.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 450, 820);
-        stage.setScene(scene);
+    private void handleChangePasswordButtonAction() throws IOException {
+        // Create a TextInputDialog for the user to enter the new password
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Change Password");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Enter your new password:");
+
+        // Show the dialog and wait for user input
+        String result = dialog.showAndWait().orElse("");
+
+        // Process the user input
+        if (!result.isEmpty()) {
+            // Handle the new password, e.g., update it in your system
+            CustomerUser.changepwd(CustomerUser.getId(), CustomerUser.getPwd(), result);
+
+            // Display a message or perform any other actions as needed
+            System.out.println("New Password: " + result);
+
+            // Optionally, you can show another dialog or perform any other actions here
+            showPasswordChangedDialog();
+        }
     }
 
+    // Method to show a dialog indicating that the password has been changed
+    private void showPasswordChangedDialog() throws IOException{
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Password Changed");
+        alert.setHeaderText(null);
+        alert.setContentText("Password has been changed. Please log in again.");
+
+        alert.showAndWait();
+        handleLogOutButtonAction();
+    }
 
 }
 

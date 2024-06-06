@@ -23,7 +23,7 @@
                <children>
                   <Button id="orderstatus" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Current Order Status" />
                   <Button id="orderhistory" mnemonicParsing="false"  prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Order History" onAction="#handleOrderHistoryButtonAction"/>
-                  <Button id="changepassword" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change Password" />
+                  <Button id="changepassword" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change Password" onAction="#handleChangePasswordButtonAction"/>
                   <Button id="changeusername" mnemonicParsing="false" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Change User Name" />
                   <Button id="logout" mnemonicParsing="false" onAction="#handleLogOutButtonAction" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Log Out" />
                   <Button id="signout" mnemonicParsing="false" onAction="#handleSignOutButtonAction" prefHeight="550.0" prefWidth="450.0" style="-fx-background-color: FEC88E; -fx-font-size: 20;" text="Sign Out" />

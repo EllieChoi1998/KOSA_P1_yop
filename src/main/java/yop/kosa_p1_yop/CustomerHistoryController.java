@@ -4,6 +4,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 
 import java.util.*;
 
@@ -49,64 +51,23 @@ public class CustomerHistoryController extends CustomerMainController {
 
                 // 상세정보 보기 버튼을 생성하여 이벤트 핸들러를 추가합니다.
                 Button detailButton = new Button("Detail");
+
+                // 플래그를 생성하여 추적합니다.
+                AtomicBoolean detailVisible = new AtomicBoolean(false);
+
                 detailButton.setOnAction(event -> {
-                    // Check if the detailed information has already been added to avoid duplicating it
-
-                        // 상세 정보를 보여주는 칸을 생성하고, 해당 VBox에 추가합니다.
-                        VBox detailVBox = new VBox();
-                        detailVBox.setStyle("-fx-padding: 10px;");
-
-                        // 상세 정보를 보여주는 내용을 추가합니다.
-                        Map<String, Map<Integer, Map<String, Integer>>> detailedInfoList = CustomerUser.getDetailedHistory(orderId);
-                        // get pizzas and options
-                        Map<Integer, Map<String, Integer>> pizzas = detailedInfoList.get("Pizzas");
-                        Map<Integer, Map<String, Integer>> options = detailedInfoList.get("Options");
-
-                        // Create a section for Pizzas
-                        if (!pizzas.isEmpty()) {
-                            Label pizzasLabel = new Label("Pizzas");
-                            detailVBox.getChildren().add(pizzasLabel);
-
-                            Set<String> printedPizzas = new HashSet<>(); // To track printed pizzas
-
-                            for (Map<String, Integer> pizzaname_quantity : pizzas.values()) {
-                                for (Map.Entry<String, Integer> entry : pizzaname_quantity.entrySet()) {
-                                    String name = entry.getKey();
-                                    Integer quantity = entry.getValue();
-
-                                    // Print the pizza only if it hasn't been printed already
-                                    if (!printedPizzas.contains(name)) {
-                                        // Pizza name and quantity
-                                        Label pizzaDetailLabel = new Label(name + ", Quantity: " + quantity);
-                                        detailVBox.getChildren().add(pizzaDetailLabel);
-                                        printedPizzas.add(name); // Mark this pizza as printed
-                                    }
-                                }
-                            }
-                        }
-
-                        // Create a section for Options if they exist
-                        if (!options.isEmpty()) {
-                            Label optionsLabel = new Label("Options");
-                            detailVBox.getChildren().add(optionsLabel);
-
-                            for (Map<String, Integer> optionname_quantity : options.values()) {
-                                for (Map.Entry<String, Integer> entry : optionname_quantity.entrySet()) {
-                                    String name = entry.getKey();
-                                    Integer quantity = entry.getValue();
-
-                                    // Option name and quantity
-                                    Label optionDetailLabel = new Label(name + ", Quantity: " + quantity);
-                                    detailVBox.getChildren().add(optionDetailLabel);
-                                }
-                            }
-                        }
-
+                    // Toggle detail visibility
+                    if (detailVisible.get()) {
+                        // Remove detail VBox
+                        orderVBox.getChildren().removeIf(node -> node instanceof VBox);
+                        detailVisible.set(false);
+                    } else {
+                        // Add detail VBox
+                        VBox detailVBox = createDetailVBox(orderId);
                         orderVBox.getChildren().add(detailVBox);
-
+                        detailVisible.set(true);
+                    }
                 });
-
-
 
                 orderVBox.getChildren().add(detailButton);
 
@@ -116,14 +77,57 @@ public class CustomerHistoryController extends CustomerMainController {
         }
     }
 
-    // Order 정보를 보여주는 커스텀 컨트롤을 생성하는 메서드입니다.
-    private Pane createOrderInfoControl(String orderId, String orderInfo) {
-        // Order 정보를 보여주는 컨트롤을 생성하고 반환합니다.
-        // 예를 들어, Label을 이용하여 Order 정보를 보여줄 수 있습니다.
-        Label orderIdLabel = new Label("Order ID: " + orderId);
-        Label orderInfoLabel = new Label(orderInfo);
-        VBox orderVBox = new VBox(orderIdLabel, orderInfoLabel);
-        orderVBox.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-padding: 5px;");
-        return orderVBox;
+    private VBox createDetailVBox(int orderId) {
+        VBox detailVBox = new VBox();
+        detailVBox.setStyle("-fx-padding: 10px;");
+
+        // 상세 정보를 보여주는 내용을 추가합니다.
+        Map<String, Map<Integer, Map<String, Integer>>> detailedInfoList = CustomerUser.getDetailedHistory(orderId);
+        // get pizzas and options
+        Map<Integer, Map<String, Integer>> pizzas = detailedInfoList.get("Pizzas");
+        Map<Integer, Map<String, Integer>> options = detailedInfoList.get("Options");
+
+        // Create a section for Pizzas
+        if (!pizzas.isEmpty()) {
+            Label pizzasLabel = new Label("Pizzas");
+            detailVBox.getChildren().add(pizzasLabel);
+
+            Set<String> printedPizzas = new HashSet<>(); // To track printed pizzas
+
+            for (Map<String, Integer> pizzaname_quantity : pizzas.values()) {
+                for (Map.Entry<String, Integer> entry : pizzaname_quantity.entrySet()) {
+                    String name = entry.getKey();
+                    Integer quantity = entry.getValue();
+
+                    // Print the pizza only if it hasn't been printed already
+                    if (!printedPizzas.contains(name)) {
+                        // Pizza name and quantity
+                        Label pizzaDetailLabel = new Label(name + ", Quantity: " + quantity);
+                        detailVBox.getChildren().add(pizzaDetailLabel);
+                        printedPizzas.add(name); // Mark this pizza as printed
+                    }
+                }
+            }
+        }
+
+        // Create a section for Options if they exist
+        if (!options.isEmpty()) {
+            Label optionsLabel = new Label("Options");
+            detailVBox.getChildren().add(optionsLabel);
+
+            for (Map<String, Integer> optionname_quantity : options.values()) {
+                for (Map.Entry<String, Integer> entry : optionname_quantity.entrySet()) {
+                    String name = entry.getKey();
+                    Integer quantity = entry.getValue();
+
+                    // Option name and quantity
+                    Label optionDetailLabel = new Label(name + ", Quantity: " + quantity);
+                    detailVBox.getChildren().add(optionDetailLabel);
+                }
+            }
+        }
+
+        return detailVBox;
     }
+
 }
