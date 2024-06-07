@@ -27,7 +27,7 @@ public class ImageOverlay {
             writeImage(overlayedImage, "C:/temp/overLayedImage.jpg", "JPG");
             System.out.println("Overlay Completed...");
         }else
-            System.out.println("Problem With Overlay...");
+            System.out.println("test......");
     }
     /**
      * Method to overlay Images
