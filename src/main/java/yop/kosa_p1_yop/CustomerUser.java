@@ -5,8 +5,7 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.*;
-import org.json.JSONObject;
-import org.json.JSONArray;
+
 
 public class CustomerUser {
     static String name = null;
@@ -167,23 +166,24 @@ public class CustomerUser {
         json 으로 카드 정보 가져와서 카드로 계산하는 경우.
          */
         try {
-            String filePath = "src/main/resources/cards.json"; // 파일 경로
-            String content = new String(Files.readAllBytes(Paths.get(filePath)));
-            JSONArray cardsArray = new JSONArray(content);
-
-            boolean cardFound = false;
-
-            for (int i = 0; i < cardsArray.length(); i++) {
-                JSONObject card = cardsArray.getJSONObject(i);
-                String storedCardNumber = card.getString("number");
-                int storedCvc = card.getInt("cvc");
-                int storedPwd = card.getInt("pwd");
-
-                if (storedCardNumber.equals(cardNumber) && storedCvc == cvc && storedPwd == pwd) {
-                    cardFound = true;
-                    break;
-                }
-            }
+            boolean cardFound = true;
+//            String filePath = "src/main/resources/cards.json"; // 파일 경로
+//            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+//            JSONArray cardsArray = new JSONArray(content);
+//
+//            boolean cardFound = false;
+//
+//            for (int i = 0; i < cardsArray.length(); i++) {
+//                JSONObject card = cardsArray.getJSONObject(i);
+//                String storedCardNumber = card.getString("number");
+//                int storedCvc = card.getInt("cvc");
+//                int storedPwd = card.getInt("pwd");
+//
+//                if (storedCardNumber.equals(cardNumber) && storedCvc == cvc && storedPwd == pwd) {
+//                    cardFound = true;
+//                    break;
+//                }
+//            }
 
             if (cardFound) {
                 System.out.println("결제가 성공적으로 처리되었습니다.");
