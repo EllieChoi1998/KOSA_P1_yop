@@ -1,16 +1,27 @@
 package yop.kosa_p1_yop;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.*;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 public class CustomerUser {
     static String name = null;
     static double credits;
     private static String id = null;
     private static String pwd = null;
+
     private static Map<String, Map<Integer, Integer>> bucket;
-    private static Map<String, Map<Integer, Integer>> order;
+    private static double bucket_price;
+
+    private static Map<String, Map<Integer, Integer>> current_order;
+
+
+
+
     private static Map<Integer, List<String>> history;
 
     // Private constructor to prevent instantiation
@@ -23,8 +34,10 @@ public class CustomerUser {
         CustomerUser.name = name;
         CustomerUser.credits = credits;
         CustomerUser.bucket = new HashMap<>();
-        CustomerUser.order = new HashMap<>();
         CustomerUser.history = new HashMap<>();
+        CustomerUser.bucket_price = 0;
+
+        setCurrentOrder();
     }
 
     public static String getId() {
@@ -43,18 +56,105 @@ public class CustomerUser {
         return credits;
     }
 
-    public static void setBucket(String selectedName, int selectedId) {
-        if (bucket.get(selectedName) == null) {
+    public static double get_bucket_price(){
+        return bucket_price;
+    }
+
+    /*
+    set a bucket from the controller to Customer Account
+    String selectedType = Pizza / Option
+    int selectedId = pizza_id / option_id
+
+    Controller에서 pizza 없을땐 option 선택 불가하게 해야 함.
+     */
+    public static boolean add_to_bucket(String selectedType, int selectedId) {
+        if (bucket.get(selectedType) == null) {
             Map<Integer, Integer> countTypes = new HashMap<>();
             countTypes.put(selectedId, 1);
-            bucket.put(selectedName, countTypes);
+            CustomerUser.update_bucket_price(selectedType, selectedId, true);
+            bucket.put(selectedType, countTypes);
+            return true;
         } else {
-            if (bucket.get(selectedName).get(selectedId) != null && bucket.get(selectedName).get(selectedId) >= 1) {
-                int updatedAmount = bucket.get(selectedName).get(selectedId) + 1;
-                bucket.get(selectedName).put(selectedId, updatedAmount);
+            if (bucket.get(selectedType).get(selectedId) != null && bucket.get(selectedType).get(selectedId) >= 1) {
+                int updatedAmount = bucket.get(selectedType).get(selectedId) + 1;
+                bucket.get(selectedType).put(selectedId, updatedAmount);
+                CustomerUser.update_bucket_price(selectedType, selectedId, true);
+                return true;
             } else {
-                System.out.println("Something went wrong");
+                return false;
             }
+        }
+    }
+    /*
+    delete a bucket item from the controller to Customer Account
+    String selectedType = pizza / option
+    int selectedId = pizza_id / option_id
+
+    Controller에서 option이 남아있는데 마지막 pizza의 갯수를 0으로 내리면 bucket을 없애게 해야 함. => CustomerUser.bucket.clear();
+     */
+    public static boolean delete_from_bucket(String selectedType, int selectedId){
+        if (bucket.get(selectedType).get(selectedId) != null){
+            if (bucket.get(selectedType).get(selectedId) == 1){
+                bucket.get(selectedType).remove(selectedId);
+                if(bucket.get(selectedType).isEmpty()){
+                    bucket.remove(selectedType);
+                }
+            } else {
+                bucket.get(selectedType).put(selectedId, bucket.get(selectedType).get(selectedId)-1);
+            }
+            CustomerUser.update_bucket_price(selectedType, selectedId, false);
+            return true;
+        } else {
+            System.out.println("Error Occured while delete from bucket.");
+            return false;
+        }
+    }
+
+    public static void update_bucket_price(String selectedType, int selectedId, boolean increase){
+        Connection conn = null;
+        ResultSet rs = null;
+        String userid = "pizza_admin";
+        String passwd = "admin";
+
+        try {
+            conn = DatabaseConnect.serverConnect(userid, passwd);
+            String sql = "";
+            if (increase){
+                if(selectedType.equals("pizza")) {
+                    sql = "SELECT price FROM pizza WHERE id = '"+selectedId+"'";
+                } else if(selectedType.equals("option")){
+                    sql = "SELECT price FROM options WHERE id = '"+selectedId+"'";
+                }
+                rs = DatabaseConnect.getSQLResult(conn, sql);
+                if(rs.next()){
+                    double price = rs.getDouble("price");
+                    CustomerUser.bucket_price = CustomerUser.get_bucket_price() + price;
+                }
+            } else {
+                if(selectedType.equals("pizza")) {
+                    sql = "SELECT price FROM pizza WHERE id = '"+selectedId+"'";
+                } else if(selectedType.equals("option")){
+                    sql = "SELECT price FROM options WHERE id = '"+selectedId+"'";
+                }
+                rs = DatabaseConnect.getSQLResult(conn, sql);
+                if(rs.next()){
+                    double price = rs.getDouble("price");
+                    CustomerUser.bucket_price = CustomerUser.get_bucket_price() - price;
+                }
+            }
+
+
+            DatabaseConnect.closeResultSet(rs);
+
+            DatabaseConnect.commit(conn);
+
+            DatabaseConnect.closeConnection(conn);
+
+        } catch (Exception e) {
+            e.printStackTrace();  // Print stack trace to console
+        } finally {
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
         }
     }
 
@@ -62,15 +162,221 @@ public class CustomerUser {
         return bucket;
     }
 
+    public static boolean payToCheckout_card(String cardNumber, int cvc, int pwd){
+        /*
+        json 으로 카드 정보 가져와서 카드로 계산하는 경우.
+         */
+        try {
+            String filePath = "src/main/resources/cards.json"; // 파일 경로
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+            JSONArray cardsArray = new JSONArray(content);
+
+            boolean cardFound = false;
+
+            for (int i = 0; i < cardsArray.length(); i++) {
+                JSONObject card = cardsArray.getJSONObject(i);
+                String storedCardNumber = card.getString("number");
+                int storedCvc = card.getInt("cvc");
+                int storedPwd = card.getInt("pwd");
+
+                if (storedCardNumber.equals(cardNumber) && storedCvc == cvc && storedPwd == pwd) {
+                    cardFound = true;
+                    break;
+                }
+            }
+
+            if (cardFound) {
+                System.out.println("결제가 성공적으로 처리되었습니다.");
+                double updated_credits = updateCredits(true);
+                if (updated_credits > CustomerUser.getCredits()) {
+                    CustomerUser.credits = updated_credits;
+
+                    boolean db_insert = checkoutBucket();
+                    if (!db_insert) {
+                        System.out.println("Cannot checkout to bucket.");
+                        return false;
+                    }
+                    return true;
+                }
+            } else {
+                System.out.println("카드 정보를 확인할 수 없습니다.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static boolean payToCheckout_rewards(){
+        /*
+        rewards point로 계산하는 경우.
+         */
+        double updated_credits = updateCredits(false);
+        if (updated_credits >= 0) {
+            CustomerUser.credits = updated_credits;
+
+            boolean db_insert = checkoutBucket();
+            if (!db_insert) {
+                System.out.println("Cannot checkout to bucket.");
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private static double updateCredits(boolean is_card) {
+        Connection conn = null;
+        ResultSet rs = null;
+        String userid = "pizza_admin";
+        String passwd = "admin";
+
+        try {
+            conn = DatabaseConnect.serverConnect(userid, passwd);
+
+            if(is_card){
+                double update_amount = CustomerUser.getCredits() + CustomerUser.get_bucket_price() * 0.1;
+                String sql = "UPDATE customers SET credits = " + update_amount + "WHERE id = '" + CustomerUser.getId() + "'";
+                rs = DatabaseConnect.getSQLResult(conn, sql);
+                DatabaseConnect.commit(conn);
+                DatabaseConnect.closeResultSet(rs);
+                return update_amount;
+
+            } else {
+                double update_amount = CustomerUser.getCredits() - CustomerUser.get_bucket_price();
+                if(update_amount < 0) return -1;
+                String sql = "UPDATE customers SET credits = " + update_amount + "WHERE id = '" + CustomerUser.getId() + "'";
+                rs = DatabaseConnect.getSQLResult(conn, sql);
+                DatabaseConnect.commit(conn);
+                DatabaseConnect.closeResultSet(rs);
+                return update_amount;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();  // Print stack trace to console
+        } finally {
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
+        }
+        return -1;
+    }
+
+
     /*
      * After User Checkout the bucket selections, existing bucket will be empty
      * and order list will be created
      */
-    public static Map<String, Map<Integer, Integer>> checkoutBucket() {
-        order = new HashMap<>();
-        order.putAll(bucket);
+    public static boolean checkoutBucket() {
+        int new_order_id = create_new_order_in_database();
+        if (new_order_id != -1) {
+            Set<String> bucket_keys = bucket.keySet();
+            for (String key : bucket_keys) {
+                if (key.equals("pizza")) {
+                    Set<Integer> pizza_ids = bucket.get("pizza").keySet();
+                    for (Integer pid : pizza_ids){
+                        boolean result = create_new_order_item_in_database(new_order_id, pid, 0);
+                        if (!result){
+                            System.out.println("Can not insert order item:\t" + pid);
+                            return false;
+                        }
+                    }
+
+                } else if (key.equals("option")) {
+                    Set<Integer> option_ids = bucket.get("option").keySet();
+                    for (Integer oid : option_ids){
+                        boolean result = create_new_order_item_in_database(new_order_id, 0, oid);
+                        if (!result) {
+                            System.out.println("Can not insert order item:\t" + oid);
+                            return false;
+                        }
+                    }
+                } else {
+                    System.out.println("Invalid type has been given. Cannot invoke to Customer User's order List.");
+                    return false;
+                }
+            }
+            return true;
+
+        } else {
+            System.out.println("Error occured");
+        }
+
         bucket.clear();
-        return order;
+        return false;
+    }
+
+    private static boolean create_new_order_item_in_database(int new_order_id, int pizza_id, int options_id) {
+        Connection conn = null;
+        ResultSet rs = null;
+        String userid = "pizza_admin";
+        String passwd = "admin";
+
+        try {
+
+            conn = DatabaseConnect.serverConnect(userid, passwd);
+            System.out.println("Before");
+
+            String sql2 = "INSERT INTO orders_item(orders_id, pizza_id, options_id) VALUES ("+ new_order_id +","+ pizza_id +","+ options_id +")";
+            rs = DatabaseConnect.getSQLResult(conn, sql2);
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.commit(conn);
+
+
+            DatabaseConnect.closeConnection(conn);
+
+            return true;
+
+
+        } catch (Exception e) {
+            e.printStackTrace();  // Print stack trace to console
+        } finally {
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
+        }
+        return false;
+    }
+
+    public static Integer create_new_order_in_database(){
+        Connection conn = null;
+        ResultSet rs = null;
+        String userid = "pizza_admin";
+        String passwd = "admin";
+
+        try {
+
+            conn = DatabaseConnect.serverConnect(userid, passwd);
+            System.out.println("Before");
+            String sql1 = "SELECT orders_seq.NEXTVAL FROM dual;";
+            Integer new_order_id = 0;
+            rs = DatabaseConnect.getSQLResult(conn, sql1);
+            if (rs != null)  {
+                new_order_id = rs.getInt(1);
+            } else {
+                return -1;
+            }
+            DatabaseConnect.closeResultSet(rs);
+
+            if(new_order_id > 0){
+                String sql2 = "INSERT INTO orders(customer_id, price) VALUES ("+CustomerUser.getId()+","+CustomerUser.get_bucket_price()+")";
+                rs = DatabaseConnect.getSQLResult(conn, sql2);
+                DatabaseConnect.closeResultSet(rs);
+                DatabaseConnect.commit(conn);
+            }
+
+            DatabaseConnect.closeConnection(conn);
+
+            return new_order_id;
+
+        } catch (Exception e) {
+            e.printStackTrace();  // Print stack trace to console
+        } finally {
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
+        }
+        return -1;
+
     }
 
     public static void logout() {
@@ -79,7 +385,6 @@ public class CustomerUser {
         name = null;
         credits = 0.00;
         bucket.clear();
-        order.clear();
         System.out.println("Log Out");
     }
 
@@ -153,8 +458,14 @@ public class CustomerUser {
 
     }
 
-    public static void getCurrentOrder(){
 
+
+    public static void setCurrentOrder(){
+
+    }
+
+    public static Map<String, Map<String, Map<Integer, Integer>>> getCurrentOrder(){
+        return getCurrentOrder();
     }
 
     public static void setHistoryOrders() {
