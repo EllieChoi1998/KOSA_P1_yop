@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class ToppingCaloriesPageController {
 
     @FXML
-    private Text weight, calories, proteins, fats, sugars, salts, price;
+    private Text weight, calories, proteins, fats, sugars, salts;
 
     private String toppingName;
 
@@ -27,7 +27,7 @@ public class ToppingCaloriesPageController {
 
         try {
             conn = DatabaseConnect.serverConnect("pizza_admin", "admin");
-            String query = "SELECT weight, calories, proteins, fats, sugars, salts, price FROM ingredient WHERE name = ?";
+            String query = "SELECT weight, calories, proteins, fats, sugars, salts FROM ingredient WHERE name = ?";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, toppingName);
             rs = pstmt.executeQuery();
@@ -39,7 +39,6 @@ public class ToppingCaloriesPageController {
                 fats.setText(rs.getString("fats") + " g");
                 sugars.setText(rs.getString("sugars") + " g");
                 salts.setText(rs.getString("salts") + " mg");
-                price.setText(rs.getString("price") + " 원");
             }
 
         } catch (SQLException e) {
