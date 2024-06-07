@@ -51,22 +51,6 @@ public class SizeSelectionController extends CustomerMainController{
             textField.setText("0");
         }
     }
-    @FXML
-    private void sizeselectionpopup(ActionEvent event) {
-        try {
-            // calories.fxml 파일 로드
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AppSizeSelectionPage.fxml"));
-            Parent root = loader.load();
 
-            // 현재의 스테이지 얻기
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED); // 타이틀 바 제거
-            stage.setScene(new Scene(root));
-
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
 

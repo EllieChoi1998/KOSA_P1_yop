@@ -51,23 +51,6 @@ public class CustomerMainController {
     }
 
     @FXML
-    private void popup(ActionEvent event) {
-        try {
-            // calories.fxml 파일 로드
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AppCaloriesPage.fxml"));
-            Parent root = loader.load();
-
-            // 현재의 스테이지 얻기
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED); // 타이틀 바 제거
-            stage.setScene(new Scene(root));
-
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
     private void handleCloseButtonAction(ActionEvent event) {
         // 현재 창을 닫기
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();

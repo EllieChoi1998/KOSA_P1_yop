@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.SizeSelectionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.StandardPizzaCaloriesPageController">
     <children>
-        <Text layoutX="87.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="칼로리" />
+        <Text layoutX="63.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="총중량" />
+        <Text layoutX="63.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="열량" />
+        <Text layoutX="63.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="단백질" />
+        <Text layoutX="63.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="포화지방" />
+        <Text layoutX="63.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="나트륨" />
+        <Text layoutX="63.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="당류" />
+        <Text layoutX="63.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="가격" />
+        <Text fx:id="weight" layoutX="225.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="calories" layoutX="225.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="proteins" layoutX="225.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="fats" layoutX="225.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="sugars" layoutX="225.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="salts" layoutX="225.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="price" layoutX="225.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" />
         <Button id="close" layoutX="357.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" prefHeight="35.0" prefWidth="35.0" text="X" />
-      <Button id="gotoselectionsize" layoutX="357.0" layoutY="350.0" mnemonicParsing="false" onAction="#sizeselectionpopup" prefHeight="35.0" prefWidth="35.0" text="+" />
+        <Text layoutX="144.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M사이즈 기준">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <Text fx:id="pizzaname" layoutX="155.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="102.0" />
+              <Button id="gotoselectionsize" layoutX="357.0" layoutY="350.0" mnemonicParsing="false" onAction="#sizeselectionpopup" prefHeight="35.0" prefWidth="35.0" text="+" />
     </children>
 </AnchorPane>
