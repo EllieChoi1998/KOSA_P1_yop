@@ -19,17 +19,7 @@ import java.sql.SQLException;
 
 public class StandardPizzaCaloriesPageController extends CustomerMyPageController {
     @FXML
-    private Text weight;
-    @FXML
-    private Text calories;
-    @FXML
-    private Text proteins;
-    @FXML
-    private Text fats;
-    @FXML
-    private Text salts;
-    @FXML
-    private Text sugars;
+    private Text weight, calories, proteins, fats, salts, sugars;
     @FXML
     private Text price;
     @FXML
