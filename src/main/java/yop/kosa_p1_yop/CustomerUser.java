@@ -1,10 +1,12 @@
 package yop.kosa_p1_yop;
 
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.*;
+import java.io.*;
 
 
 public class CustomerUser {
@@ -38,6 +40,8 @@ public class CustomerUser {
 
         setCurrentOrder();
     }
+
+
 
     public static String getId() {
         return id;
@@ -161,29 +165,37 @@ public class CustomerUser {
         return bucket;
     }
 
-    public static boolean payToCheckout_card(String cardNumber, int cvc, int pwd){
+    public static boolean payToCheckout_card(String cardNumber, String cvc, String pwd) throws Exception{
         /*
-        json 으로 카드 정보 가져와서 카드로 계산하는 경우.
+        csv 에서 카드 정보 가져와서 카드로 계산하는 경우.
          */
+
+        // 입력 스트림 오브젝트 생성
+        BufferedReader br = null;
         try {
-            boolean cardFound = true;
-//            String filePath = "src/main/resources/cards.json"; // 파일 경로
-//            String content = new String(Files.readAllBytes(Paths.get(filePath)));
-//            JSONArray cardsArray = new JSONArray(content);
-//
-//            boolean cardFound = false;
-//
-//            for (int i = 0; i < cardsArray.length(); i++) {
-//                JSONObject card = cardsArray.getJSONObject(i);
-//                String storedCardNumber = card.getString("number");
-//                int storedCvc = card.getInt("cvc");
-//                int storedPwd = card.getInt("pwd");
-//
-//                if (storedCardNumber.equals(cardNumber) && storedCvc == cvc && storedPwd == pwd) {
-//                    cardFound = true;
-//                    break;
-//                }
-//            }
+
+            boolean cardNotFound = true;
+            boolean cardFound = false;
+
+            // 대상 CSV 파일의 경로 설정
+            br = Files.newBufferedReader(Paths.get("src/main/resources/cards.csv"), Charset.forName("UTF-8"));
+            // CSV파일에서 읽어들인 1행분의 데이터
+            String line = "";
+
+            while((line = br.readLine()) != null && cardNotFound) {
+                // CSV 파일의 1행을 저장하는 리스트 변수
+                List<String> tmpList = new ArrayList<>();
+                String array[] = line.split(",");
+                String f_cardNumber = array[0];
+                String f_cvc = array[1];
+                String f_pwd = array[2];
+                if(f_cardNumber.equals(cardNumber) && f_cvc.equals(cvc) && f_pwd.equals(pwd)) {
+                    // 리스트 내용 출력
+                    System.out.println("f_cardNumber: " + f_cardNumber + "\nf_cvc: " + f_cvc + "\nf_pwd: " + f_pwd);
+                    cardFound = true;
+                    cardNotFound = false;
+                }
+            }
 
             if (cardFound) {
                 System.out.println("결제가 성공적으로 처리되었습니다.");
