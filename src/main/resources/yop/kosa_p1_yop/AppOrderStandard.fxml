@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomerMyPageController">
+<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.StandardPizzaCaloriesPageController">
    <children>
       <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
       </Text>
@@ -51,7 +51,7 @@
                         </ImageView>
                         <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="553.0">
                            <image>
-                              <Image url="@Images/소시지맥스맵퍼로니피자.jpg" />
+                              <Image url="@Images/포테이토피자.jpg" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="553.0">
@@ -84,16 +84,16 @@
                               <Image url="@Images/아보카도새우피자.jpg" />
                            </image>
                         </ImageView>
-                        <Button id="caloriesbtn1" layoutX="14.0" layoutY="56.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
-                        <Button id="caloriesbtn2" layoutX="235.0" layoutY="56.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
-                        <Button id="caloriesbtn5" layoutX="14.0" layoutY="553.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
-                        <Button id="caloriesbtn7" layoutX="14.0" layoutY="854.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
-                        <Button id="caloriesbtn8" layoutX="235.0" layoutY="854.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
-                        <Button id="caloriesbtn6" layoutX="235.0" layoutY="553.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
-                        <Button id="caloriesbtn9" layoutX="14.0" layoutY="1137.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
-                        <Button id="caloriesbtn10" layoutX="235.0" layoutY="1137.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
-                        <Button id="caloriesbtn4" layoutX="235.0" layoutY="301.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
-                        <Button id="caloriesbtn3" layoutX="14.0" layoutY="301.0" mnemonicParsing="false" onAction="#popup" prefHeight="200.0" prefWidth="200.0" text="Button" opacity="0" />
+                        <Button id="caloriesbtn1" layoutX="14.0" layoutY="56.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="고구마피자" opacity="0" onAction="#handlePizzaButtonAction"/>
+                        <Button id="caloriesbtn2" layoutX="235.0" layoutY="56.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="베이컨체더치즈피자" opacity="0" onAction="#handlePizzaButtonAction"/>
+                        <Button id="caloriesbtn3" layoutX="14.0" layoutY="301.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="불고기피자" opacity="0" onAction="#handlePizzaButtonAction"/>
+                        <Button id="caloriesbtn4" layoutX="235.0" layoutY="301.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="치즈크레이프샌드피자" opacity="0" onAction="#handlePizzaButtonAction"/>
+                        <Button id="caloriesbtn5" layoutX="14.0" layoutY="553.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="포테이토피자" opacity="0" onAction="#handlePizzaButtonAction"/>
+                        <Button id="caloriesbtn6" layoutX="235.0" layoutY="553.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="슈프림피자" opacity="0" onAction="#handlePizzaButtonAction"/>
+                        <Button id="caloriesbtn7" layoutX="14.0" layoutY="854.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="치즈피자" opacity="0" onAction="#handlePizzaButtonAction"/>
+                        <Button id="caloriesbtn8" layoutX="235.0" layoutY="854.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="스테이크피자" opacity="0" onAction="#handlePizzaButtonAction"/>
+                        <Button id="caloriesbtn9" layoutX="14.0" layoutY="1137.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="페퍼로니피자" opacity="0" onAction="#handlePizzaButtonAction"/>
+                        <Button id="caloriesbtn10" layoutX="235.0" layoutY="1137.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="아보카도새우피자" opacity="0" onAction="#handlePizzaButtonAction"/>
                      </children>
                   </AnchorPane>
                </content></ScrollPane>
