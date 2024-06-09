@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -47,9 +48,16 @@ public class AppSignupController {
                 stage.setScene(scene);
 
             } else{
-                System.out.println("Existing user. Please try another id");
+
+                    // Show alert for invalid user
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("회원가입 실패");
+                    alert.setHeaderText(null);
+                    alert.setContentText("해당 아이디의 유저가 이미 존재합니다.\n다시 시도해 주세요.");
+                    alert.showAndWait();
+                }
                 DatabaseConnect.closeConnection(con);
-            }
+
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

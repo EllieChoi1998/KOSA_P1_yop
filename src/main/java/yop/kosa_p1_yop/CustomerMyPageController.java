@@ -98,21 +98,39 @@ public class CustomerMyPageController extends CustomerMainController{
     @FXML
     public void handleSignOutButtonAction() {
         System.out.println("Sign out button clicked");
-        try {
-            // Perform the signout operation
-            System.out.println("Attempting to sign out");
-            CustomerUser.signout();
-            System.out.println("Sign out completed");
 
-            // Load the new scene
-            System.out.println("Loading new scene");
-            Stage stage = (Stage) AppMain.getPrimaryStage();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMain.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 450, 820);
-            stage.setScene(scene);
-            System.out.println("Scene changed successfully");
-        } catch (IOException e) {
-            e.printStackTrace();  // Print stack trace to console
+        // Create the alert
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("회원 탈퇴 확인");
+        alert.setHeaderText(null);
+        alert.setContentText("회원 탈퇴는 되돌릴 수 없습니다.\n그래도 진행 하시겠습니까?");
+
+        // Create custom buttons
+        ButtonType buttonTypeYes = new ButtonType("네", ButtonType.OK.getButtonData());
+        ButtonType buttonTypeNo = new ButtonType("아니오", ButtonType.CANCEL.getButtonData());
+
+        // Set the buttons to the alert
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        // Show the dialog and capture the response
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeYes) {
+            try {
+                // Perform the signout operation
+                System.out.println("Attempting to sign out");
+                CustomerUser.signout();
+                System.out.println("Sign out completed");
+
+                // Load the new scene
+                System.out.println("Loading new scene");
+                Stage stage = (Stage) AppMain.getPrimaryStage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMain.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+                stage.setScene(scene);
+                System.out.println("Scene changed successfully");
+            } catch (IOException e) {
+                e.printStackTrace();  // Print stack trace to console
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -42,7 +43,14 @@ public class AppLoginController {
                 Scene scene = new Scene(root, 450, 820);
                 stage.setScene(scene);
             }
-            else System.out.println("Invalid user");
+            else {
+                // Show alert for invalid user
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("로그인 실패");
+                alert.setHeaderText(null);
+                alert.setContentText("해당 아이디의 유저를 찾을 수 없습니다.\n다시 시도해 주세요.");
+                alert.showAndWait();
+            }
         }
 
     }
