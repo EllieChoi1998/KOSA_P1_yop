@@ -1,102 +1,50 @@
 package yop.kosa_p1_yop;
+
+import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
+
 public class ImageOverlay {
-    public static void main(String args[]) {
-/**
- * Read a background image
- */
-        BufferedImage bgImage = readImage("");
-/**
- * Read a foreground image
- */
-        BufferedImage fgImage = readImage("C:/temp/myFGImage.jpg");
-/**
- * Do the overlay of foreground image on background image
- */
-        BufferedImage overlayedImage = overlayImages(bgImage, fgImage);
-/**
- * Write the overlayed image back to file
- */
-        if (overlayedImage != null){
-            writeImage(overlayedImage, "C:/temp/overLayedImage.jpg", "JPG");
-            System.out.println("Overlay Completed...");
-        }else
-            System.out.println("test......");
-    }
-    /**
-     * Method to overlay Images
-     *
-     * @param bgImage --> The background Image
-     * @param fgImage --> The foreground Image
-     * @return --> overlayed image (fgImage over bgImage)
-     */
-    public static BufferedImage overlayImages(BufferedImage bgImage,
-                                              BufferedImage fgImage) {
-/**
- * Doing some preliminary validations.
- * Foreground image height cannot be greater than background image height.
- * Foreground image width cannot be greater than background image width.
- *
- * returning a null value if such condition exists.
- */
-        if (fgImage.getHeight() > bgImage.getHeight()
-                || fgImage.getWidth() > fgImage.getWidth()) {
-            JOptionPane.showMessageDialog(null,
-                    "Foreground Image Is Bigger In One or Both Dimensions"
-                            + "\nCannot proceed with overlay."
-                            + "\n\n Please use smaller Image for foreground");
-            return null;
-        }
-/**Create a Graphics  from the background image**/
-        Graphics2D g = bgImage.createGraphics();
-/**Set Antialias Rendering**/
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-/**
- * Draw background image at location (0,0)
- * You can change the (x,y) value as required
- */
-        g.drawImage(bgImage, 0, 0, null);
-/**
- * Draw foreground image at location (0,0)
- * Change (x,y) value as required.
- */
-        g.drawImage(fgImage, 0, 0, null);
-        g.dispose();
-        return bgImage;
-    }
-    /**
-     * This method reads an image from the file
-     * @param fileLocation -- > eg. "C:/testImage.jpg"
-     * @return BufferedImage of the file read
-     */
-    public static BufferedImage readImage(String fileLocation) {
-        BufferedImage img = null;
+    public static void main(String[] args) {
+        // 최종 이미지 생성
+        BufferedImage result = null;
+
         try {
-            img = ImageIO.read(new File(fileLocation));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return img;
-    }
-    /**
-     * This method writes a buffered image to a file
-     * @param img -- > BufferedImage
-     * @param fileLocation --> e.g. "C:/testImage.jpg"
-     * @param extension --> e.g. "jpg","gif","png"
-     */
-    public static void writeImage(BufferedImage img, String fileLocation,
-                                  String extension) {
-        try {
-            BufferedImage bi = img;
-            File outputfile = new File(fileLocation);
-            ImageIO.write(bi, extension, outputfile);
+            // 폴더에 있는 이미지 파일들의 경로
+            String folderPath = "C:\\Users\\KOSA\\Desktop\\KOSA_P1_yop\\src\\main\\resources\\yop\\kosa_p1_yop\\Images\\toppings";
+
+            // 폴더 내의 모든 이미지를 합치기
+            File folder = new File(folderPath);
+            File[] files = folder.listFiles();
+            if (files == null) {
+                throw new IOException("Failed to list files in the directory: " + folderPath);
+            }
+
+            for (File file : files) {
+                if (file.getName().endsWith(".png")) { // 필요한 파일 형식으로 필터링할 수 있음
+                    BufferedImage image = ImageIO.read(file);
+
+                    if (result == null) {
+                        // 첫 번째 이미지일 경우에는 바로 result에 할당
+                        result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+                        Graphics2D g2d = result.createGraphics();
+                        g2d.drawImage(image, 0, 0, null);
+                        g2d.dispose();
+                    } else {
+                        // 두 번째 이미지부터는 result에 이미지를 오버레이
+                        Graphics2D g2d = result.createGraphics();
+                        g2d.drawImage(image, 0, 0, null);
+                        g2d.dispose();
+                    }
+                }
+            }
+
+            // 최종 이미지 저장
+            String outputPath = "C:\\Users\\KOSA\\Desktop\\KOSA_P1_yop\\result.png";
+            ImageIO.write(result, "png", new File(outputPath));
+            System.out.println("이미지 생성이 완료되었습니다. (" + outputPath + ")");
         } catch (IOException e) {
             e.printStackTrace();
         }
