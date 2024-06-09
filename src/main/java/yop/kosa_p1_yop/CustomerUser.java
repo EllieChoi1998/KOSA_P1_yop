@@ -18,9 +18,11 @@ public class CustomerUser {
     private static Map<String, Map<Integer, Integer>> bucket;
     private static double bucket_price;
 
-    private static Map<String, Map<Integer, Integer>> current_order;
-
-
+    private static Map<String, Map<Integer, Integer>> current_order = new HashMap<>();
+    private static Integer current_order_id;
+    private static String current_order_status;
+    private static boolean complete_current_order;
+    private static double current_order_price;
 
 
     private static Map<Integer, List<String>> history;
@@ -472,12 +474,66 @@ public class CustomerUser {
 
 
 
-    public static void setCurrentOrder(){
+    public static void setCurrentOrder() {
+        Connection conn = null;
+        ResultSet rs1 = null;
+        String userid = "pizza_admin";
+        String passwd = "admin";
 
+        try {
+            conn = DatabaseConnect.serverConnect(userid, passwd);
+
+            // Get all orders for specific customer user by its id
+            String sql1 = "select * from orders o, orders_item oi where o.id = oi.orders_id and o.customer_id = '" + CustomerUser.getId() + "'";
+            rs1 = DatabaseConnect.getSQLResult(conn, sql1);
+
+            while (rs1.next()) {
+                Integer order_status = rs1.getInt("status");
+                if (order_status != 0 && order_status != 3) {
+                    current_order_id = rs1.getInt("orders_id");
+                    if (order_status == 1) {
+                        current_order_status = "Order Submitted";
+                    } else if (order_status == 2) {
+                        current_order_status = "Order On Delivery";
+                    }
+
+                    current_order_price = rs1.getInt("price");
+
+                    Map<Integer, Integer> pizzas = new HashMap<>();
+                    Map<Integer, Integer> options = new HashMap<>();
+                    String sql2 = "select pizza_id, options_id from orders_item where orders_id = " + current_order_id;
+                    try (ResultSet rs2 = DatabaseConnect.getSQLResult(conn, sql2)) {
+                        while (rs2.next()) {
+                            Integer pizza_id = rs2.getInt("pizza_id");
+                            Integer option_id = rs2.getInt("options_id");
+
+                            if (pizzas.get(pizza_id) != null){
+                                Integer updated = pizzas.get(pizza_id) + 1;
+                                pizzas.put(pizza_id, updated);
+                            } else pizzas.put(pizza_id, 1);
+
+                            if (option_id != 0) {
+                                if(options.get(option_id) != null){
+                                    Integer updated = options.get(option_id) + 1;
+                                    options.put(option_id, updated);
+                                } else options.put(option_id, 1);
+                            }
+                        }
+                    }
+                    if (!pizzas.isEmpty()) current_order.put("Pizza", pizzas);
+                    if (!options.isEmpty()) current_order.put("Option", options);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();  // Print stack trace to console
+        } finally {
+            DatabaseConnect.closeResultSet(rs1);
+            DatabaseConnect.closeConnection(conn);
+        }
     }
 
-    public static Map<String, Map<String, Map<Integer, Integer>>> getCurrentOrder(){
-        return getCurrentOrder();
+    public static Map<String, Map<Integer, Integer>> getCurrentOrder(){
+        return current_order;
     }
 
     public static void setHistoryOrders() {
@@ -616,4 +672,23 @@ public class CustomerUser {
 
     }
 
+    public static double getCurrent_order_price() {
+        return current_order_price;
+    }
+
+    public static boolean isComplete_current_order() {
+        return complete_current_order;
+    }
+
+    public static String getCurrent_order_status() {
+        return current_order_status;
+    }
+
+    public static Integer getCurrent_order_id(){
+        return current_order_id;
+    }
+
+    public static void completeOrder(){
+
+    }
 }
