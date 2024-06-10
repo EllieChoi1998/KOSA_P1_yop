@@ -29,7 +29,7 @@ public class CustomerMainController {
     @FXML
     private void handleInvisibleButtonAction() throws IOException{
         Stage stage = (Stage) AppMain.getPrimaryStage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CustomerMain.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 450, 820);
         stage.setScene(scene);
     }
