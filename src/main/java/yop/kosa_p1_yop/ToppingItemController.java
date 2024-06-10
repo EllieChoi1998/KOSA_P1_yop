@@ -18,17 +18,17 @@ import java.io.IOException;
 
 public class ToppingItemController extends CustomPizzaController{
     @FXML
-    private Text toppingName;
+    public Text toppingName;
     @FXML
-    private Button addButton;
+    public Button addButton;
     @FXML
-    private TextField toppingcnt;
+    public TextField toppingcnt;
     @FXML
-    private Button removeButton;
+    public Button removeButton;
 
-    private AddToppingsController addToppingsController;
-    private boolean toppingAdded = false;
-    private boolean isLargeSize;
+    public AddToppingsController addToppingsController;
+    public boolean toppingAdded = false;
+    public boolean isLargeSize;
 
 
     public void setName(String name) {
@@ -51,7 +51,7 @@ public class ToppingItemController extends CustomPizzaController{
 
 
     @FXML
-    private void handleAddTopping() {
+    void handleAddTopping(String topping_name, Integer topping_id) {
         if (!toppingAdded) {
             updateTextFieldValue(toppingcnt, 1);
             addToppingsController.showToppingImage(toppingName.getText());
@@ -63,7 +63,7 @@ public class ToppingItemController extends CustomPizzaController{
     }
 
     @FXML
-    private void handleRemoveTopping() {
+    void handleRemoveTopping(String topping_name, Integer topping_id) {
         updateTextFieldValue(toppingcnt, -1);
         addToppingsController.hideToppingImage(toppingName.getText());
         addToppingsController.removeTopping(toppingName.getText());
@@ -73,7 +73,7 @@ public class ToppingItemController extends CustomPizzaController{
     }
 
     @FXML
-    private void Toppingpopup(ActionEvent event) {
+    public void Toppingpopup(ActionEvent event) {
         try {
             // calories.fxml 파일 로드
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ToppingCaloriesPage.fxml"));
@@ -91,7 +91,7 @@ public class ToppingItemController extends CustomPizzaController{
         }
     }
 
-    private void updateTextFieldValue(TextField textField, int delta) {
+    public void updateTextFieldValue(TextField textField, int delta) {
         try {
             int currentValue = Integer.parseInt(textField.getText());
             int newValue = currentValue + delta;

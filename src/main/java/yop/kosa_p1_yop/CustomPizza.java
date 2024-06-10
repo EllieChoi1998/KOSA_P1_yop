@@ -3,45 +3,57 @@ package yop.kosa_p1_yop;
 import java.util.*;
 
 public class CustomPizza {
-    String custom_name;
-    String user_id;
-    String[] base;
-    Map<String, Integer> toppings;
+    private static String custom_name;
+    private static String user_id;
+    private static String[] base;
+    private static Map<String, Boolean> toppings;
+    private static boolean is_large;
+    private static double price;
 
-    public CustomPizza(String[] base){
-        this.base = base;
-        this.toppings = new HashMap<>();
+    private CustomPizza() {
+        // private 생성자로 인스턴스화 방지
     }
 
-    public boolean addToppings(String toppingName, Integer toppingId) {
-        if(this.toppings.get(toppingName) == toppingId){
+    public static void createCustomPizza(String[] base, boolean is_large){
+        CustomPizza.base = base;
+        CustomPizza.toppings = new HashMap<>();
+        CustomPizza.is_large = is_large;
+
+        for (String b : base){
+            System.out.println(b);
+        }
+
+        System.out.println(base + "\t" + toppings + "\t" + is_large + "\t" + price);
+    }
+
+    public static boolean addToppings(String toppingName) {
+        if(toppings.get(toppingName) == null){
             return false;
         } else {
-            this.toppings.put(toppingName, toppingId);
+            toppings.put(toppingName, true);
             return true;
         }
     }
 
-    public boolean deleteToppings(String toppingName, Integer toppingId){
-        if(this.toppings.get(toppingName) == toppingId){
-            this.toppings.remove(toppingName);
+    public static boolean deleteToppings(String toppingName){
+        if(toppings.get(toppingName)){
+            toppings.remove(toppingName);
             return true;
         } else {
             return false;
         }
     }
 
-    public String[] getBase(){
-        return this.base;
+    public static String[] getBase(){
+        return base;
     }
 
-    public Map<String, Integer> getToppings(){
-        return this.toppings;
+    public static Map<String, Boolean> getToppings(){
+        return toppings;
     }
 
-    public void resetPizza() {
-        this.base = null;
-        this.toppings = null;
+    public static void resetPizza() {
+        base = null;
+        toppings = null;
     }
-
 }

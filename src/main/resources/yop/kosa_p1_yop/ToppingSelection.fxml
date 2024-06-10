@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.AddToppingsController">
+<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.AddToppingsController">
    <children>
       <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
       </Text>
       <HBox layoutY="720.0" prefHeight="99.0" prefWidth="450.0">
-
          <children>
             <ToggleButton id="orderbutton" mnemonicParsing="false" onAction="#handleOrderButtonAction" selected="true" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="Order" HBox.hgrow="ALWAYS" />
             <ToggleButton id="mypizzasbutton" mnemonicParsing="false" onAction="#handleMyPizzasButtonAction" prefWidth="81.0" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Pizzas" HBox.hgrow="ALWAYS" />
@@ -29,60 +22,10 @@
          </image>
       </ImageView>
       <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleInvisibleButtonAction" opacity="0" prefHeight="134.0" prefWidth="450.0" />
-      <Pane id="MainField" layoutY="169.0" prefHeight="494.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
+      <Pane fx:id="MainField" layoutY="173.0" prefHeight="493.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutY="214.0" prefHeight="281.0" prefWidth="450.0" vbarPolicy="NEVER">
-               <content>
-                  <VBox fx:id="toppingsContainer" minHeight="0.0" minWidth="0.0" prefWidth="450.0">
-                     <!-- 여기에 동적으로 추가된 토핑들이 들어갑니다 -->
-                  </VBox>
-               </content>
-            </ScrollPane>
-            <ImageView id="toppingstart" fitHeight="212.0" fitWidth="300.0" layoutX="75.0">
-               <image>
-                  <Image url="@Images/topping.PNG" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="pineappletopping" fitHeight="281.0" fitWidth="351.0" layoutX="48.0" layoutY="-31.0" visible="false">
-               <image>
-                  <Image url="@Images/toppings/파인애플토핑.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="bacontopping" fitHeight="323.0" fitWidth="300.0" layoutX="75.0" layoutY="-43.0" visible="false">
-               <image>
-                  <Image url="@Images/toppings/베이컨토핑.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="bulgogitopping" fitHeight="259.0" fitWidth="300.0" layoutX="75.0" layoutY="-24.0" visible="false">
-               <image>
-                  <Image url="@Images/toppings/불고기토핑.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="shrimptopping" fitHeight="323.0" fitWidth="373.0" layoutX="39.0" layoutY="-62.0" visible="false">
-               <image>
-                  <Image url="@Images/toppings/새우토핑.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="oniontopping" fitHeight="290.0" fitWidth="323.0" layoutX="62.0" layoutY="-39.0" visible="false">
-               <image>
-                  <Image url="@Images/toppings/양파토핑.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="pepperonitopping" fitHeight="323.0" fitWidth="340.0" layoutX="62.0" layoutY="-41.0" visible="false">
-               <image>
-                  <Image url="@Images/toppings/페퍼로니토핑.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="capsicumtopping" fitHeight="339.0" fitWidth="351.0" layoutX="48.0" layoutY="-60.0" visible="false">
-               <image>
-                  <Image url="@Images/toppings/피망토핑.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="hamtopping" fitHeight="365.0" fitWidth="450.0" layoutX="14.0" layoutY="-73.0" visible="false">
-               <image>
-                  <Image url="@Images/toppings/햄.png" />
-               </image>
-            </ImageView>
+            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="281.0" prefWidth="450.0" vbarPolicy="NEVER" />
+            <!-- 스크롤 페인에 대한 자세한 설정은 코드에서 수행 -->
          </children>
       </Pane>
       <Pane layoutY="663.0" prefHeight="49.0" prefWidth="450.0" style="-fx-background-color: FFFEED;">
@@ -91,8 +34,8 @@
             <Text layoutX="144.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="현재 가격:" wrappingWidth="162.171875" />
             <Text fx:id="caloriesText" layoutX="311.0" layoutY="8.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="32.0" />
             <Text fx:id="priceText" layoutX="308.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="39.0" />
-            <Button fx:id="Backbtn" layoutX="6.0" layoutY="23.0" mnemonicParsing="false" text="뒤로가기" onAction="#handleBackButtonAction"/>
-            <Button fx:id="Orderbtn" layoutX="379.0" layoutY="22.0" mnemonicParsing="false" text="완성하기" onAction="#handleCompleteButtonAction" />
+            <Button fx:id="Backbtn" layoutX="6.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="뒤로가기" />
+            <Button fx:id="Orderbtn" layoutX="379.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleCompleteButtonAction" text="완성하기" />
          </children>
       </Pane>
    </children>

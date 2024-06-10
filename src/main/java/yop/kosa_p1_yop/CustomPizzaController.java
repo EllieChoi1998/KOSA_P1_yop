@@ -20,6 +20,19 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class CustomPizzaController extends CustomerMainController{
+    protected boolean isLargeSize = false;
+    @FXML
+    private Text weight, calories, proteins, fats, salts, sugars;
+    @FXML
+    private RadioButton originalL, thinL, originalM, thinM, tomatosaucecheck, bulgogisaucecheck, sweatpotatocheck, cheeseedgecheck, mocheesecheck, checheesecheck;
+    @FXML
+    private Text caloriesText, priceText;
+    @FXML
+    private Text sweatpotatoedgeprice, cheeseedgeprice, mocheeseprice, checheeseprice;
+
+
+
+    String[] base = new String[4];
 
     @FXML
     private void handleCreateNewCustomButtonAction() throws IOException {
@@ -30,6 +43,8 @@ public class CustomPizzaController extends CustomerMainController{
     }
     @FXML
     private void handleAddToppingButtonAction() throws IOException{
+
+        CustomPizza.createCustomPizza(base, isLargeSize);
         Stage stage = (Stage) AppMain.getPrimaryStage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ToppingSelection.fxml"));
 
@@ -43,15 +58,7 @@ public class CustomPizzaController extends CustomerMainController{
                 isLargeSize
         );
     }
-    protected boolean isLargeSize = false;
-    @FXML
-    private Text weight, calories, proteins, fats, salts, sugars;
-    @FXML
-    private RadioButton originalL, thinL, originalM, thinM, tomatosaucecheck, bulgogisaucecheck, sweatpotatocheck, cheeseedgecheck, mocheesecheck, checheesecheck;
-    @FXML
-    private Text caloriesText, priceText;
-    @FXML
-    private Text sweatpotatoedgeprice, cheeseedgeprice, mocheeseprice, checheeseprice;
+
 
     @FXML
     public void initialize() {
@@ -79,14 +86,18 @@ public class CustomPizzaController extends CustomerMainController{
         // 도우 선택에 따른 처리
         if (originalM.isSelected()) {
             selectedDough = getIngredient("오리지널도우");
+            base[0] = "오리지널도우";
         } else if (thinM.isSelected()) {
             selectedDough = getIngredient("씬도우");
+            base[0] = "씬도우";
         } else if (originalL.isSelected()) {
             selectedDough = getIngredient("오리지널도우");
             isLargeSize = true;
+            base[0] = "오리지널도우";
         } else if (thinL.isSelected()) {
             selectedDough = getIngredient("씬도우");
             isLargeSize = true;
+            base[0] = "씬도우";
         }
 
         // 도우 선택 시 각 재료 가격 표시
@@ -98,32 +109,38 @@ public class CustomPizzaController extends CustomerMainController{
         }
 
         if (tomatosaucecheck.isSelected()) {
+            base[1] = "토마토소스";
             Ingredient ingredient = getIngredient("토마토소스");
             totalCalories += isLargeSize ? ingredient.getCalories() * 1.5 : ingredient.getCalories();
             // isLargeSize가 True 이면 isLargeSize ? ingredient.getCalories() * 1.5 반환
             totalPrice += isLargeSize ? ingredient.getPrice() * 1.5 : ingredient.getPrice();
         } else if (bulgogisaucecheck.isSelected()) {
             Ingredient ingredient = getIngredient("불고기소스");
+            base[1] = "불고기소스";
             totalCalories += isLargeSize ? ingredient.getCalories() * 1.5 : ingredient.getCalories();
             totalPrice += isLargeSize ? ingredient.getPrice() * 1.5 : ingredient.getPrice();
         }
 
         if (sweatpotatocheck.isSelected()) {
             Ingredient ingredient = getIngredient("고구마엣지");
+            base[2] = "고구마엣지";
             totalCalories += isLargeSize ? ingredient.getCalories() * 1.5 : ingredient.getCalories();
             totalPrice += isLargeSize ? ingredient.getPrice() * 1.5 : ingredient.getPrice();
         } else if (cheeseedgecheck.isSelected()) {
             Ingredient ingredient = getIngredient("치즈엣지");
+            base[2] = "치즈엣지";
             totalCalories += isLargeSize ? ingredient.getCalories() * 1.5 : ingredient.getCalories();
             totalPrice += isLargeSize ? ingredient.getPrice() * 1.5 : ingredient.getPrice();
         }
 
         if (mocheesecheck.isSelected()) {
             Ingredient ingredient = getIngredient("모짜렐라치즈");
+            base[2] = "모짜렐라치즈";
             totalCalories += isLargeSize ? ingredient.getCalories() * 1.5 : ingredient.getCalories();
             totalPrice += isLargeSize ? ingredient.getPrice() * 1.5 : ingredient.getPrice();
         } else if (checheesecheck.isSelected()) {
             Ingredient ingredient = getIngredient("체더치즈");
+            base[2] = "체더치즈";
             totalCalories += isLargeSize ? ingredient.getCalories() * 1.5 : ingredient.getCalories();
             totalPrice += isLargeSize ? ingredient.getPrice() * 1.5 : ingredient.getPrice();
         }

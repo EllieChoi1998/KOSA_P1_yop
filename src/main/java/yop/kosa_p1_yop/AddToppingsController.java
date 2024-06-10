@@ -1,18 +1,21 @@
 package yop.kosa_p1_yop;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -20,7 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AddToppingsController extends CustomPizzaController{
+public class AddToppingsController extends ToppingItemController{
     @FXML
     private VBox toppingsContainer;
 
@@ -32,6 +35,12 @@ public class AddToppingsController extends CustomPizzaController{
     private int totalCalories ;
     private int totalPrice ;
     private boolean isLargeSize;
+
+    @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
+    private Pane MainField;
 
     public void setInitialValues(int initialCalories, int initialPrice, boolean isLargeSize) {
         totalCalories = initialCalories;
@@ -45,7 +54,100 @@ public class AddToppingsController extends CustomPizzaController{
     @FXML
     public void initialize() {
         setInitialValues(totalCalories, totalPrice, isLargeSize);
+
+        // 이미지를 담을 Pane 생성
+        Pane imagePane = new Pane();
+        imagePane.setPrefSize(300, 220);
+
+        // 이미지를 담을 ImageView 생성
+        Image pizzaImage = new Image("file:" + System.getProperty("user.dir") + "/src/main/resources/yop/kosa_p1_yop/Images/standard_pizzas/치즈피자.png");
+        ImageView imageView = new ImageView(pizzaImage);
+        imageView.setFitWidth(300);
+        imageView.setFitHeight(220);
+        imagePane.getChildren().add(imageView);
+        // 이미지 뷰를 가운데로 배치하기 위해 레이아웃 속성 설정
+        imageView.layoutXProperty().bind(imagePane.widthProperty().subtract(imageView.fitWidthProperty()).divide(2));
+        imageView.layoutYProperty().bind(imagePane.heightProperty().subtract(imageView.fitHeightProperty()).divide(2));
+
+        imagePane.getChildren().add(imageView);
+
+        // VBox 생성 및 토핑 아이템 추가
+        VBox toppingsContainer = new VBox();
+        try {
+            for (int i = 0; i < 10; i++) {
+                AnchorPane toppingItem = createToppingItem(new Text(), "Test", 2);
+                toppingsContainer.getChildren().add(toppingItem);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 스크롤 가능한 ScrollPane 생성
+        ScrollPane scrollPane = new ScrollPane(toppingsContainer);
+        scrollPane.setPrefSize(480, 300);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+        // VBox와 이미지 Pane을 포함하는 컨테이너 생성
+        VBox container = new VBox(imagePane, scrollPane);
+
+        // AnchorPane에 컨테이너 추가
+        MainField.getChildren().add(container);
     }
+
+
+
+    private AnchorPane createToppingItem(Text toppingName, String topping_name, Integer topping_id) throws IOException {
+        // AnchorPane 생성
+        AnchorPane toppingItem = new AnchorPane();
+        toppingItem.setPrefHeight(100.0);
+        toppingItem.setPrefWidth(450.0);
+
+        // Text 생성 및 추가
+        toppingName.setLayoutX(80.0);
+        toppingName.setLayoutY(35.0);
+        toppingName.setStrokeType(StrokeType.OUTSIDE);
+        toppingName.setStrokeWidth(0.0);
+        toppingName.setStyle("-fx-font-family: Courier New; -fx-font-size: 18;");
+        toppingItem.getChildren().add(toppingName);
+
+        // Button 생성 및 추가
+        Button removeButton = new Button("-");
+        removeButton.setLayoutX(300.0);
+        removeButton.setLayoutY(25.0);
+        removeButton.setMnemonicParsing(false);
+        //removeButton.setOnAction(event -> handleRemoveTopping());
+        toppingItem.getChildren().add(removeButton);
+
+        Button addButton = new Button("+");
+        addButton.setLayoutX(344.0);
+        addButton.setLayoutY(25.0);
+        addButton.setMnemonicParsing(false);
+        //addButton.setOnAction(event -> handleAddTopping());
+        toppingItem.getChildren().add(addButton);
+
+        Button nutritionButton = new Button("영양성분");
+        nutritionButton.setLayoutX(380.0);
+        nutritionButton.setLayoutY(25.0);
+        nutritionButton.setMnemonicParsing(false);
+        nutritionButton.setOnAction(event -> {
+            ToppingItemController toppingItemController = new ToppingItemController();
+            toppingItemController.Toppingpopup(event);
+        });
+        toppingItem.getChildren().add(nutritionButton);
+
+        // TextField 생성 및 추가
+        TextField toppingCount = new TextField();
+        toppingCount.setLayoutX(323.0);
+        toppingCount.setLayoutY(25.0);
+        toppingCount.setPrefHeight(22.0);
+        toppingCount.setPrefWidth(21.0);
+        toppingCount.setText("0");
+        toppingItem.getChildren().add(toppingCount);
+
+        return toppingItem;
+    }
+
 
     private void loadToppingsFromDatabase() {
         Connection conn = null;
@@ -266,6 +368,7 @@ public class AddToppingsController extends CustomPizzaController{
         // handleMyPageButtonAction 메소드를 호출하여 My Page로 이동
         handleMyPageButtonAction();
     }
+
 
 
 }
