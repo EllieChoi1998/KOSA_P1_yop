@@ -2,12 +2,15 @@ package yop.kosa_p1_yop;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.*;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.*;
 import javafx.fxml.*;
-import javafx.scene.control.TextInputDialog;
+
 import java.util.Optional;
 
 import java.io.IOException;
@@ -27,32 +30,107 @@ public class CustomerMyPageController extends CustomerMainController{
     }
 
     @FXML
-    public void handleLogOutButtonAction() throws IOException {
+    private void handleCurrentOrderButtonAction() throws IOException {
         Stage stage = (Stage) AppMain.getPrimaryStage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMain.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Customer_CurrentOrder.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 450, 820);
-        CustomerUser.logout();
         stage.setScene(scene);
+    }
+    @FXML
+    public void handleLogOutButtonAction() throws IOException {
+
+        if(!CustomerUser.getBucket().isEmpty()) {
+            // Create the alert
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("로그아웃 확인");
+            alert.setHeaderText(null);
+            alert.setContentText("지금 로그아웃하면, 장바구니가 초기화 됩니다.\n그래도 로그아웃 하시겠습니까?");
+
+            // Create custom buttons
+            ButtonType buttonTypeYes = new ButtonType("네", ButtonBar.ButtonData.OK_DONE);
+            ButtonType buttonTypeNo = new ButtonType("아니오", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            // Set the buttons to the alert
+            alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+            // Get the buttons from the alert dialog pane
+            Button yesButton = (Button) alert.getDialogPane().lookupButton(buttonTypeYes);
+            Button noButton = (Button) alert.getDialogPane().lookupButton(buttonTypeNo);
+
+            // Create an HBox to hold the buttons
+            HBox buttonBox = new HBox(10); // 10 is the spacing between buttons
+            buttonBox.setAlignment(Pos.CENTER);
+            buttonBox.getChildren().addAll(yesButton, noButton);
+
+            // Set the HBox as the expandable content of the alert
+            alert.getDialogPane().setExpandableContent(buttonBox);
+            alert.getDialogPane().setExpanded(true);
+
+            // Optionally, add detailed information to the expandable content
+            Label details = new Label("여기에 추가 정보를 입력하세요. 장바구니가 초기화되는 이유 등에 대한 정보를 제공할 수 있습니다.");
+            VBox vBox = new VBox();
+            vBox.getChildren().addAll(details, buttonBox);
+            alert.getDialogPane().setExpandableContent(vBox);
+
+            // Show the dialog and capture the response
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == buttonTypeYes) {
+                // Perform logout
+                CustomerUser.logout();
+
+                // Load the main scene
+                Stage stage = (Stage) AppMain.getPrimaryStage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMain.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+                stage.setScene(scene);
+            }
+        } else {
+            CustomerUser.logout();
+
+            // Load the main scene
+            Stage stage = (Stage) AppMain.getPrimaryStage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMain.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+            stage.setScene(scene);
+        }
     }
 
     @FXML
     public void handleSignOutButtonAction() {
         System.out.println("Sign out button clicked");
-        try {
-            // Perform the signout operation
-            System.out.println("Attempting to sign out");
-            CustomerUser.signout();
-            System.out.println("Sign out completed");
 
-            // Load the new scene
-            System.out.println("Loading new scene");
-            Stage stage = (Stage) AppMain.getPrimaryStage();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMain.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 450, 820);
-            stage.setScene(scene);
-            System.out.println("Scene changed successfully");
-        } catch (IOException e) {
-            e.printStackTrace();  // Print stack trace to console
+        // Create the alert
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("회원 탈퇴 확인");
+        alert.setHeaderText(null);
+        alert.setContentText("회원 탈퇴는 되돌릴 수 없습니다.\n그래도 진행 하시겠습니까?");
+
+        // Create custom buttons
+        ButtonType buttonTypeYes = new ButtonType("네", ButtonType.OK.getButtonData());
+        ButtonType buttonTypeNo = new ButtonType("아니오", ButtonType.CANCEL.getButtonData());
+
+        // Set the buttons to the alert
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        // Show the dialog and capture the response
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeYes) {
+            try {
+                // Perform the signout operation
+                System.out.println("Attempting to sign out");
+                CustomerUser.signout();
+                System.out.println("Sign out completed");
+
+                // Load the new scene
+                System.out.println("Loading new scene");
+                Stage stage = (Stage) AppMain.getPrimaryStage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMain.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+                stage.setScene(scene);
+                System.out.println("Scene changed successfully");
+            } catch (IOException e) {
+                e.printStackTrace();  // Print stack trace to console
+            }
         }
     }
 

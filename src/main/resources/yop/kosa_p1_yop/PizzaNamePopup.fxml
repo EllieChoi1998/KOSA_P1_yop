@@ -11,4 +11,5 @@
         <TextField fx:id="pizzaNameTextField" layoutX="56.0" layoutY="65.0" promptText="피자 이름" />
         <Button layoutX="176.0" layoutY="116.0" mnemonicParsing="false" onAction="#handleConfirmButtonAction" text="확인" />
     </children>
+
 </AnchorPane>

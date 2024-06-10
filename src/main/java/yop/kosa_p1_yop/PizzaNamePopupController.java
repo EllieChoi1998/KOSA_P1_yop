@@ -17,4 +17,3 @@ public class PizzaNamePopupController {
         Stage stage = (Stage) pizzaNameTextField.getScene().getWindow();
         stage.close();
     }
-}
