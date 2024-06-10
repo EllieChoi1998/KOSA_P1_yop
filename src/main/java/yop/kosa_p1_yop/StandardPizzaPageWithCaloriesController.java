@@ -10,6 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -25,8 +28,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
-public class StandardPizzaCaloriesPageController extends CustomerMyPageController {
+public class StandardPizzaPageWithCaloriesController extends CustomerMyPageController {
     @FXML
     private Text weightM, caloriesM, proteinsM, fatsM, saltsM, sugarsM;
     @FXML
@@ -46,18 +50,17 @@ public class StandardPizzaCaloriesPageController extends CustomerMyPageControlle
 
     @FXML
     public void initialize() {
-
         loadPizzaData();
     }
 
     private void loadPizzaData() {
         Connection conn = null;
         ResultSet rs = null;
-        Map<String, Boolean> checker = new HashMap<>();
+        Map<String, VBox> pizzaMap = new HashMap<>();
 
         try {
             conn = DatabaseConnect.serverConnect("pizza_admin", "admin"); // 데이터베이스 연결
-            String query = "SELECT name, pizza_size, price FROM pizza";
+            String query = "SELECT id, name, pizza_size, price FROM pizza";
 
             PreparedStatement pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
@@ -68,14 +71,22 @@ public class StandardPizzaCaloriesPageController extends CustomerMyPageControlle
             int cellHeight = 200;
             double initialX = 14.0;
             double initialY = 14.0;
+            double rowGap = 100.0; // 추가 간격
 
             while (rs.next()) {
                 String name = rs.getString("name");
                 String size = rs.getString("pizza_size");
                 int price = rs.getInt("price");
+                int id = rs.getInt("id");
 
-                if (!checker.containsKey(name)) {
-                    checker.put(name, true);
+                VBox pizzaBox;
+
+                // Check if the pizza has already been added
+                if (!pizzaMap.containsKey(name)) {
+                    pizzaBox = new VBox();
+                    pizzaBox.setLayoutX(initialX + col * (cellWidth + 10));
+                    pizzaBox.setLayoutY(initialY + row * (cellHeight + rowGap));
+                    pizzaBox.setSpacing(10);
 
                     // 이미지 뷰 생성 및 위치 설정
                     ImageView imageView = new ImageView();
@@ -87,59 +98,46 @@ public class StandardPizzaCaloriesPageController extends CustomerMyPageControlle
                         imageView.setImage(image);
                         imageView.setFitHeight(250);
                         imageView.setFitWidth(250);
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     imageView.setFitHeight(cellHeight);
                     imageView.setFitWidth(cellWidth);
-                    imageView.setLayoutX(initialX + col * (cellWidth + 10));
-                    imageView.setLayoutY(initialY + row * (cellHeight + 10));
-                    pizzaPane.getChildren().add(imageView);
+                    pizzaBox.getChildren().add(imageView);
 
                     // 버튼 생성
-                    Button button = new Button(name);
+                    Button button = new Button();
                     button.setOpacity(0); // 버튼을 투명하게 설정
-                    button.setPrefHeight(200);
-                    button.setPrefWidth(200);
-                    button.setLayoutX(initialX + col * (cellWidth + 10));
-                    button.setLayoutY(initialY + row * (cellHeight + 10));
+                    button.setPrefHeight(cellHeight);
+                    button.setPrefWidth(cellWidth);
                     button.setOnAction(e -> popup(name));
-                    pizzaPane.getChildren().add(button);
 
+                    // StackPane에 이미지와 버튼을 추가하여 겹치지 않도록 배치
+                    StackPane stackPane = new StackPane();
+                    stackPane.getChildren().addAll(imageView, button);
+                    pizzaBox.getChildren().add(stackPane);
+
+                    // 피자 이름 텍스트
                     Text nameText = new Text(name);
-                    nameText.setX(initialX + col * (cellWidth + 10) + (cellWidth - nameText.getLayoutBounds().getWidth()) / 2);
-                    nameText.setY(initialY + row * (cellHeight + 10) + cellHeight + 20);
-                    pizzaPane.getChildren().add(nameText);
+                    pizzaBox.getChildren().add(nameText);
 
-                    Text lSizePriceText = new Text("L: " + price + "원");
-                    lSizePriceText.setX(initialX + col * (cellWidth + 10) + (cellWidth - lSizePriceText.getLayoutBounds().getWidth()) / 2);
-                    lSizePriceText.setY(initialY + row * (cellHeight + 10) + cellHeight + 40);
-                    pizzaPane.getChildren().add(lSizePriceText);
+                    // Add the VBox to the pizzaPane
+                    pizzaPane.getChildren().add(pizzaBox);
+                    pizzaMap.put(name, pizzaBox);
 
-                    // M 사이즈 가격
-                    int mSizePrice = 0; // Default value if not found
-                    if (size.equals("L")) {
-                        if (rs.next()) {
-                            mSizePrice = rs.getInt("price");
-                        }
-                    } else if (size.equals("M")) {
-                        mSizePrice = price;
-                        if (rs.previous()) {
-                            price = rs.getInt("price");
-                        }
-                    }
-                    Text mSizePriceText = new Text("M: " + mSizePrice + "원");
-                    mSizePriceText.setX(initialX + col * (cellWidth + 10));
-                    mSizePriceText.setY(initialY + row * (cellHeight + 10) + cellHeight + 40);
-                    pizzaPane.getChildren().add(mSizePriceText);
                     // 셀 위치 업데이트
                     col++;
                     if (col >= 2) { // 한 행에 2개씩 표시
                         col = 0;
                         row++;
                     }
+                } else {
+                    pizzaBox = pizzaMap.get(name);
                 }
+
+                // 각 사이즈별 박스 추가
+                HBox sizeBox = createSizeBox(size + ": " + price + "원", id);
+                pizzaBox.getChildren().add(sizeBox);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,6 +146,85 @@ public class StandardPizzaCaloriesPageController extends CustomerMyPageControlle
             DatabaseConnect.closeConnection(conn);
         }
     }
+
+    private HBox createSizeBox(String labelText, int id) {
+        HBox hBox = new HBox();
+
+        Text label = new Text(labelText);
+        Button minusButton = new Button("-");
+        Text quantityText = new Text("0");
+        Button plusButton = new Button("+");
+
+        minusButton.setOnAction(e -> {
+            int quantity = Integer.parseInt(quantityText.getText());
+            if (quantity > 0) {
+                quantity--;
+                quantityText.setText(String.valueOf(quantity));
+                // Add action for minus button
+                boolean result = CustomerUser.delete_from_bucket("pizza", id); // 액션 추가
+                if (result) {
+                    Map<String, Map<Integer, Integer>> bucket = CustomerUser.getBucket();
+                    Map<Integer, Integer> pizza = bucket.get("pizza");
+                    if (bucket.size() != 0 && pizza.size() != 0) {
+                        Set<Integer> keys = pizza.keySet();
+                        for (Integer key : keys) {
+                            System.out.println(key + "\t" + pizza.get(key));
+                        }
+                    }
+                }
+            }
+        });
+
+        plusButton.setOnAction(e -> {
+            int quantity = Integer.parseInt(quantityText.getText());
+            quantity++;
+            quantityText.setText(String.valueOf(quantity));
+            // Add action for plus button
+            boolean result = CustomerUser.add_to_bucket("pizza", id); // 액션 추가
+            if (result) {
+                Map<String, Map<Integer, Integer>> bucket = CustomerUser.getBucket();
+                Map<Integer, Integer> pizza = bucket.get("pizza");
+                if (bucket.size() != 0 && pizza.size() != 0) {
+                    Set<Integer> keys = pizza.keySet();
+                    for (Integer key : keys) {
+                        System.out.println(key + "\t" + pizza.get(key));
+                    }
+                }
+            }
+        });
+
+        hBox.getChildren().addAll(label, minusButton, quantityText, plusButton);
+        hBox.setSpacing(10); // Space between elements
+
+        return hBox;
+    }
+
+
+
+    private int getPriceFromDb(String pizzaName, String size) {
+        Connection conn = null;
+        ResultSet rs = null;
+        int price = 0;
+        try {
+            conn = DatabaseConnect.serverConnect("pizza_admin", "admin");
+            String query = "SELECT price FROM pizza WHERE name = ? AND pizza_size = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, pizzaName);
+            pstmt.setString(2, size);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                price = rs.getInt("price");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
+        }
+        return price;
+    }
+
+
 
 
 
@@ -206,7 +283,7 @@ public class StandardPizzaCaloriesPageController extends CustomerMyPageControlle
             Parent root = loader.load();
 
             // AppCaloriesPageController의 인스턴스 가져오기
-            StandardPizzaCaloriesPageController controller = loader.getController();
+            StandardPizzaPageWithCaloriesController controller = loader.getController();
 
             // 피자 이름 설정
             controller.setPizzaName(name);
@@ -228,28 +305,6 @@ public class StandardPizzaCaloriesPageController extends CustomerMyPageControlle
         // 현재 창을 닫기
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
-    }
-
-    @FXML
-    private void sizeselectionpopup(ActionEvent event) {
-        try {
-            // calories.fxml 파일 로드
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AppSizeSelectionPage.fxml"));
-            Parent root = loader.load();
-
-            StandardPizzaCaloriesPageController controller = loader.getController();
-
-            // 피자 이름 설정
-            controller.setPizzaName(pizzaName);
-
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED); // 타이틀 바 제거
-            stage.setScene(new Scene(root));
-
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

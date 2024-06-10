@@ -76,44 +76,33 @@ public class CustomerUser {
         if (bucket.get(selectedType) == null) {
             Map<Integer, Integer> countTypes = new HashMap<>();
             countTypes.put(selectedId, 1);
-            CustomerUser.update_bucket_price(selectedType, selectedId, true);
             bucket.put(selectedType, countTypes);
-            return true;
         } else {
-            if (bucket.get(selectedType).get(selectedId) != null && bucket.get(selectedType).get(selectedId) >= 1) {
-                int updatedAmount = bucket.get(selectedType).get(selectedId) + 1;
-                bucket.get(selectedType).put(selectedId, updatedAmount);
-                CustomerUser.update_bucket_price(selectedType, selectedId, true);
-                return true;
-            } else {
-                return false;
-            }
+            bucket.get(selectedType).put(selectedId, bucket.get(selectedType).getOrDefault(selectedId, 0) + 1);
         }
+        CustomerUser.update_bucket_price(selectedType, selectedId, true);
+        return true;
     }
-    /*
-    delete a bucket item from the controller to Customer Account
-    String selectedType = pizza / option
-    int selectedId = pizza_id / option_id
 
-    Controller에서 option이 남아있는데 마지막 pizza의 갯수를 0으로 내리면 bucket을 없애게 해야 함. => CustomerUser.bucket.clear();
-     */
-    public static boolean delete_from_bucket(String selectedType, int selectedId){
-        if (bucket.get(selectedType).get(selectedId) != null){
-            if (bucket.get(selectedType).get(selectedId) == 1){
+    public static boolean delete_from_bucket(String selectedType, int selectedId) {
+        if (bucket.get(selectedType) != null && bucket.get(selectedType).get(selectedId) != null) {
+            int currentQuantity = bucket.get(selectedType).get(selectedId);
+            if (currentQuantity == 1) {
                 bucket.get(selectedType).remove(selectedId);
-                if(bucket.get(selectedType).isEmpty()){
+                if (bucket.get(selectedType).isEmpty()) {
                     bucket.remove(selectedType);
                 }
             } else {
-                bucket.get(selectedType).put(selectedId, bucket.get(selectedType).get(selectedId)-1);
+                bucket.get(selectedType).put(selectedId, currentQuantity - 1);
             }
             CustomerUser.update_bucket_price(selectedType, selectedId, false);
             return true;
         } else {
-            System.out.println("Error Occured while delete from bucket.");
+            System.out.println("Error Occurred while deleting from bucket.");
             return false;
         }
     }
+
 
     public static void update_bucket_price(String selectedType, int selectedId, boolean increase){
         Connection conn = null;

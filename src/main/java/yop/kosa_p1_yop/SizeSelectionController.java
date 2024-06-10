@@ -16,8 +16,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
-public class SizeSelectionController extends StandardPizzaCaloriesPageController {
+public class SizeSelectionController extends StandardPizzaPageWithCaloriesController {
     @FXML
     private TextField LsizeField;
 
@@ -72,6 +73,31 @@ public class SizeSelectionController extends StandardPizzaCaloriesPageController
         updatePrices();
     }
 
+    private Integer get_id_from_db(String pizzaName, String size){
+        Connection conn = null;
+        ResultSet rs = null;
+        Integer id = 0;
+        try {
+            conn = DatabaseConnect.serverConnect("pizza_admin", "admin");
+            String query = "SELECT id FROM pizza WHERE name = ? AND size = ?";
+
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, pizzaName);
+            pstmt.setString(2, size);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
+        }
+        return id;
+    }
+
     private void updatePrices() {
         try {
             int quantityL = Integer.parseInt(LsizeField.getText());
@@ -82,12 +108,32 @@ public class SizeSelectionController extends StandardPizzaCaloriesPageController
             LsizePrice.setText(String.valueOf(totalPriceL));
             MsizePrice.setText(String.valueOf(totalPriceM));
             TotalPrice.setText(String.valueOf(totalPrice));
+
+            updateBucketForSize("pizza", get_id_from_db(pizzaName, "M"), quantityM);
+            updateBucketForSize("pizza", get_id_from_db(pizzaName, "L"), quantityL);
+
         } catch (NumberFormatException e) {
             LsizePrice.setText("0");
             MsizePrice.setText("0");
             TotalPrice.setText("0");
         }
     }
+
+    private void updateBucketForSize(String itemType, int itemId, int newQuantity) {
+        Map<Integer, Integer> bucketItems = CustomerUser.getBucket().get(itemType);
+        int currentQuantity = (bucketItems != null && bucketItems.get(itemId) != null) ? bucketItems.get(itemId) : 0;
+
+        if (newQuantity > currentQuantity) {
+            for (int i = 0; i < newQuantity - currentQuantity; i++) {
+                CustomerUser.add_to_bucket(itemType, itemId);
+            }
+        } else if (newQuantity < currentQuantity) {
+            for (int i = 0; i < currentQuantity - newQuantity; i++) {
+                CustomerUser.delete_from_bucket(itemType, itemId);
+            }
+        }
+    }
+
 
     @FXML
     private void handleLsizePlus() {
@@ -132,7 +178,7 @@ public class SizeSelectionController extends StandardPizzaCaloriesPageController
             Parent root = loader.load();
 
             // AppCaloriesPageController의 인스턴스 가져오기
-            StandardPizzaCaloriesPageController controller = loader.getController();
+            StandardPizzaPageWithCaloriesController controller = loader.getController();
 
             // 새로운 스테이지 생성
             Stage stage = new Stage();
