@@ -32,68 +32,188 @@
          <children>
             <ScrollPane id="scrollPane" hbarPolicy="NEVER" layoutY="135.0" prefHeight="412.0" prefWidth="450.0" vbarPolicy="NEVER">
                <content>
-                  <AnchorPane prefHeight="1446.0" prefWidth="449.0">
+                  <AnchorPane prefHeight="1528.0" prefWidth="449.0">
                      <children>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="56.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="62.0">
                            <image>
                               <Image url="@Images/고구마피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="56.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="62.0">
                            <image>
                               <Image url="@Images/베이컨체더치즈피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="301.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="348.0">
                            <image>
                               <Image url="@Images/불고기피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="553.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="623.0">
                            <image>
                               <Image url="@Images/포테이토피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="553.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="623.0">
                            <image>
                               <Image url="@Images/슈프림피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="854.0">
-                           <image>
-                              <Image url="@Images/스테이크피자.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="854.0">
-                           <image>
-                              <Image url="@Images/치즈피자.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="301.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="348.0">
                            <image>
                               <Image url="@Images/치즈크레이프피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="1137.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="1193.0">
                            <image>
                               <Image url="@Images/페퍼로니피자.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="1137.0">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="235.0" layoutY="1193.0">
                            <image>
                               <Image url="@Images/아보카도새우피자.jpg" />
                            </image>
                         </ImageView>
-                        <Button id="caloriesbtn1" layoutX="14.0" layoutY="56.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="고구마피자" opacity="0" onAction="#handlePizzaButtonAction"/>
-                        <Button id="caloriesbtn2" layoutX="235.0" layoutY="56.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="베이컨체더치즈피자" opacity="0" onAction="#handlePizzaButtonAction"/>
-                        <Button id="caloriesbtn3" layoutX="14.0" layoutY="301.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="불고기피자" opacity="0" onAction="#handlePizzaButtonAction"/>
-                        <Button id="caloriesbtn4" layoutX="235.0" layoutY="301.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="치즈크레이프샌드피자" opacity="0" onAction="#handlePizzaButtonAction"/>
-                        <Button id="caloriesbtn5" layoutX="14.0" layoutY="553.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="포테이토피자" opacity="0" onAction="#handlePizzaButtonAction"/>
-                        <Button id="caloriesbtn6" layoutX="235.0" layoutY="553.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="슈프림피자" opacity="0" onAction="#handlePizzaButtonAction"/>
-                        <Button id="caloriesbtn7" layoutX="14.0" layoutY="854.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="치즈피자" opacity="0" onAction="#handlePizzaButtonAction"/>
-                        <Button id="caloriesbtn8" layoutX="235.0" layoutY="854.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="스테이크피자" opacity="0" onAction="#handlePizzaButtonAction"/>
-                        <Button id="caloriesbtn9" layoutX="14.0" layoutY="1137.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="페퍼로니피자" opacity="0" onAction="#handlePizzaButtonAction"/>
-                        <Button id="caloriesbtn10" layoutX="235.0" layoutY="1137.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="아보카도새우피자" opacity="0" onAction="#handlePizzaButtonAction"/>
+                        <Button id="caloriesbtn1" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="고구마피자" />
+                        <Button id="caloriesbtn2" layoutX="236.0" layoutY="62.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="베이컨체더치즈피자" />
+                        <Button id="caloriesbtn3" layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="불고기피자" />
+                        <Button id="caloriesbtn4" layoutX="235.0" layoutY="348.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="치즈크레이프샌드피자" />
+                        <Button id="caloriesbtn5" layoutX="14.0" layoutY="623.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="포테이토피자" />
+                        <Button id="caloriesbtn6" layoutX="235.0" layoutY="634.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="슈프림피자" />
+                        <Button id="caloriesbtn8" layoutX="236.0" layoutY="908.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="스테이크피자" />
+                        <Button id="caloriesbtn9" layoutX="14.0" layoutY="1193.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="페퍼로니피자" />
+                        <Button id="caloriesbtn10" layoutX="235.0" layoutY="1193.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="아보카도새우피자" />
+                        <Text layoutX="82.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="불고기 피자" />
+                        <Text layoutX="274.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="치즈크레이프샌드 피자" />
+                        <Text layoutX="76.0" layoutY="847.0" strokeType="OUTSIDE" strokeWidth="0.0" text="포테이토 피자" />
+                        <Text layoutX="303.0" layoutY="847.0" strokeType="OUTSIDE" strokeWidth="0.0" text="슈프림 피자" />
+                        <Text layoutX="88.0" layoutY="1130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="치즈 피자" />
+                        <Text layoutX="297.0" layoutY="1130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="스테이크 피자" />
+                        <Text layoutX="76.0" layoutY="1416.0" strokeType="OUTSIDE" strokeWidth="0.0" text="페퍼로니 피자" />
+                        <Text layoutX="286.0" layoutY="1416.0" strokeType="OUTSIDE" strokeWidth="0.0" text="아보카도새우 피자" />
+                        <Text layoutX="166.0" layoutY="584.0" strokeType="OUTSIDE" strokeWidth="0.0" text="29000원" />
+                        <Text layoutX="166.0" layoutY="608.0" strokeType="OUTSIDE" strokeWidth="0.0" text="22000원" />
+                        <Text layoutX="387.0" layoutY="584.0" strokeType="OUTSIDE" strokeWidth="0.0" text="34000원" />
+                        <Text layoutX="387.0" layoutY="608.0" strokeType="OUTSIDE" strokeWidth="0.0" text="29000원" />
+                        <Text layoutX="166.0" layoutY="864.0" strokeType="OUTSIDE" strokeWidth="0.0" text="27000원" />
+                        <Text layoutX="166.0" layoutY="890.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20000원" />
+                        <Text layoutX="387.0" layoutY="864.0" strokeType="OUTSIDE" strokeWidth="0.0" text="27000원" />
+                        <Text layoutX="387.0" layoutY="890.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20000원" />
+                        <Text layoutX="166.0" layoutY="1147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="23000원" />
+                        <Text layoutX="166.0" layoutY="1173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="16000원" />
+                        <Text layoutX="387.0" layoutY="1147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="36000원" />
+                        <Text layoutX="387.0" layoutY="1173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="28000원" />
+                        <Text layoutX="166.0" layoutY="1433.0" strokeType="OUTSIDE" strokeWidth="0.0" text="25000원" />
+                        <Text layoutX="166.0" layoutY="1456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="18000원" />
+                        <Text layoutX="387.0" layoutY="1433.0" strokeType="OUTSIDE" strokeWidth="0.0" text="27000원" />
+                        <Text layoutX="387.0" layoutY="1456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20000원" />
+                        <Text layoutX="385.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20000원" />
+                        <Text layoutX="385.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="27000원" />
+                        <Text layoutX="166.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="23000원" />
+                        <Text layoutX="166.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30000원" />
+                        <Text layoutX="280.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="베이컨체더치즈 피자" />
+                        <Text layoutX="82.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="고구마 피자" />
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="14.0" layoutY="291.0">
+                           <image>
+                              <Image url="@Images/L.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="14.0" layoutY="316.0">
+                           <image>
+                              <Image url="@Images/M.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="236.0" layoutY="291.0">
+                           <image>
+                              <Image url="@Images/L.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="14.0" layoutY="570.0">
+                           <image>
+                              <Image url="@Images/L.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="236.0" layoutY="570.0">
+                           <image>
+                              <Image url="@Images/L.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="14.0" layoutY="850.0">
+                           <image>
+                              <Image url="@Images/L.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="236.0" layoutY="850.0">
+                           <image>
+                              <Image url="@Images/L.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="236.0" layoutY="1133.0">
+                           <image>
+                              <Image url="@Images/L.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="14.0" layoutY="1133.0">
+                           <image>
+                              <Image url="@Images/L.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="236.0" layoutY="1419.0">
+                           <image>
+                              <Image url="@Images/L.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="14.0" layoutY="1419.0">
+                           <image>
+                              <Image url="@Images/L.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="236.0" layoutY="315.0">
+                           <image>
+                              <Image url="@Images/M.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="14.0" layoutY="594.0">
+                           <image>
+                              <Image url="@Images/M.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="236.0" layoutY="594.0">
+                           <image>
+                              <Image url="@Images/M.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="14.0" layoutY="876.0">
+                           <image>
+                              <Image url="@Images/M.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="236.0" layoutY="876.0">
+                           <image>
+                              <Image url="@Images/M.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="236.0" layoutY="1159.0">
+                           <image>
+                              <Image url="@Images/M.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="14.0" layoutY="1159.0">
+                           <image>
+                              <Image url="@Images/M.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="236.0" layoutY="1442.0">
+                           <image>
+                              <Image url="@Images/M.PNG" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="14.0" layoutY="1442.0">
+                           <image>
+                              <Image url="@Images/M.PNG" />
+                           </image>
+                        </ImageView>
+                        <Button id="caloriesbtn7" layoutX="14.0" layoutY="908.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="치즈피자" />
                      </children>
                   </AnchorPane>
                </content></ScrollPane>
@@ -104,7 +224,7 @@
                         <Font size="18.0" />
                      </font>
                   </ToggleButton>
-                  <ToggleButton id="mycustompizzasbtn" mnemonicParsing="false" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: FFEEDD;" text="My Custom Pizzas" onAction="#handleMoveToCustomButtonAction">
+                  <ToggleButton id="mycustompizzasbtn" mnemonicParsing="false" onAction="#handleMoveToCustomButtonAction" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: FFEEDD;" text="My Custom Pizzas">
                      <font>
                         <Font size="18.0" />
                      </font>

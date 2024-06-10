@@ -7,26 +7,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.SizeSelectionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.SizeSelectionController">
     <children>
         <Text layoutX="172.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Size" />
         <Button id="close" layoutX="362.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" prefHeight="22.0" prefWidth="15.0" text="X" />
-      <Button layoutX="137.0" layoutY="197.0" mnemonicParsing="false" text="Add to current order" />
-      <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="73.0" layoutY="68.0">
-         <image>
-            <Image url="@Images/L.PNG" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="254.0" layoutY="68.0">
-         <image>
-            <Image url="@Images/M.PNG" />
-         </image>
-      </ImageView>
+        <Button layoutX="138.0" layoutY="284.0" mnemonicParsing="false" text="Add to current order" />
+        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="73.0" layoutY="68.0">
+            <image>
+                <Image url="@Images/L.PNG" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="254.0" layoutY="68.0">
+            <image>
+                <Image url="@Images/M.PNG" />
+            </image>
+        </ImageView>
         <Button id="Lsizeplus" layoutX="126.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleLsizePlus" text="+" />
         <Button id="Lsizeminus" layoutX="80.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleLsizeMinus" text="-" />
         <Button id="Msizeplus" layoutX="306.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleMsizePlus" text="+" />
         <Button id="Msizeminus" layoutX="262.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleMsizeMinus" text="-" />
-      <TextField fx:id="LsizeField" layoutX="101.0" layoutY="160.0" prefHeight="22.0" prefWidth="24.0" text="0" />
-      <TextField fx:id="MsizeField" layoutX="282.0" layoutY="160.0" prefHeight="22.0" prefWidth="24.0" text="0" />
+        <TextField fx:id="LsizeField" layoutX="101.0" layoutY="160.0" prefHeight="22.0" prefWidth="24.0" text="0" />
+        <TextField fx:id="MsizeField" layoutX="282.0" layoutY="160.0" prefHeight="22.0" prefWidth="24.0" text="0" />
+        <TextField fx:id="LsizePrice" layoutX="80.0" layoutY="207.0" prefHeight="25.0" prefWidth="71.0" text="0" />
+        <TextField fx:id="MsizePrice" layoutX="259.0" layoutY="207.0" prefHeight="25.0" prefWidth="71.0" text="0" />
+        <TextField fx:id="TotalPrice" layoutX="172.0" layoutY="251.0" prefHeight="25.0" prefWidth="71.0" text="0" />
+        <Text layoutX="101.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Price" />
+        <Button layoutX="283.0" layoutY="324.0" mnemonicParsing="false" text="Select side menu" onAction="#handleSideMenubtn"/>
     </children>
 </AnchorPane>

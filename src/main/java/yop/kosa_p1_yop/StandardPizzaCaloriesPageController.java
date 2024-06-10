@@ -19,11 +19,10 @@ import java.sql.SQLException;
 
 public class StandardPizzaCaloriesPageController extends CustomerMyPageController {
     @FXML
-    private Text weight, calories, proteins, fats, salts, sugars;
+    private Text weightM, caloriesM, proteinsM, fatsM, saltsM, sugarsM;
     @FXML
-    private Text price;
-    @FXML
-    private Text pizzaname;
+    private Text weightL, caloriesL, proteinsL, fatsL, saltsL, sugarsL;
+
     private String pizzaName;
 
     public void setPizzaName(String pizzaName) {
@@ -44,22 +43,36 @@ public class StandardPizzaCaloriesPageController extends CustomerMyPageControlle
 
         try {
             conn = DatabaseConnect.serverConnect("pizza_admin", "admin");
-            String query = "SELECT weight, calories, proteins, fats, sugars, salts, price FROM pizza WHERE name = ? AND pizza_size = 'M'";
+            String query = "SELECT pizza_size, weight, calories, proteins, fats, sugars, salts FROM pizza WHERE name = ?";
 
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, pizzaName);
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-                weight.setText(rs.getString("weight") + "g");
-                calories.setText(rs.getString("calories") + " kcal");
-                proteins.setText(rs.getString("proteins") + " g");
-                fats.setText(rs.getString("fats") + " g");
-                sugars.setText(rs.getString("sugars") + " g");
-                salts.setText(rs.getString("salts") + " mg");
-                price.setText(rs.getString("price") + " 원");
+            while (rs.next()) {
+                String size = rs.getString("pizza_size");
+                String weightText = rs.getString("weight") + "g";
+                String caloriesText = rs.getString("calories") + " kcal";
+                String proteinsText = rs.getString("proteins") + " g";
+                String fatsText = rs.getString("fats") + " g";
+                String sugarsText = rs.getString("sugars") + " g";
+                String saltsText = rs.getString("salts") + " mg";
 
-                pizzaname.setText(pizzaName);
+                if ("M".equals(size)) {
+                    weightM.setText(weightText);
+                    caloriesM.setText(caloriesText);
+                    proteinsM.setText(proteinsText);
+                    fatsM.setText(fatsText);
+                    sugarsM.setText(sugarsText);
+                    saltsM.setText(saltsText);
+                } else if ("L".equals(size)) {
+                    weightL.setText(weightText);
+                    caloriesL.setText(caloriesText);
+                    proteinsL.setText(proteinsText);
+                    fatsL.setText(fatsText);
+                    sugarsL.setText(sugarsText);
+                    saltsL.setText(saltsText);
+                }
             }
 
         } catch (SQLException e) {
@@ -69,6 +82,7 @@ public class StandardPizzaCaloriesPageController extends CustomerMyPageControlle
             DatabaseConnect.closeConnection(conn);
         }
     }
+
 
     @FXML
     private void popup(String pizzaName) {
@@ -109,7 +123,11 @@ public class StandardPizzaCaloriesPageController extends CustomerMyPageControlle
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AppSizeSelectionPage.fxml"));
             Parent root = loader.load();
 
-            // 현재의 스테이지 얻기
+            StandardPizzaCaloriesPageController controller = loader.getController();
+
+            // 피자 이름 설정
+            controller.setPizzaName(pizzaName);
+
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED); // 타이틀 바 제거
             stage.setScene(new Scene(root));
