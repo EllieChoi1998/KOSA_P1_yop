@@ -80,7 +80,7 @@
             </ImageView>
             <ImageView fx:id="hamtopping" fitHeight="365.0" fitWidth="450.0" layoutX="14.0" layoutY="-73.0" visible="false">
                <image>
-                  <Image url="@Images/toppings/햄.png" />
+                  <Image url="@Images/toppings/햄토핑.png" />
                </image>
             </ImageView>
          </children>
