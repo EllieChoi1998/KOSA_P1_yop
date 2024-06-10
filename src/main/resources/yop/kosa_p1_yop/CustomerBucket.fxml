@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomerMyPageController">
+<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomerBucketController">
    <children>
       <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
       </Text>
@@ -27,6 +27,6 @@
          </image>
       </ImageView>
       <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleMyPageButtonAction" opacity="0" prefHeight="134.0" prefWidth="450.0" />
-      <VBox layoutX="-1.0" layoutY="177.0" prefHeight="546.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;" />
+      <VBox fx:id="orderInfoVBox" layoutX="-1.0" layoutY="177.0" prefHeight="546.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;" />
    </children>
 </AnchorPane>

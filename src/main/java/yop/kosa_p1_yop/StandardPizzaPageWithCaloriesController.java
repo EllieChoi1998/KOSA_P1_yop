@@ -152,7 +152,14 @@ public class StandardPizzaPageWithCaloriesController extends CustomerMyPageContr
 
         Text label = new Text(labelText);
         Button minusButton = new Button("-");
-        Text quantityText = new Text("0");
+        Text quantityText;
+        Map<String, Map<Integer, Integer>> bucket = CustomerUser.getBucket();
+        if (bucket.isEmpty() || bucket.get("Pizza").get(id) == null){
+            quantityText = new Text("0");
+        } else{
+            quantityText = new Text(String.valueOf(bucket.get("Pizza").get(id)));
+        }
+
         Button plusButton = new Button("+");
 
         minusButton.setOnAction(e -> {
@@ -161,10 +168,9 @@ public class StandardPizzaPageWithCaloriesController extends CustomerMyPageContr
                 quantity--;
                 quantityText.setText(String.valueOf(quantity));
                 // Add action for minus button
-                boolean result = CustomerUser.delete_from_bucket("pizza", id); // 액션 추가
+                boolean result = CustomerUser.delete_from_bucket("Pizza", id); // 액션 추가
                 if (result) {
-                    Map<String, Map<Integer, Integer>> bucket = CustomerUser.getBucket();
-                    Map<Integer, Integer> pizza = bucket.get("pizza");
+                    Map<Integer, Integer> pizza = bucket.get("Pizza");
                     if (bucket.size() != 0 && pizza.size() != 0) {
                         Set<Integer> keys = pizza.keySet();
                         for (Integer key : keys) {
@@ -180,10 +186,9 @@ public class StandardPizzaPageWithCaloriesController extends CustomerMyPageContr
             quantity++;
             quantityText.setText(String.valueOf(quantity));
             // Add action for plus button
-            boolean result = CustomerUser.add_to_bucket("pizza", id); // 액션 추가
+            boolean result = CustomerUser.add_to_bucket("Pizza", id); // 액션 추가
             if (result) {
-                Map<String, Map<Integer, Integer>> bucket = CustomerUser.getBucket();
-                Map<Integer, Integer> pizza = bucket.get("pizza");
+                Map<Integer, Integer> pizza = bucket.get("Pizza");
                 if (bucket.size() != 0 && pizza.size() != 0) {
                     Set<Integer> keys = pizza.keySet();
                     for (Integer key : keys) {

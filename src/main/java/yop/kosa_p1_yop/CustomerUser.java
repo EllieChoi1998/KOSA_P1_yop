@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.*;
 import java.io.*;
@@ -114,9 +115,9 @@ public class CustomerUser {
             conn = DatabaseConnect.serverConnect(userid, passwd);
             String sql = "";
             if (increase){
-                if(selectedType.equals("pizza")) {
+                if(selectedType.equals("Pizza")) {
                     sql = "SELECT price FROM pizza WHERE id = '"+selectedId+"'";
-                } else if(selectedType.equals("option")){
+                } else if(selectedType.equals("Option")){
                     sql = "SELECT price FROM options WHERE id = '"+selectedId+"'";
                 }
                 rs = DatabaseConnect.getSQLResult(conn, sql);
@@ -125,9 +126,9 @@ public class CustomerUser {
                     CustomerUser.bucket_price = CustomerUser.get_bucket_price() + price;
                 }
             } else {
-                if(selectedType.equals("pizza")) {
+                if(selectedType.equals("Pizza")) {
                     sql = "SELECT price FROM pizza WHERE id = '"+selectedId+"'";
-                } else if(selectedType.equals("option")){
+                } else if(selectedType.equals("Option")){
                     sql = "SELECT price FROM options WHERE id = '"+selectedId+"'";
                 }
                 rs = DatabaseConnect.getSQLResult(conn, sql);
@@ -169,7 +170,7 @@ public class CustomerUser {
             boolean cardFound = false;
 
             // 대상 CSV 파일의 경로 설정
-            br = Files.newBufferedReader(Paths.get("src/main/resources/cards.csv"), Charset.forName("UTF-8"));
+            br = Files.newBufferedReader(Paths.get(System.getProperty("user.dir") + "/src/main/resources/yop/kosa_p1_yop/cards.csv"), Charset.forName("UTF-8"));
             // CSV파일에서 읽어들인 1행분의 데이터
             String line = "";
 
@@ -185,6 +186,7 @@ public class CustomerUser {
                     System.out.println("f_cardNumber: " + f_cardNumber + "\nf_cvc: " + f_cvc + "\nf_pwd: " + f_pwd);
                     cardFound = true;
                     cardNotFound = false;
+                    System.out.println();
                 }
             }
 
@@ -217,6 +219,7 @@ public class CustomerUser {
         rewards point로 계산하는 경우.
          */
         double updated_credits = updateCredits(false);
+        System.out.println("Updated credits amount: " + updated_credits);
         if (updated_credits >= 0) {
             CustomerUser.credits = updated_credits;
 
@@ -225,6 +228,9 @@ public class CustomerUser {
                 System.out.println("Cannot checkout to bucket.");
                 return false;
             }
+
+            CustomerUser.setCurrentOrder();
+
             return true;
         }
         return false;
@@ -248,9 +254,12 @@ public class CustomerUser {
                 return update_amount;
 
             } else {
+                System.out.println("CustomerCredits: " + CustomerUser.getCredits());
+                System.out.println("Customer bucket price: " + CustomerUser.get_bucket_price());
                 double update_amount = CustomerUser.getCredits() - CustomerUser.get_bucket_price();
+                System.out.println("Upadated : " + update_amount);
                 if(update_amount < 0) return -1;
-                String sql = "UPDATE customers SET credits = " + update_amount + "WHERE id = '" + CustomerUser.getId() + "'";
+                String sql = "UPDATE customer SET credits = " + (int) update_amount + "WHERE id = '" + CustomerUser.getId() + "'";
                 rs = DatabaseConnect.getSQLResult(conn, sql);
                 DatabaseConnect.commit(conn);
                 DatabaseConnect.closeResultSet(rs);
@@ -276,8 +285,8 @@ public class CustomerUser {
         if (new_order_id != -1) {
             Set<String> bucket_keys = bucket.keySet();
             for (String key : bucket_keys) {
-                if (key.equals("pizza")) {
-                    Set<Integer> pizza_ids = bucket.get("pizza").keySet();
+                if (key.equals("Pizza")) {
+                    Set<Integer> pizza_ids = bucket.get("Pizza").keySet();
                     for (Integer pid : pizza_ids){
                         boolean result = create_new_order_item_in_database(new_order_id, pid, 0);
                         if (!result){
@@ -286,8 +295,8 @@ public class CustomerUser {
                         }
                     }
 
-                } else if (key.equals("option")) {
-                    Set<Integer> option_ids = bucket.get("option").keySet();
+                } else if (key.equals("Option")) {
+                    Set<Integer> option_ids = bucket.get("Option").keySet();
                     for (Integer oid : option_ids){
                         boolean result = create_new_order_item_in_database(new_order_id, 0, oid);
                         if (!result) {
@@ -300,12 +309,13 @@ public class CustomerUser {
                     return false;
                 }
             }
+            bucket.clear();
+            bucket_price = 0;
             return true;
 
         } else {
             System.out.println("Error occured");
         }
-
         bucket.clear();
         return false;
     }
@@ -321,7 +331,7 @@ public class CustomerUser {
             conn = DatabaseConnect.serverConnect(userid, passwd);
             System.out.println("Before");
 
-            String sql2 = "INSERT INTO orders_item(orders_id, pizza_id, options_id) VALUES ("+ new_order_id +","+ pizza_id +","+ options_id +")";
+            String sql2 = "INSERT INTO orders_item(orders_id, pizza_id, options_id) VALUES ("+ (new_order_id+1) +","+ pizza_id +","+ options_id +")";
             rs = DatabaseConnect.getSQLResult(conn, sql2);
             DatabaseConnect.closeResultSet(rs);
             DatabaseConnect.commit(conn);
@@ -343,44 +353,46 @@ public class CustomerUser {
 
     public static Integer create_new_order_in_database(){
         Connection conn = null;
+        PreparedStatement pstmt = null;
         ResultSet rs = null;
         String userid = "pizza_admin";
         String passwd = "admin";
+        Integer new_order_id = -1;
 
         try {
-
             conn = DatabaseConnect.serverConnect(userid, passwd);
             System.out.println("Before");
-            String sql1 = "SELECT orders_seq.NEXTVAL FROM dual;";
-            Integer new_order_id = 0;
-            rs = DatabaseConnect.getSQLResult(conn, sql1);
-            if (rs != null)  {
+            String sql1 = "SELECT orders_seq.NEXTVAL FROM dual";
+            pstmt = conn.prepareStatement(sql1);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
                 new_order_id = rs.getInt(1);
             } else {
                 return -1;
             }
-            DatabaseConnect.closeResultSet(rs);
+            System.out.println("New Order id: " + new_order_id);
+            rs.close();
+            pstmt.close();
 
-            if(new_order_id > 0){
-                String sql2 = "INSERT INTO orders(customer_id, price) VALUES ("+CustomerUser.getId()+","+CustomerUser.get_bucket_price()+")";
-                rs = DatabaseConnect.getSQLResult(conn, sql2);
-                DatabaseConnect.closeResultSet(rs);
+            if (new_order_id > 0) {
+                String sql2 = "INSERT INTO orders(customer_id, price, status) VALUES (?, ?, ?)";
+                pstmt = conn.prepareStatement(sql2);
+                pstmt.setString(1, CustomerUser.getId());
+                pstmt.setDouble(2, CustomerUser.get_bucket_price());
+                pstmt.setInt(3, 1);
+                pstmt.executeUpdate();
+                pstmt.close();
                 DatabaseConnect.commit(conn);
             }
-
-            DatabaseConnect.closeConnection(conn);
-
-            return new_order_id;
-
         } catch (Exception e) {
-            e.printStackTrace();  // Print stack trace to console
+            e.printStackTrace();
         } finally {
             DatabaseConnect.closeResultSet(rs);
             DatabaseConnect.closeConnection(conn);
         }
-        return -1;
-
+        return new_order_id;
     }
+
 
     public static void logout() {
         id = null;
@@ -478,7 +490,7 @@ public class CustomerUser {
 
             while (rs1.next()) {
                 Integer order_status = rs1.getInt("status");
-                if (order_status != 0 && order_status != 3) {
+                if (order_status != 0 && order_status != 3 && order_status != null) {
                     current_order_id = rs1.getInt("orders_id");
                     if (order_status == 1) {
                         current_order_status = "Order Submitted";
