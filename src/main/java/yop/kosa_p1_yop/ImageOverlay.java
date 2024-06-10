@@ -13,7 +13,7 @@ public class ImageOverlay {
 
         try {
             // 폴더에 있는 이미지 파일들의 경로
-            String folderPath = "C:\\Users\\KOSA\\Desktop\\KOSA_P1_yop\\src\\main\\resources\\yop\\kosa_p1_yop\\Images\\toppings";
+            String folderPath = System.getProperty("user.dir") + "/src/main/resources/yop/kosa_p1_yop/Images/toppings";
 
             // 폴더 내의 모든 이미지를 합치기
             File folder = new File(folderPath);
@@ -42,7 +42,7 @@ public class ImageOverlay {
             }
 
             // 최종 이미지 저장
-            String outputPath = "C:\\Users\\KOSA\\Desktop\\KOSA_P1_yop\\result.png";
+            String outputPath = System.getProperty("user.dir") + "/src/main/resources/yop/kosa_p1_yop/Images/toppingsresult.png";
             ImageIO.write(result, "png", new File(outputPath));
             System.out.println("이미지 생성이 완료되었습니다. (" + outputPath + ")");
         } catch (IOException e) {
