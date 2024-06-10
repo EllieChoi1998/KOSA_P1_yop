@@ -92,7 +92,7 @@
             <Text fx:id="caloriesText" layoutX="311.0" layoutY="8.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="32.0" />
             <Text fx:id="priceText" layoutX="308.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="39.0" />
             <Button fx:id="Backbtn" layoutX="6.0" layoutY="23.0" mnemonicParsing="false" text="뒤로가기" onAction="#handleBackButtonAction"/>
-            <Button fx:id="Orderbtn" layoutX="379.0" layoutY="22.0" mnemonicParsing="false" text="완성하기" onAction="#handleOrderButtonAction" />
+            <Button fx:id="Orderbtn" layoutX="379.0" layoutY="22.0" mnemonicParsing="false" text="완성하기" onAction="#handleCompleteButtonAction" />
          </children>
       </Pane>
    </children>

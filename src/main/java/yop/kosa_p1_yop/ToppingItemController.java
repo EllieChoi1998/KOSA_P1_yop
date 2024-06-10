@@ -36,7 +36,7 @@ public class ToppingItemController extends CustomPizzaController{
     }
     public void setIsLargeSize(boolean isLargeSize) {
         this.isLargeSize = isLargeSize;
-        System.out.println("isLargeSize: " + isLargeSize);
+//        System.out.println("isLargeSize: " + isLargeSize);
     }
 
     public void setAddToppingsController(AddToppingsController controller) {
@@ -45,7 +45,7 @@ public class ToppingItemController extends CustomPizzaController{
 
     public void initialize() {
         setIsLargeSize(isLargeSize);
-        System.out.println("initalisLargeSize: " + isLargeSize);
+//        System.out.println("initalisLargeSize: " + isLargeSize);
         removeButton.setDisable(true);
     }
 
@@ -53,23 +53,33 @@ public class ToppingItemController extends CustomPizzaController{
     @FXML
     private void handleAddTopping() {
         if (!toppingAdded) {
-            updateTextFieldValue(toppingcnt, 1);
-            addToppingsController.showToppingImage(toppingName.getText());
-            addToppingsController.addTopping(toppingName.getText());
-            toppingAdded = true;
-            addButton.setDisable(true);
-            removeButton.setDisable(false);
+            if (CustomPizza.addToppings(toppingName.getText())) {
+                updateTextFieldValue(toppingcnt, 1); // 수량 증가
+                addToppingsController.showToppingImage(toppingName.getText()); // UI에 토핑 이미지 표시
+                addToppingsController.addTopping(toppingName.getText());
+                toppingAdded = true;
+                addButton.setDisable(true); // "추가" 버튼 비활성화
+                removeButton.setDisable(false); // "제거" 버튼 활성화
+                System.out.println("Topping added successfully in UI: " + toppingName.getText());
+            } else {
+                System.out.println("Failed to add topping in UI: " + toppingName.getText());
+            }
         }
     }
 
     @FXML
     private void handleRemoveTopping() {
-        updateTextFieldValue(toppingcnt, -1);
-        addToppingsController.hideToppingImage(toppingName.getText());
-        addToppingsController.removeTopping(toppingName.getText());
-        toppingAdded = false;
-        addButton.setDisable(false);
-        removeButton.setDisable(true);
+        if (CustomPizza.deleteToppings(toppingName.getText())) {
+            updateTextFieldValue(toppingcnt, -1); // 수량 감소
+            addToppingsController.hideToppingImage(toppingName.getText()); // UI에서 토핑 이미지 숨기기
+            addToppingsController.removeTopping(toppingName.getText());
+            toppingAdded = false;
+            addButton.setDisable(false); // "추가" 버튼 활성화
+            removeButton.setDisable(true); // "제거" 버튼 비활성화
+            System.out.println("Topping removed successfully in UI: " + toppingName.getText());
+        } else {
+            System.out.println("Failed to remove topping in UI: " + toppingName.getText());
+        }
     }
 
     @FXML
@@ -79,8 +89,7 @@ public class ToppingItemController extends CustomPizzaController{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ToppingCaloriesPage.fxml"));
             Parent root = loader.load();
             ToppingCaloriesPageController controller = loader.getController();
-            System.out.print("item" + isLargeSize);
-            controller.setToppingNameAndSize(toppingName.getText(),isLargeSize);
+            controller.setToppingNameAndSize(toppingName.getText());
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED); // 타이틀 바 제거
             stage.setScene(new Scene(root));

@@ -27,19 +27,29 @@ public class CustomPizza {
     }
 
     public static boolean addToppings(String toppingName) {
-        if(toppings.get(toppingName) == null){
-            return false;
-        } else {
+        if (toppings == null) {
+            toppings = new HashMap<>();
+        }
+
+        if (!toppings.containsKey(toppingName) || !toppings.get(toppingName)) {
             toppings.put(toppingName, true);
+            System.out.println("Topping added: " + toppingName); // 추가된 토핑 이름 출력
+            System.out.println(toppings);
             return true;
+        } else {
+            System.out.println("Topping already exists: " + toppingName); // 이미 존재하는 토핑
+            return false;
         }
     }
 
-    public static boolean deleteToppings(String toppingName){
-        if(toppings.get(toppingName)){
+    public static boolean deleteToppings(String toppingName) {
+        if (toppings != null && toppings.get(toppingName) != null && toppings.get(toppingName)) {
             toppings.remove(toppingName);
+            System.out.println("Topping removed: " + toppingName); // 제거된 토핑 이름 출력
+            System.out.println(toppings);
             return true;
         } else {
+            System.out.println("Topping not found: " + toppingName); // 찾을 수 없는 토핑
             return false;
         }
     }
@@ -48,12 +58,28 @@ public class CustomPizza {
         return base;
     }
 
-    public static Map<String, Boolean> getToppings(){
+    public static Map<String, Boolean> getToppings() {
         return toppings;
     }
 
     public static void resetPizza() {
+        custom_name = null;
+        user_id = null;
         base = null;
         toppings = null;
+        is_large = false;
+        price = 0.0;
+    }
+
+    public static void setCustomName(String custom_name) {
+        CustomPizza.custom_name = custom_name;
+        System.out.println(CustomPizza.getCustomName());
+    }
+
+    public static String getCustomName() {
+        return custom_name;
+    }
+    public static boolean isLarge() {
+        return is_large;
     }
 }
