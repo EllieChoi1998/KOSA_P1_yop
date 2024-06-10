@@ -21,33 +21,7 @@
          <children>
             <ScrollPane id="scrollPane" hbarPolicy="NEVER" layoutY="-2.0" prefHeight="549.0" prefWidth="450.0" vbarPolicy="NEVER">
                <content>
-                  <AnchorPane prefHeight="1322.0" prefWidth="449.0">
-                     <children>
-                        <Button id="caloriesbtn1" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="까르보나라" />
-                        <Button id="caloriesbtn2" layoutX="236.0" layoutY="62.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="마라 로제 파스타" />
-                        <Button id="caloriesbtn3" layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="불고기피자" />
-                        <Button id="caloriesbtn4" layoutX="235.0" layoutY="348.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="치즈크레이프샌드피자" />
-                        <Button id="caloriesbtn5" layoutX="14.0" layoutY="631.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="포테이토피자" />
-                        <Button id="caloriesbtn6" layoutX="235.0" layoutY="634.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="슈프림피자" />
-                        <Button id="caloriesbtn8" layoutX="236.0" layoutY="908.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="스테이크피자" />
-                        <Text layoutX="82.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="스프라이트 500ml" />
-                        <Text layoutX="274.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="코카콜라500ml" />
-                        <Text layoutX="76.0" layoutY="847.0" strokeType="OUTSIDE" strokeWidth="0.0" text="환타(파인애플) 500ml" />
-                        <Text layoutX="303.0" layoutY="847.0" strokeType="OUTSIDE" strokeWidth="0.0" text="코카 콜라 제로 500ml" />
-                        <Text layoutX="88.0" layoutY="1130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="씨그램 500ml" />
-                        <Text layoutX="297.0" layoutY="1130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="웰치스(포도) 50ml" />
-                        <Text layoutX="166.0" layoutY="584.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000원" />
-                        <Text layoutX="387.0" layoutY="584.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000원" />
-                        <Text layoutX="166.0" layoutY="864.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2000원" />
-                        <Text layoutX="387.0" layoutY="864.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000원" />
-                        <Text layoutX="166.0" layoutY="1147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2000원" />
-                        <Text layoutX="387.0" layoutY="1147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2000원" />
-                        <Text layoutX="385.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9000원" />
-                        <Text layoutX="166.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9000원" />
-                        <Text layoutX="280.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="마라 로제 파스타" />
-                        <Text layoutX="82.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="베이컨 까르보나라" />
-                        <Button id="caloriesbtn7" layoutX="14.0" layoutY="908.0" mnemonicParsing="false" onAction="#handlePizzaButtonAction" opacity="0" prefHeight="200.0" prefWidth="200.0" text="치즈피자" />
-                     </children>
+                  <AnchorPane fx:id="SidePane" prefHeight="800.0" prefWidth="450.0">
                   </AnchorPane>
                </content>
             </ScrollPane>
