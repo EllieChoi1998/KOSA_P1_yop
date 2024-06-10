@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -35,7 +36,7 @@ public class AddToppingsController extends CustomPizzaController{
         totalCalories = initialCalories;
         totalPrice = initialPrice;
         this.isLargeSize = isLargeSize;
-        System.out.println("AddToppingsController: isLargeSize set to " + isLargeSize);
+//        System.out.println("AddToppingsController: isLargeSize set to " + isLargeSize);
         loadToppingsFromDatabase();
         updateTotalCaloriesAndPrice();
     }
@@ -75,7 +76,7 @@ public class AddToppingsController extends CustomPizzaController{
 
         ToppingItemController controller = loader.getController();
         controller.setIsLargeSize(isLargeSize);
-        System.out.println(isLargeSize);
+//        System.out.println(isLargeSize);
         controller.setName(name);
         controller.setAddToppingsController(this);
         toppingsContainer.getChildren().add(toppingItem);
@@ -231,22 +232,37 @@ public class AddToppingsController extends CustomPizzaController{
     }
 
     @FXML
-    private Button Orderbtn;
+    private void handleCompleteButtonAction() throws IOException {
+        // Create a TextInputDialog for the user to enter the new password
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Set Custom Pizza Name");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Enter your new Custom Pizza name:");
 
-    @FXML
-    private void handleOrderButtonAction() {
-        // "완성하기" 버튼 클릭 시 팝업 창을 표시합니다.
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PizzaNamePopup.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("피자 이름 입력");
-            stage.setScene(scene);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Show the dialog and wait for user input
+        String custom_name = dialog.showAndWait().orElse("");
+
+        // Process the user input
+        if (!custom_name.isEmpty()) {
+            System.out.println("New Pizza name : " +custom_name);
+
+            // Set the custom_name
+            CustomPizza.setCustomName(custom_name);
+
+            // Optionally, you can show another dialog or perform any other actions here
+            showCustompizzaNameDialog();
         }
+    }
+    private void showCustompizzaNameDialog() throws IOException{
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("New Pizza has been added under MyPizzas session.");
+        alert.setHeaderText(null);
+        alert.setContentText("New Pizza has been added under MyPizzas session.\nYou can check on the MyPizzas.");
+
+        alert.showAndWait();
+
+        // handleMyPageButtonAction 메소드를 호출하여 My Page로 이동
+        handleMyPageButtonAction();
     }
 }
 

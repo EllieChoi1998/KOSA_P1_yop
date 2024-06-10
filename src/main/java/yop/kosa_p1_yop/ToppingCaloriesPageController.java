@@ -18,13 +18,14 @@ public class ToppingCaloriesPageController {
     private String toppingName;
     private boolean isLargeSize;
 
-    public void setToppingNameAndSize(String toppingName, boolean isLargeSize) {
+    public void setToppingNameAndSize(String toppingName) {
         this.toppingName = toppingName;
-        this.isLargeSize = isLargeSize;
+        this.isLargeSize = CustomPizza.isLarge();
         loadToppingNutritionalInfo();
     }
 
     private void loadToppingNutritionalInfo() {
+
         Connection conn = null;
         ResultSet rs = null;
 
@@ -34,7 +35,6 @@ public class ToppingCaloriesPageController {
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, toppingName);
             rs = pstmt.executeQuery();
-            System.out.println("Clar" + isLargeSize);
             if (rs.next()) {
                 double sizeFactor = isLargeSize ? 1.5 : 1.0; // 사이즈에 따른 배수 설정
 
@@ -59,5 +59,6 @@ public class ToppingCaloriesPageController {
         Stage stage = (Stage) weight.getScene().getWindow();
         stage.close();
     }
+
 
 }

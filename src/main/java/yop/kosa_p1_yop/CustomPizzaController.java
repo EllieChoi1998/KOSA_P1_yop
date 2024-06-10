@@ -23,6 +23,9 @@ public class CustomPizzaController extends CustomerMainController{
 
     @FXML
     private void handleCreateNewCustomButtonAction() throws IOException {
+        // 새로운 커스텀피자 만들기 누를 때마다 초기화
+        CustomPizza.resetPizza();
+
         Stage stage = (Stage) AppMain.getPrimaryStage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DowAndSizeAndsauce.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 450, 820);
@@ -30,6 +33,40 @@ public class CustomPizzaController extends CustomerMainController{
     }
     @FXML
     private void handleAddToppingButtonAction() throws IOException{
+        // 선택된 재료들의 이름을 저장할 배열
+        String[] base = new String[4];
+
+        // Dow 라디오 버튼 선택 확인
+        if (originalL.isSelected() || originalM.isSelected()) {
+            base[0] = "o오리지널도우";
+        } else {
+            base[0] = "t씬도우";
+        }
+
+        // Sauce 라디오 버튼 선택 확인
+        if (tomatosaucecheck.isSelected()) {
+            base[1] = "to토마토소스";
+        } else if (bulgogisaucecheck.isSelected()) {
+            base[1] = "bul불고기소스";
+        }
+
+        // Edge 라디오 버튼 선택 확인
+        if (sweatpotatocheck.isSelected()) {
+            base[2] = "go고구마엣지";
+        } else if (cheeseedgecheck.isSelected()) {
+            base[2] = "ch치즈엣지";
+        }
+
+        // Cheese 라디오 버튼 선택 확인
+        if (mocheesecheck.isSelected()) {
+            base[3] = "mo모짜렐라치즈";
+        } else if (checheesecheck.isSelected()) {
+            base[3] = "ce체더치즈";
+        }
+
+        // CustomPizza 클래스의 createCustomPizza 메서드 호출하여 선택된 재료 전달
+        CustomPizza.createCustomPizza(base, isLargeSize);
+
         Stage stage = (Stage) AppMain.getPrimaryStage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ToppingSelection.fxml"));
 
@@ -65,7 +102,7 @@ public class CustomPizzaController extends CustomerMainController{
             isLargeSize = false;
 
         }
-        System.out.print(isLargeSize);
+//        System.out.print(isLargeSize);
         updateSelectedIngredients();
     }
 
