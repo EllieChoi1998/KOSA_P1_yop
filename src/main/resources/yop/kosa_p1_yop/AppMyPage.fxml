@@ -53,6 +53,6 @@
             <Image url="@Images/logo.png" />
          </image>
       </ImageView>
-      <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" prefHeight="134.0" prefWidth="450.0" opacity="0" onAction="#handleInvisibleButtonAction"/>
+      <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" prefHeight="134.0" prefWidth="450.0" opacity="0" onAction="#handleMyPageButtonAction"/>
    </children>
 </AnchorPane>

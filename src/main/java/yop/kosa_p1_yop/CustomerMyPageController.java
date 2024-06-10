@@ -230,5 +230,12 @@ public class CustomerMyPageController extends CustomerMainController{
         handleMyPageButtonAction();
     }
 
+    @FXML
+    private void handleBucketButtonAction() throws IOException{
+        Stage stage = (Stage) AppMain.getPrimaryStage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CustomerBucket.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+        stage.setScene(scene);
+    }
 }
 

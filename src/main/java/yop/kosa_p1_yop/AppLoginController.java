@@ -23,13 +23,14 @@ public class AppLoginController {
     private void handleLoginPageButtonAction() throws IOException {
         String id = idinput.getText();
         String password = passwordinput.getText();
-        //System.out.println("=====\n"+id+"\t"+password+"\n======");
         boolean customer_authenticated = is_customer(id, password);
         if (customer_authenticated) {
             Stage stage = (Stage) AppMain.getPrimaryStage();
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("CustomerMain.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPage.fxml"));
+            Parent root = fxmlLoader.load();
+            CustomerMyPageController controller = fxmlLoader.getController();
+            controller.setTextElements(CustomerUser.getName(), CustomerUser.getId(), CustomerUser.getCredits() );
+            Scene scene = new Scene(root, 450, 820);
             stage.setScene(scene);
         } else {
             boolean admin_authenticated = is_admin(id, password);
