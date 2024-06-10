@@ -16,7 +16,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class ToppingItemController extends CustomerMainController{
+public class ToppingItemController extends CustomPizzaController{
     @FXML
     private Text toppingName;
     @FXML
@@ -28,17 +28,27 @@ public class ToppingItemController extends CustomerMainController{
 
     private AddToppingsController addToppingsController;
     private boolean toppingAdded = false;
+    private boolean isLargeSize;
+
 
     public void setName(String name) {
         toppingName.setText(name);
     }
-    public void initialize() {
-        removeButton.setDisable(true); // 초기에는 - 버튼 비활성화
+    public void setIsLargeSize(boolean isLargeSize) {
+        this.isLargeSize = isLargeSize;
+        System.out.println("isLargeSize: " + isLargeSize);
     }
 
     public void setAddToppingsController(AddToppingsController controller) {
         this.addToppingsController = controller;
     }
+
+    public void initialize() {
+        setIsLargeSize(isLargeSize);
+        System.out.println("initalisLargeSize: " + isLargeSize);
+        removeButton.setDisable(true);
+    }
+
 
     @FXML
     private void handleAddTopping() {
@@ -68,10 +78,9 @@ public class ToppingItemController extends CustomerMainController{
             // calories.fxml 파일 로드
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ToppingCaloriesPage.fxml"));
             Parent root = loader.load();
-
             ToppingCaloriesPageController controller = loader.getController();
-            controller.setToppingName(toppingName.getText());
-            // 현재의 스테이지 얻기
+            System.out.print("item" + isLargeSize);
+            controller.setToppingNameAndSize(toppingName.getText(),isLargeSize);
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED); // 타이틀 바 제거
             stage.setScene(new Scene(root));

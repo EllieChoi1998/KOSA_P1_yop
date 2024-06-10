@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class CustomPizzaController extends CustomerMainController{
+
     @FXML
     private void handleCreateNewCustomButtonAction() throws IOException {
         Stage stage = (Stage) AppMain.getPrimaryStage();
@@ -36,8 +37,13 @@ public class CustomPizzaController extends CustomerMainController{
         stage.setScene(scene);
 
         AddToppingsController controller = fxmlLoader.getController();
-        controller.setInitialValues(Integer.parseInt(caloriesText.getText()), Integer.parseInt(priceText.getText()));
+        controller.setInitialValues(
+                Integer.parseInt(caloriesText.getText()),
+                Integer.parseInt(priceText.getText()),
+                isLargeSize
+        );
     }
+    protected boolean isLargeSize = false;
     @FXML
     private Text weight, calories, proteins, fats, salts, sugars;
     @FXML
@@ -50,7 +56,6 @@ public class CustomPizzaController extends CustomerMainController{
     @FXML
     public void initialize() {
     }
-    private boolean isLargeSize = false;
 
     @FXML
     private void handleSizeRadioButtonAction(ActionEvent event) {
@@ -58,9 +63,12 @@ public class CustomPizzaController extends CustomerMainController{
             isLargeSize = true;
         } else {
             isLargeSize = false;
+
         }
+        System.out.print(isLargeSize);
         updateSelectedIngredients();
     }
+
     @FXML
     private void updateSelectedIngredients() {
         int totalCalories = 0;
