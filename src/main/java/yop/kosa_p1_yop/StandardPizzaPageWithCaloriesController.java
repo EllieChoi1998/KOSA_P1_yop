@@ -5,7 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -119,6 +121,7 @@ public class StandardPizzaPageWithCaloriesController extends CustomerMyPageContr
 
                     // 피자 이름 텍스트
                     Text nameText = new Text(name);
+                    nameText.setStyle("-fx-font-size: 20px;");
                     pizzaBox.getChildren().add(nameText);
 
                     // Add the VBox to the pizzaPane
@@ -137,6 +140,7 @@ public class StandardPizzaPageWithCaloriesController extends CustomerMyPageContr
 
                 // 각 사이즈별 박스 추가
                 HBox sizeBox = createSizeBox(size + ": " + price + "원", id);
+
                 pizzaBox.getChildren().add(sizeBox);
             }
         } catch (Exception e) {
@@ -151,7 +155,8 @@ public class StandardPizzaPageWithCaloriesController extends CustomerMyPageContr
         HBox hBox = new HBox();
 
         Text label = new Text(labelText);
-        Button minusButton = new Button("-");
+        Button minusButton = new Button("➖");
+        minusButton.setStyle("-fx-background-color:   FFEEDD;");
         Text quantityText;
         Map<String, Map<Integer, Integer>> bucket = CustomerUser.getBucket();
         if (bucket.isEmpty() || bucket.get("Pizza").get(id) == null){
@@ -160,7 +165,8 @@ public class StandardPizzaPageWithCaloriesController extends CustomerMyPageContr
             quantityText = new Text(String.valueOf(bucket.get("Pizza").get(id)));
         }
 
-        Button plusButton = new Button("+");
+        Button plusButton = new Button("➕");
+        plusButton.setStyle("-fx-background-color:   FFEEDD;");
 
         minusButton.setOnAction(e -> {
             int quantity = Integer.parseInt(quantityText.getText());
@@ -177,6 +183,16 @@ public class StandardPizzaPageWithCaloriesController extends CustomerMyPageContr
                             System.out.println(key + "\t" + pizza.get(key));
                         }
                     }
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("알림");
+                    alert.setHeaderText(null);
+                    alert.setContentText("장바구니에서 빠졌습니다.");
+
+                    // Create the button and add a listener to close the alert
+                    ButtonType okButton = new ButtonType("확인");
+                    alert.getButtonTypes().setAll(okButton);
+
+                    alert.showAndWait();
                 }
             }
         });
@@ -195,6 +211,15 @@ public class StandardPizzaPageWithCaloriesController extends CustomerMyPageContr
                         System.out.println(key + "\t" + pizza.get(key));
                     }
                 }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("알림");
+                alert.setHeaderText(null);
+                alert.setContentText("장바구니에 추가 되었습니다.");
+
+                ButtonType okButton = new ButtonType("확인");
+                alert.getButtonTypes().setAll(okButton);
+
+                alert.showAndWait();
             }
         });
 
@@ -203,34 +228,6 @@ public class StandardPizzaPageWithCaloriesController extends CustomerMyPageContr
 
         return hBox;
     }
-
-
-
-    private int getPriceFromDb(String pizzaName, String size) {
-        Connection conn = null;
-        ResultSet rs = null;
-        int price = 0;
-        try {
-            conn = DatabaseConnect.serverConnect("pizza_admin", "admin");
-            String query = "SELECT price FROM pizza WHERE name = ? AND pizza_size = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, pizzaName);
-            pstmt.setString(2, size);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                price = rs.getInt("price");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            DatabaseConnect.closeResultSet(rs);
-            DatabaseConnect.closeConnection(conn);
-        }
-        return price;
-    }
-
-
-
 
 
     private void loadPizzaNutritionalInfo() {
