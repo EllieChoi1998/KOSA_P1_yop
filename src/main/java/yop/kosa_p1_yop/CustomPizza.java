@@ -267,13 +267,23 @@ public class CustomPizza {
                 rs = pstmt.executeQuery();
 
                 if (rs.next()) {
-                    returnarray[0] += rs.getDouble("weight");
-                    returnarray[1] += rs.getDouble("calories");
-                    returnarray[2] += rs.getDouble("proteins");
-                    returnarray[3] += rs.getDouble("fats");
-                    returnarray[4] += rs.getDouble("salts");
-                    returnarray[5] += rs.getDouble("sugars");
-                    returnarray[6] += rs.getDouble("price");
+                    if (CustomPizza.isLarge()) {
+                        returnarray[0] += (rs.getDouble("weight") * 1.5);
+                        returnarray[1] += (rs.getDouble("calories") * 1.5);
+                        returnarray[2] += (rs.getDouble("proteins") * 1.5);
+                        returnarray[3] += (rs.getDouble("fats") * 1.5);
+                        returnarray[4] += (rs.getDouble("salts") * 1.5);
+                        returnarray[5] += (rs.getDouble("sugars") * 1.5);
+                        returnarray[6] += (rs.getDouble("price") * 1.5);
+                    } else {
+                        returnarray[0] += rs.getDouble("weight");
+                        returnarray[1] += rs.getDouble("calories");
+                        returnarray[2] += rs.getDouble("proteins");
+                        returnarray[3] += rs.getDouble("fats");
+                        returnarray[4] += rs.getDouble("salts");
+                        returnarray[5] += rs.getDouble("sugars");
+                        returnarray[6] += rs.getDouble("price");
+                    }
                 }
                 rs.close();
             }
@@ -318,13 +328,23 @@ public class CustomPizza {
                 rs = pstmt.executeQuery();
 
                 if (rs.next()) {
-                    returnarray[0] += rs.getDouble("weight");
-                    returnarray[1] += rs.getDouble("calories");
-                    returnarray[2] += rs.getDouble("proteins");
-                    returnarray[3] += rs.getDouble("fats");
-                    returnarray[4] += rs.getDouble("salts");
-                    returnarray[5] += rs.getDouble("sugars");
-                    returnarray[6] += rs.getDouble("price");
+                    if(CustomPizza.isLarge()){
+                        returnarray[0] += (rs.getDouble("weight") * 1.5);
+                        returnarray[1] += (rs.getDouble("calories") * 1.5);
+                        returnarray[2] += (rs.getDouble("proteins") * 1.5);
+                        returnarray[3] += (rs.getDouble("fats") * 1.5);
+                        returnarray[4] += (rs.getDouble("salts") * 1.5);
+                        returnarray[5] += (rs.getDouble("sugars") * 1.5);
+                        returnarray[6] += (rs.getDouble("price")* 1.5);
+                    } else {
+                        returnarray[0] += rs.getDouble("weight");
+                        returnarray[1] += rs.getDouble("calories");
+                        returnarray[2] += rs.getDouble("proteins");
+                        returnarray[3] += rs.getDouble("fats");
+                        returnarray[4] += rs.getDouble("salts");
+                        returnarray[5] += rs.getDouble("sugars");
+                        returnarray[6] += rs.getDouble("price");
+                    }
                 }
                 rs.close();
             }
