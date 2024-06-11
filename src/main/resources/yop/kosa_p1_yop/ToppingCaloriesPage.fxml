@@ -2,22 +2,59 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.ToppingCaloriesPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: FFFEED;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.ToppingCaloriesPageController">
     <children>
-        <Text layoutX="63.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="총중량" />
-        <Button id="close" layoutX="357.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" prefHeight="35.0" prefWidth="35.0" text="X" />
-      <Text layoutX="63.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="열량" />
-      <Text layoutX="63.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="단백질" />
-      <Text layoutX="63.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="포화지방" />
-      <Text layoutX="63.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="나트륨" />
-      <Text layoutX="63.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="당류" />
-      <Text fx:id="weight" layoutX="225.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="calories" layoutX="225.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="proteins" layoutX="225.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="fats" layoutX="225.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="sugars" layoutX="225.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="salts" layoutX="225.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text layoutX="63.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="총중량">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+        <Button id="close" layoutX="357.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: FFEEDD;" text="✖" />
+      <Text layoutX="63.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="열량">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Text layoutX="63.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="단백질">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Text layoutX="63.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="포화지방">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Text layoutX="63.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="나트륨">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Text layoutX="63.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="당류">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Text fx:id="weight" layoutX="225.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Text fx:id="calories" layoutX="225.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Text fx:id="proteins" layoutX="225.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Text fx:id="fats" layoutX="225.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Text fx:id="sugars" layoutX="225.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
+      <Text fx:id="salts" layoutX="225.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="16.0" />
+         </font></Text>
     </children>
 </AnchorPane>

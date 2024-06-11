@@ -27,6 +27,7 @@ public class CustomerHistoryController extends CustomerMainController {
     private void addOrderInfoToVBox(Map<Integer, List<String>> orderInfoMap) {
         if (orderInfoMap.isEmpty()) {
             Label noHistoryLabel = new Label("There's no Order History yet.\nPlease make an order !");
+            noHistoryLabel.setStyle("-fx-font-size: 20px;");
             orderInfoVBox.getChildren().add(noHistoryLabel);
         } else {
             // orderInfoMap을 역순으로 순회하여 VBox에 추가합니다.

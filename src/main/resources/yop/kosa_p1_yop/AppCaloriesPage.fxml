@@ -1,39 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.StandardPizzaPageWithCaloriesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: FFFEED;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.StandardPizzaPageWithCaloriesController">
     <children>
-        <Text layoutX="27.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="총중량" />
-        <Text layoutX="27.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="열량" />
-        <Text layoutX="27.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="단백질" />
-        <Text layoutX="27.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="포화지방" />
-        <Text layoutX="27.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="나트륨" />
-        <Text layoutX="27.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="당류" />
-        <Text fx:id="weightL" layoutX="131.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-        <Button id="close" layoutX="357.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" prefHeight="35.0" prefWidth="35.0" text="X" />
-        <Text fx:id="weightM" layoutX="257.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-        <Text fx:id="caloriesL" layoutX="131.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-        <Text fx:id="caloriesM" layoutX="257.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-        <Text fx:id="proteinsL" layoutX="131.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-        <Text fx:id="proteinsM" layoutX="257.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-        <Text fx:id="fatsL" layoutX="131.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-        <Text fx:id="fatsM" layoutX="257.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-        <Text fx:id="sugarsL" layoutX="131.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-        <Text fx:id="sugarsM" layoutX="257.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-        <Text fx:id="saltsL" layoutX="131.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-        <Text fx:id="saltsM" layoutX="257.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-        <Text layoutX="123.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="L사이즈">
+        <Text layoutX="32.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="총중량">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+        <Text layoutX="32.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="열량">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+        <Text layoutX="32.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="단백질">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+        <Text layoutX="32.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="포화지방">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+        <Text layoutX="32.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="나트륨">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+        <Text layoutX="32.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="당류">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
+        <Text fx:id="weightL" layoutX="125.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Button id="close" layoutX="353.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" prefHeight="37.0" prefWidth="42.0" style="-fx-background-color: FFEEDD;" text="✖">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+        <Text fx:id="weightM" layoutX="251.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="caloriesL" layoutX="131.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="caloriesM" layoutX="257.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="proteinsL" layoutX="131.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="proteinsM" layoutX="257.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="fatsL" layoutX="131.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="fatsM" layoutX="257.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="sugarsL" layoutX="131.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="sugarsM" layoutX="257.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="saltsL" layoutX="125.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fx:id="saltsM" layoutX="257.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text layoutX="131.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIZE">
             <font>
-                <Font size="18.0" />
+                <Font size="24.0" />
             </font>
         </Text>
-        <Text layoutX="245.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M사이즈">
+        <Text layoutX="275.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIZE">
             <font>
-                <Font size="18.0" />
+                <Font size="24.0" />
             </font>
         </Text>
+      <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="103.0" layoutY="58.0">
+         <image>
+            <Image url="@Images/L.PNG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="243.0" layoutY="57.0">
+         <image>
+            <Image url="@Images/M.PNG" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

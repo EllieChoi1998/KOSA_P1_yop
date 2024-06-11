@@ -25,12 +25,12 @@ public class CustomerCurrentOrderController extends CustomerMainController {
         if (!customer_current_order.isEmpty()) {
             FilltheScreen(customer_current_order);
         } else {
-            Text noOrderText = new Text("There's no ongoing order. Please make an order!");
+            Text noOrderText = new Text("There's no ongoing order. Please make an order!\uD83D\uDE4F");
             noOrderText.setStyle("-fx-font-size: 20px;");
             orderInfoVBox.getChildren().add(noOrderText);
 
-            Button createOrderButton = new Button("Go to Create Order");
-            createOrderButton.setStyle("-fx-font-size: 20px;");
+            Button createOrderButton = new Button("Go to Create Order \uD83D\uDC49");
+            createOrderButton.setStyle("-fx-font-size: 20px; -fx-background-color: FFEEDD;");
             createOrderButton.setOnAction(e -> {
                 // Handle navigation to create order screen
                 // This might involve changing the scene or switching to a different view
