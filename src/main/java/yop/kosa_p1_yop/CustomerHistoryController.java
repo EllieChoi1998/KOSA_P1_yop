@@ -4,6 +4,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -79,6 +83,13 @@ public class CustomerHistoryController extends CustomerMainController {
     }
 
     private VBox createDetailVBox(int orderId) {
+        Connection conn = null;
+        ResultSet rs = null;
+        String userid = "pizza_admin";
+        String passwd = "admin";
+        String sql = "";
+
+
         VBox detailVBox = new VBox();
         detailVBox.setStyle("-fx-padding: 10px;");
 
@@ -103,7 +114,19 @@ public class CustomerHistoryController extends CustomerMainController {
                     // Print the pizza only if it hasn't been printed already
                     if (!printedPizzas.contains(name)) {
                         // Pizza name and quantity
-                        Label pizzaDetailLabel = new Label(name + ", Quantity: " + quantity);
+                        String size = "";
+                            sql = "select pizza_size from pizza where id = (select pizza_id from orders_pizza where orders_id = "+orderId+" AND ROWNUM = 1)";
+                            try {
+                                conn = DatabaseConnect.serverConnect(userid, passwd);
+                                rs = DatabaseConnect.getSQLResult(conn, sql);
+                                if (rs.next()) {
+                                    size = rs.getString("pizza_size");
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        Label pizzaDetailLabel = new Label(name + "\t Size: " + size + "\t Quantity: " + quantity);
                         detailVBox.getChildren().add(pizzaDetailLabel);
                         printedPizzas.add(name); // Mark this pizza as printed
                     }
