@@ -11,13 +11,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomerMyPageController">
+<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomPizzaPageWithCaloriesController">
    <children>
-      <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
-      </Text>
+      <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER" />
       <HBox layoutY="720.0" prefHeight="99.0" prefWidth="450.0">
          <children>
-            <ToggleButton id="orderbutton" mnemonicParsing="false" onAction="#handleOrderButtonAction" selected="true" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="Order" HBox.hgrow="ALWAYS" />
+            <ToggleButton id="bucketbutton" mnemonicParsing="false" onAction="#handleBucketButtonAction" selected="true" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="장바구니" HBox.hgrow="ALWAYS" />
             <ToggleButton id="mypizzasbutton" mnemonicParsing="false" onAction="#handleMyPizzasButtonAction" prefWidth="81.0" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Pizzas" HBox.hgrow="ALWAYS" />
             <ToggleButton id="mypagebutton" mnemonicParsing="false" onAction="#handleMyPageButtonAction" style="-fx-pref-height: 500; -fx-font-size: 26; -fx-background-color: FFEEDD; -fx-pref-width: 300;" text="My Page" HBox.hgrow="ALWAYS" />
          </children>
@@ -32,16 +31,18 @@
          <children>
             <ScrollPane id="scrollPane" hbarPolicy="NEVER" layoutY="135.0" prefHeight="412.0" prefWidth="450.0" vbarPolicy="NEVER">
                <content>
-                  <AnchorPane prefHeight="1446.0" prefWidth="449.0" />
-               </content></ScrollPane>
+                  <AnchorPane fx:id="pizzaPane" prefHeight="800.0" prefWidth="450.0">
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
             <HBox layoutY="60.0" prefHeight="75.0" prefWidth="450.0">
                <children>
-                  <ToggleButton id="standardpizaasbtn" mnemonicParsing="false" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: FFEEDD;" text="Standard Pizzas" onAction="#handleMoveToStandardButtonAction">
+                  <ToggleButton id="standardpizaasbtn" mnemonicParsing="false" onAction="#handleMoveToStandardButtonAction" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: FFEEDD;" text="Standard Pizzas">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </ToggleButton>
-                  <ToggleButton id="mycustompizzasbtn" mnemonicParsing="false" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: FEC88E;" text="My Custom Pizzas">
+                  <ToggleButton id="mycustompizzasbtn" mnemonicParsing="false" onAction="#handleMoveToCustomButtonAction" prefHeight="75.0" prefWidth="227.0" style="-fx-background-color: FEC88E;" text="My Custom Pizzas">
                      <font>
                         <Font size="18.0" />
                      </font>
