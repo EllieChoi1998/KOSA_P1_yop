@@ -16,6 +16,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddToppingsController extends CustomPizzaController{
     @FXML
@@ -34,7 +36,6 @@ public class AddToppingsController extends CustomPizzaController{
         totalCalories = initialCalories;
         totalPrice = initialPrice;
         this.isLargeSize = isLargeSize;
-//        System.out.println("AddToppingsController: isLargeSize set to " + isLargeSize);
         loadToppingsFromDatabase();
         updateTotalCaloriesAndPrice();
     }
@@ -53,11 +54,16 @@ public class AddToppingsController extends CustomPizzaController{
             String query = "SELECT id, name, calories, price FROM ingredient WHERE ingredient_type_id = 5";
             rs = DatabaseConnect.getSQLResult(conn, query);
 
+            Map<Integer, Boolean> checker = new HashMap<>();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
 
-                addToppingToUI(id, name);
+                if (checker.get(id) == null || checker.get(id) == false){
+                    checker.put(id, true);
+                    addToppingToUI(id, name);
+                }
+
             }
 
         } catch (Exception e) {
@@ -74,7 +80,7 @@ public class AddToppingsController extends CustomPizzaController{
 
         ToppingItemController controller = loader.getController();
         controller.setIsLargeSize(isLargeSize);
-//        System.out.println(isLargeSize);
+
         controller.setName(name);
         controller.setAddToppingsController(this);
         toppingsContainer.getChildren().add(toppingItem);
