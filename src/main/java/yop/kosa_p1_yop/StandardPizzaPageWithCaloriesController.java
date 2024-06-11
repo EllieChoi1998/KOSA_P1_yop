@@ -60,7 +60,7 @@ public class StandardPizzaPageWithCaloriesController extends CustomerMyPageContr
 
         try {
             conn = DatabaseConnect.serverConnect("pizza_admin", "admin"); // 데이터베이스 연결
-            String query = "SELECT id, name, pizza_size, price FROM pizza";
+            String query = "SELECT id, name, pizza_size, price FROM pizza where customer_id is null";
 
             PreparedStatement pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
