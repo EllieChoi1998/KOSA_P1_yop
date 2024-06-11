@@ -1,16 +1,22 @@
 package yop.kosa_p1_yop;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Map;
@@ -59,11 +65,54 @@ public class CustomerCurrentOrderController extends CustomerMainController {
             orderInfoVBox.setAlignment(Pos.CENTER);  // Center the text
 
             Button yesButton = new Button("Yes");
-            yesButton.setStyle("-fx-font-size: 15px; -fx-background-color: blue;");
-            yesButton.setOnAction(e -> CustomerUser.completeOrder());
+            yesButton.setStyle("-fx-font-size: 15px; -fx-background-color: #bae1ff;");
+            yesButton.setOnAction(e -> {
+                CustomerUser.completeOrder();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("알림");
+                alert.setHeaderText(null);
+                alert.setContentText("배달 완료!");
+
+                // Create the button and add a listener to close the alert
+                ButtonType okButton = new ButtonType("확인");
+                alert.getButtonTypes().setAll(okButton);
+
+                alert.showAndWait();
+
+                Stage stage = (Stage) AppMain.getPrimaryStage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPage.fxml"));
+                try {
+                    Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+                    stage.setScene(scene);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
 
             Button noButton = new Button("No");
-            noButton.setStyle("-fx-font-size: 15px; -fx-background-color: red;");
+            noButton.setOnAction(e -> {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("알림");
+                alert.setHeaderText(null);
+                alert.setContentText("010-1111-1111 로 문의주세요.");
+
+                // Create the button and add a listener to close the alert
+                ButtonType okButton = new ButtonType("확인");
+                alert.getButtonTypes().setAll(okButton);
+
+                alert.showAndWait();
+
+                Stage stage = (Stage) AppMain.getPrimaryStage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppMyPage.fxml"));
+                try {
+                    Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+                    stage.setScene(scene);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
+            noButton.setStyle("-fx-font-size: 15px; -fx-background-color: #ffb3ba;");
 
             HBox buttonBox = new HBox(10, yesButton, noButton);
             buttonBox.setAlignment(Pos.CENTER);
