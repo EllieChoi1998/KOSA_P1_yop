@@ -145,7 +145,7 @@ public class CustomerCurrentOrderController extends CustomerMainController {
         String sql = "";
 
         if (key_name.equals("Pizza")) {
-            sql = "SELECT name FROM pizza WHERE id = " + id;
+            sql = "SELECT name, pizza_size FROM pizza WHERE id = " + id;
         } else if (key_name.equals("Option")) {
             sql = "SELECT name FROM options WHERE id = " + id;
         }
@@ -155,7 +155,8 @@ public class CustomerCurrentOrderController extends CustomerMainController {
             rs = DatabaseConnect.getSQLResult(conn, sql);
             if (rs.next()) {
                 String name = rs.getString("name");
-                Text itemText = new Text(name + " : " + quantity);
+                String size = rs.getString("pizza_size");
+                Text itemText = new Text(name + "\t Size: "+size+"\t Quantity: " + quantity);
                 itemText.setStyle("-fx-font-size: 16px;");
                 orderInfoVBox.getChildren().add(itemText);
             }

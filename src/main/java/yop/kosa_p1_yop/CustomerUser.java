@@ -196,6 +196,7 @@ public class CustomerUser {
                 if (updated_credits > CustomerUser.getCredits()) {
                     CustomerUser.credits = updated_credits;
 
+
                     boolean db_insert = checkoutBucket();
                     if (!db_insert) {
                         System.out.println("Cannot checkout to bucket.");
@@ -249,7 +250,7 @@ public class CustomerUser {
 
             if(is_card){
                 double update_amount = CustomerUser.getCredits() + CustomerUser.get_bucket_price() * 0.1;
-                String sql = "UPDATE customers SET credits = " + update_amount + "WHERE id = '" + CustomerUser.getId() + "'";
+                String sql = "UPDATE customer SET credits = " + (int) update_amount + "WHERE id = '" + CustomerUser.getId() + "'";
                 rs = DatabaseConnect.getSQLResult(conn, sql);
                 DatabaseConnect.commit(conn);
                 DatabaseConnect.closeResultSet(rs);
