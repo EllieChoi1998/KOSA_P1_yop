@@ -45,7 +45,6 @@ public class ToppingItemController extends CustomPizzaController{
 
     public void initialize() {
         setIsLargeSize(isLargeSize);
-//        System.out.println("initalisLargeSize: " + isLargeSize);
         removeButton.setDisable(true);
     }
 
