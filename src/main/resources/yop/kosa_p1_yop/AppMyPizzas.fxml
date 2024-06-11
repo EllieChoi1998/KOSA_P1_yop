@@ -31,13 +31,10 @@
       <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleInvisibleButtonAction" opacity="0" prefHeight="134.0" prefWidth="450.0" />
       <Pane id="MainField" layoutY="169.0" prefHeight="541.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF; ">
          <children>
-            <ScrollPane id="scrollPane" hbarPolicy="NEVER" layoutY="135.0" prefHeight="412.0" prefWidth="480.0" vbarPolicy="NEVER">
-
-                  <content>
-                     <AnchorPane fx:id="pizzaPane" layoutX="0" layoutY="0" prefHeight="800.0" prefWidth="480.0">
-                     </AnchorPane>
-                  </content>
-
+            <ScrollPane id="scrollPane" hbarPolicy="NEVER" layoutY="135.0" prefHeight="412.0" prefWidth="450.0" vbarPolicy="NEVER">
+               <content>
+                  <Pane fx:id="pizzaPane" prefWidth="450.0" />
+               </content>
             </ScrollPane>
             <Button id="createnewcustompizzabtn" layoutX="36.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleCreateNewCustomButtonAction" prefHeight="40.0" prefWidth="379.0" style="-fx-background-color: FEC88E;" text="Create New Custom Pizza">
                <font>
