@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.CustomPizzaController">
+<AnchorPane id="Main-AfterLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="450.0" style="-fx-background-color: FFEEDD;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yop.kosa_p1_yop.MyPizzasController">
    <children>
       <Text id="appname" layoutX="144.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Courier New; -fx-font-size: 36;" text="Your Own Pizza" textAlignment="CENTER">
       </Text>
@@ -29,16 +29,15 @@
          </image>
       </ImageView>
       <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleInvisibleButtonAction" opacity="0" prefHeight="134.0" prefWidth="450.0" />
-      <Pane id="MainField" layoutY="169.0" prefHeight="541.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;">
+      <Pane id="MainField" layoutY="169.0" prefHeight="541.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF; ">
          <children>
-            <ScrollPane id="scrollPane" hbarPolicy="NEVER" layoutY="135.0" prefHeight="412.0" prefWidth="450.0" vbarPolicy="NEVER">
-               <content>
-                  <AnchorPane prefHeight="1446.0" prefWidth="449.0">
-                     <children>
-                        <Button id="editnamebtn" layoutX="109.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-color: FFEEDD;" text="Edit Name" />
-                        <Button id="edittagsbtn" layoutX="253.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-color: FFEEDD;" text="Edit Tags" />
-                     </children></AnchorPane>
-               </content>
+            <ScrollPane id="scrollPane" hbarPolicy="NEVER" layoutY="135.0" prefHeight="412.0" prefWidth="480.0" vbarPolicy="NEVER">
+
+                  <content>
+                     <AnchorPane fx:id="pizzaPane" layoutX="0" layoutY="0" prefHeight="800.0" prefWidth="480.0">
+                     </AnchorPane>
+                  </content>
+
             </ScrollPane>
             <Button id="createnewcustompizzabtn" layoutX="36.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleCreateNewCustomButtonAction" prefHeight="40.0" prefWidth="379.0" style="-fx-background-color: FEC88E;" text="Create New Custom Pizza">
                <font>

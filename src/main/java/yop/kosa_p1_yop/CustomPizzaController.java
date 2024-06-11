@@ -39,30 +39,30 @@ public class CustomPizzaController extends CustomerMainController{
 
         // Dow 라디오 버튼 선택 확인
         if (originalL.isSelected() || originalM.isSelected()) {
-            base[0] = "o오리지널도우";
+            base[0] = "오리지널도우";
         } else {
-            base[0] = "t씬도우";
+            base[0] = "씬도우";
         }
 
         // Sauce 라디오 버튼 선택 확인
         if (tomatosaucecheck.isSelected()) {
-            base[1] = "to토마토소스";
+            base[1] = "토마토소스";
         } else if (bulgogisaucecheck.isSelected()) {
-            base[1] = "bul불고기소스";
+            base[1] = "불고기소스";
         }
 
         // Edge 라디오 버튼 선택 확인
         if (sweatpotatocheck.isSelected()) {
-            base[2] = "go고구마엣지";
+            base[2] = "고구마엣지";
         } else if (cheeseedgecheck.isSelected()) {
-            base[2] = "ch치즈엣지";
+            base[2] = "치즈엣지";
         }
 
         // Cheese 라디오 버튼 선택 확인
         if (mocheesecheck.isSelected()) {
-            base[3] = "mo모짜렐라치즈";
+            base[3] = "모짜렐라치즈";
         } else if (checheesecheck.isSelected()) {
-            base[3] = "ce체더치즈";
+            base[3] = "체더치즈";
         }
 
         // CustomPizza 클래스의 createCustomPizza 메서드 호출하여 선택된 재료 전달

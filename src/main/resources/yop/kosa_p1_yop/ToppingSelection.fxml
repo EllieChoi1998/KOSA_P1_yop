@@ -61,7 +61,7 @@
             </ImageView>
             <ImageView fx:id="shrimptopping" fitHeight="323.0" fitWidth="373.0" layoutX="39.0" layoutY="-62.0" visible="false">
                <image>
-                  <Image url="@Images/toppings/새우토핑.png" />
+                  <Image url="@Images/toppings/꼬리알새우토핑.png" />
                </image>
             </ImageView>
             <ImageView fx:id="oniontopping" fitHeight="290.0" fitWidth="323.0" layoutX="62.0" layoutY="-39.0" visible="false">
