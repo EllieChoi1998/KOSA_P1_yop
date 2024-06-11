@@ -3,9 +3,7 @@ package yop.kosa_p1_yop;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.*;
 import java.io.*;
 
@@ -161,7 +159,9 @@ public class CustomerUser {
         /*
         csv 에서 카드 정보 가져와서 카드로 계산하는 경우.
          */
-
+        System.out.println("CURRENT CARD: " + cardNumber);
+        System.out.println("CURRENT CVC: " + cvc);
+        System.out.println("CURRENT pwd: " + pwd);
         // 입력 스트림 오브젝트 생성
         BufferedReader br = null;
         try {
@@ -181,7 +181,7 @@ public class CustomerUser {
                 String f_cardNumber = array[0];
                 String f_cvc = array[1];
                 String f_pwd = array[2];
-                if(f_cardNumber.equals(cardNumber) && f_cvc.equals(cvc) && f_pwd.equals(pwd)) {
+                if(f_cardNumber.trim().equals(cardNumber) && f_cvc.trim().equals(cvc) && f_pwd.trim().equals(pwd)) {
                     // 리스트 내용 출력
                     System.out.println("f_cardNumber: " + f_cardNumber + "\nf_cvc: " + f_cvc + "\nf_pwd: " + f_pwd);
                     cardFound = true;
@@ -191,7 +191,7 @@ public class CustomerUser {
             }
 
             if (cardFound) {
-                System.out.println("결제가 성공적으로 처리되었습니다.");
+                System.out.println("Card Payment success");
                 double updated_credits = updateCredits(true);
                 if (updated_credits > CustomerUser.getCredits()) {
                     CustomerUser.credits = updated_credits;
@@ -201,10 +201,12 @@ public class CustomerUser {
                         System.out.println("Cannot checkout to bucket.");
                         return false;
                     }
+
+                    CustomerUser.setCurrentOrder();
                     return true;
                 }
             } else {
-                System.out.println("카드 정보를 확인할 수 없습니다.");
+                System.out.println("cannot process card payment");
             }
 
         } catch (Exception e) {
@@ -288,20 +290,22 @@ public class CustomerUser {
                 if (key.equals("Pizza")) {
                     Set<Integer> pizza_ids = bucket.get("Pizza").keySet();
                     for (Integer pid : pizza_ids){
-                        boolean result = create_new_order_item_in_database(new_order_id, pid, 0);
-                        if (!result){
-                            System.out.println("Can not insert order item:\t" + pid);
-                            return false;
-                        }
+                            boolean result = create_new_order_item_in_database(new_order_id, 1, pid, CustomerUser.getBucket().get("Pizza").get(pid));
+                            if (!result) {
+                                System.out.println("Can not insert order item:\t" + pid);
+                                return false;
+                            }
                     }
 
                 } else if (key.equals("Option")) {
                     Set<Integer> option_ids = bucket.get("Option").keySet();
                     for (Integer oid : option_ids){
-                        boolean result = create_new_order_item_in_database(new_order_id, 0, oid);
-                        if (!result) {
-                            System.out.println("Can not insert order item:\t" + oid);
-                            return false;
+
+                            boolean result = create_new_order_item_in_database(new_order_id, 2, oid, CustomerUser.getBucket().get("Option").get(oid));
+                            if (!result) {
+                                System.out.println("Can not insert order item:\t" + oid);
+                                return false;
+
                         }
                     }
                 } else {
@@ -320,28 +324,74 @@ public class CustomerUser {
         return false;
     }
 
-    private static boolean create_new_order_item_in_database(int new_order_id, int pizza_id, int options_id) {
+    public static Integer create_new_order_in_database() {
+        Connection conn = null;
+        CallableStatement pstmt = null;
+        ResultSet rs = null;
+        String userid = "pizza_admin";
+        String passwd = "admin";
+        Integer new_order_id = -1;
+
+        try {
+            conn = DatabaseConnect.serverConnect(userid, passwd);
+
+            // 저장 프로시저 호출
+            pstmt = conn.prepareCall("{call create_new_order(?, ?, ?, ?)}");
+            pstmt.setString(1, CustomerUser.getId());
+            pstmt.setDouble(2, CustomerUser.get_bucket_price());
+            pstmt.setInt(3, 1);
+            pstmt.registerOutParameter(4, Types.INTEGER);
+
+            pstmt.execute();
+
+            // 반환된 주문 ID 가져오기
+            new_order_id = pstmt.getInt(4);
+
+            pstmt.close();
+            DatabaseConnect.commit(conn);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseConnect.closeResultSet(rs);
+            DatabaseConnect.closeConnection(conn);
+        }
+        return new_order_id;
+    }
+
+
+
+    private static boolean create_new_order_item_in_database(int new_order_id, int type, int type_id, int quantity) {
         Connection conn = null;
         ResultSet rs = null;
         String userid = "pizza_admin";
         String passwd = "admin";
 
         try {
-
             conn = DatabaseConnect.serverConnect(userid, passwd);
             System.out.println("Before");
-
-            String sql2 = "INSERT INTO orders_item(orders_id, pizza_id, options_id) VALUES ("+ (new_order_id+1) +","+ pizza_id +","+ options_id +")";
-            rs = DatabaseConnect.getSQLResult(conn, sql2);
-            DatabaseConnect.closeResultSet(rs);
+            if(type == 1) {
+                String sql2 = "INSERT INTO orders_pizza(orders_id, pizza_id, quantity) VALUES (?, ?, ?)";
+                PreparedStatement pstmt = conn.prepareStatement(sql2);
+                pstmt.setInt(1, new_order_id);
+                pstmt.setInt(2, type_id);
+                pstmt.setInt(3, quantity);
+                pstmt.executeUpdate();
+                pstmt.close();
+            } else if(type == 2){
+                String sql2 = "INSERT INTO orders_options(orders_id, options_id, quantity) VALUES (?, ?, ?)";
+                PreparedStatement pstmt = conn.prepareStatement(sql2);
+                pstmt.setInt(1, new_order_id);
+                pstmt.setInt(2, type_id);
+                pstmt.setInt(3, quantity);
+                DatabaseConnect.commit(conn);
+                pstmt.executeUpdate();
+                pstmt.close();
+            }
             DatabaseConnect.commit(conn);
-
-
             DatabaseConnect.closeConnection(conn);
 
             return true;
-
-
         } catch (Exception e) {
             e.printStackTrace();  // Print stack trace to console
         } finally {
@@ -351,47 +401,6 @@ public class CustomerUser {
         return false;
     }
 
-    public static Integer create_new_order_in_database(){
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        String userid = "pizza_admin";
-        String passwd = "admin";
-        Integer new_order_id = -1;
-
-        try {
-            conn = DatabaseConnect.serverConnect(userid, passwd);
-            System.out.println("Before");
-            String sql1 = "SELECT orders_seq.NEXTVAL FROM dual";
-            pstmt = conn.prepareStatement(sql1);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                new_order_id = rs.getInt(1);
-            } else {
-                return -1;
-            }
-            System.out.println("New Order id: " + new_order_id);
-            rs.close();
-            pstmt.close();
-
-            if (new_order_id > 0) {
-                String sql2 = "INSERT INTO orders(customer_id, price, status) VALUES (?, ?, ?)";
-                pstmt = conn.prepareStatement(sql2);
-                pstmt.setString(1, CustomerUser.getId());
-                pstmt.setDouble(2, CustomerUser.get_bucket_price());
-                pstmt.setInt(3, 1);
-                pstmt.executeUpdate();
-                pstmt.close();
-                DatabaseConnect.commit(conn);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            DatabaseConnect.closeResultSet(rs);
-            DatabaseConnect.closeConnection(conn);
-        }
-        return new_order_id;
-    }
 
 
     public static void logout() {
@@ -485,13 +494,13 @@ public class CustomerUser {
             conn = DatabaseConnect.serverConnect(userid, passwd);
 
             // Get all orders for specific customer user by its id
-            String sql1 = "select * from orders o, orders_item oi where o.id = oi.orders_id and o.customer_id = '" + CustomerUser.getId() + "'";
+            String sql1 = "select * from orders where customer_id = '" + CustomerUser.getId() + "'";
             rs1 = DatabaseConnect.getSQLResult(conn, sql1);
 
             while (rs1.next()) {
                 Integer order_status = rs1.getInt("status");
                 if (order_status != 0 && order_status != 3 && order_status != null) {
-                    current_order_id = rs1.getInt("orders_id");
+                    current_order_id = rs1.getInt("id");
                     if (order_status == 1) {
                         current_order_status = "Order Submitted";
                     } else if (order_status == 2) {
@@ -502,23 +511,23 @@ public class CustomerUser {
 
                     Map<Integer, Integer> pizzas = new HashMap<>();
                     Map<Integer, Integer> options = new HashMap<>();
-                    String sql2 = "select pizza_id, options_id from orders_item where orders_id = " + current_order_id;
+                    String sql2 = "select pizza_id, quantity from orders_pizza where orders_id = " + current_order_id;
                     try (ResultSet rs2 = DatabaseConnect.getSQLResult(conn, sql2)) {
                         while (rs2.next()) {
                             Integer pizza_id = rs2.getInt("pizza_id");
-                            Integer option_id = rs2.getInt("options_id");
+                            Integer quantity = rs2.getInt("quantity");
 
-                            if (pizzas.get(pizza_id) != null){
-                                Integer updated = pizzas.get(pizza_id) + 1;
-                                pizzas.put(pizza_id, updated);
-                            } else pizzas.put(pizza_id, 1);
+                            pizzas.put(pizza_id, quantity);
 
-                            if (option_id != 0) {
-                                if(options.get(option_id) != null){
-                                    Integer updated = options.get(option_id) + 1;
-                                    options.put(option_id, updated);
-                                } else options.put(option_id, 1);
-                            }
+                        }
+                    }
+                    String sql3 = "select options_id, quantity from orders_options where orders_id = " + current_order_id;
+                    try (ResultSet rs3 = DatabaseConnect.getSQLResult(conn, sql3)) {
+                        while (rs3.next()) {
+                            Integer options_id = rs3.getInt("options_id");
+                            Integer quantity = rs3.getInt("quantity");
+                            options.put(options_id, quantity);
+
                         }
                     }
                     if (!pizzas.isEmpty()) current_order.put("Pizza", pizzas);
@@ -548,11 +557,11 @@ public class CustomerUser {
             conn = DatabaseConnect.serverConnect(userid, passwd);
 
             // get all orders for specific customer user by its id
-            String sql1 = "select * from orders o, orders_item oi where o.id = oi.orders_id and o.customer_id = '" + CustomerUser.getId() + "'";
+            String sql1 = "select * from orders where customer_id = '" + CustomerUser.getId() + "'";
             rs = DatabaseConnect.getSQLResult(conn, sql1);
 
             while (rs.next()) {
-                Integer order_id = rs.getInt("orders_id");
+                Integer order_id = rs.getInt("id");
                 Integer order_status = rs.getInt("status");
                 if (order_status != 0) {
                     String status = null;
@@ -599,11 +608,9 @@ public class CustomerUser {
             conn = DatabaseConnect.serverConnect(userid, passwd);
 
             // pizza
-            String sql1 = "SELECT oi.pizza_id, p.name, COUNT(*) AS quantity " +
-                    "FROM orders_item oi " +
-                    "INNER JOIN pizza p ON oi.pizza_id = p.id " +
-                    "WHERE oi.orders_id = '" + order_id + "' " +
-                    "GROUP BY oi.pizza_id, p.name";
+            String sql1 = "SELECT op.pizza_id, p.name, op.quantity " +
+            "FROM orders_pizza op INNER JOIN pizza p ON op.pizza_id = p.id " +
+            "WHERE op.orders_id = " + order_id;
             rs = DatabaseConnect.getSQLResult(conn, sql1);
 
             Map<Integer, Map<String, Integer>> pizzas = new HashMap<>(); // Map to store pizza details
@@ -632,11 +639,9 @@ public class CustomerUser {
             DatabaseConnect.closeResultSet(rs);
 
             // options
-            String sql2 = "SELECT oi.options_id, o.name, COUNT(*) AS quantity " +
-                    "FROM orders_item oi " +
-                    "INNER JOIN options o ON oi.options_id = o.id " +
-                    "WHERE oi.orders_id = '" + order_id + "' " +
-                    "GROUP BY oi.options_id, o.name";
+            String sql2 = "SELECT oo.options_id, o.name, oo.quantity " +
+                    "FROM orders_options oo INNER JOIN options o ON oo.options_id = o.id " +
+                    "WHERE oo.orders_id = " + order_id;
             rs = DatabaseConnect.getSQLResult(conn, sql2);
 
             Map<Integer, Map<String, Integer>> options = new HashMap<>(); // Map to store options details
