@@ -7,9 +7,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,8 +37,9 @@ public class CustomerBucketController extends CustomerMyPageController{
             noOrderText.setStyle("-fx-font-size: 20px;");
             orderInfoVBox.getChildren().add(noOrderText);
 
-            Button createOrderButton = new Button("Go to Create Order");
-            createOrderButton.setStyle("-fx-font-size: 20px;");
+            Button createOrderButton = new Button("Go to Create Order \uD83D\uDC49");
+            createOrderButton.setStyle("-fx-font-size: 20px;  -fx-background-color: FEC88E;");
+
             createOrderButton.setOnAction(e -> {
                 Stage stage = (Stage) AppMain.getPrimaryStage();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppOrderStandard.fxml"));
@@ -52,11 +56,12 @@ public class CustomerBucketController extends CustomerMyPageController{
     }
 
     private void FilltheScreen(Map<String, Map<Integer, Integer>> customer_bucket) throws IOException {
-        Text order_status = new Text("현재 선택된 장바구니 음식들");
-        order_status.setStyle("-fx-font-size: 20px;");
+        Text order_status = new Text(" \uD83C\uDF55 현재 선택된 장바구니 음식들 \uD83C\uDF55");
+
+        order_status.setStyle("-fx-font-size: 25px;");
 
         double bucket_price = CustomerUser.get_bucket_price();
-        Text bucket_price_text = new Text("Total Price: " + bucket_price);
+        Text bucket_price_text = new Text("\uD83D\uDCB2 Total Price: " + bucket_price);
         bucket_price_text.setStyle("-fx-font-size: 18px;");
         orderInfoVBox.getChildren().add(bucket_price_text);
         VBox.setMargin(bucket_price_text, new Insets(10, 0, 10, 0));
@@ -77,7 +82,7 @@ public class CustomerBucketController extends CustomerMyPageController{
 
 
         Button checkout = new Button("결제하기");
-        checkout.setStyle("-fx-font-size: 15px; -fx-background-color: #ffb3ba;");
+        checkout.setStyle("-fx-font-size: 20px; -fx-background-color: #ffb3ba;");
         checkout.setOnAction(e -> {
             // Show payment method selection dialog
             ChoiceDialog<String> paymentMethodDialog = new ChoiceDialog<>("Card", "Card", "Rewards");
@@ -165,7 +170,7 @@ public class CustomerBucketController extends CustomerMyPageController{
 
 
         Button orderMore = new Button("메뉴 선택으로 돌아가기");
-        orderMore.setStyle("-fx-font-size: 15px; -fx-background-color: #bae1ff;");
+        orderMore.setStyle("-fx-font-size: 20px; -fx-background-color: #bae1ff;");
         orderMore.setOnAction(e -> {
             Stage stage = (Stage) AppMain.getPrimaryStage();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppOrderStandard.fxml"));
@@ -214,7 +219,7 @@ public class CustomerBucketController extends CustomerMyPageController{
                     String name = rs.getString("name");
                     Double price = rs.getDouble("price");
                     Text itemText = new Text(name + " " + quantity + "개\t총 가격: "+ quantity*price);
-                    itemText.setStyle("-fx-font-size: 16px;");
+                    itemText.setStyle("-fx-font-size: 18px;");
                     orderInfoVBox.getChildren().add(itemText);
                 }
                 DatabaseConnect.closeConnection(conn);

@@ -3,9 +3,7 @@ package yop.kosa_p1_yop;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -84,28 +82,28 @@ public class AddToppingsController extends CustomPizzaController{
 
     public void showToppingImage(String toppingName) {
         switch (toppingName) {
-            case "파인애플":
+            case "파인애플토핑":
                 pineappletopping.setVisible(true);
                 break;
-            case "베이컨":
+            case "베이컨토핑":
                 bacontopping.setVisible(true);
                 break;
-            case "불고기":
+            case "불고기토핑":
                 bulgogitopping.setVisible(true);
                 break;
-            case "꼬리알새우":
+            case "꼬리알새우토핑":
                 shrimptopping.setVisible(true);
                 break;
-            case "양파":
+            case "양파토핑":
                 oniontopping.setVisible(true);
                 break;
-            case "페퍼로니":
+            case "페퍼로니토핑":
                 pepperonitopping.setVisible(true);
                 break;
-            case "피망":
+            case "피망토핑":
                 capsicumtopping.setVisible(true);
                 break;
-            case "햄":
+            case "햄토핑":
                 hamtopping.setVisible(true);
                 break;
             default:
@@ -115,28 +113,28 @@ public class AddToppingsController extends CustomPizzaController{
 
     public void hideToppingImage(String toppingName) {
         switch (toppingName) {
-            case "파인애플":
+            case "파인애플토핑":
                 pineappletopping.setVisible(false);
                 break;
-            case "베이컨":
+            case "베이컨토핑":
                 bacontopping.setVisible(false);
                 break;
-            case "불고기":
+            case "불고기토핑":
                 bulgogitopping.setVisible(false);
                 break;
-            case "꼬리알새우":
+            case "꼬리알새우토핑":
                 shrimptopping.setVisible(false);
                 break;
-            case "양파":
+            case "양파토핑":
                 oniontopping.setVisible(false);
                 break;
-            case "페퍼로니":
+            case "페퍼로니토핑":
                 pepperonitopping.setVisible(false);
                 break;
-            case "피망":
+            case "피망토핑":
                 capsicumtopping.setVisible(false);
                 break;
-            case "햄":
+            case "햄토핑":
                 hamtopping.setVisible(false);
                 break;
             default:
@@ -220,15 +218,30 @@ public class AddToppingsController extends CustomPizzaController{
         // 현재 Stage 가져오기
         Stage stage = (Stage) Backbtn.getScene().getWindow();
 
-        try {
-            // 이전 Scene 로드 (여기서 이전 Scene의 FXML 파일 경로를 지정하세요)
-            Scene previousScene = new Scene(FXMLLoader.load(getClass().getResource("DowAndSizeAndsauce.fxml")));
+        // 확인 대화상자 생성
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("뒤로가기");
+        alert.setHeaderText(null);
+        alert.setContentText("현재 작업하신 선택 사항들이 모두 초기화 됩니다. \n처음부터 다시 시작 하시겠습니까?");
 
-            // Stage에 이전 Scene 설정
-            stage.setScene(previousScene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // 확인 및 취소 버튼 생성
+        ButtonType buttonTypeYes = new ButtonType("다시 만들기", ButtonBar.ButtonData.YES);
+        ButtonType buttonTypeNo = new ButtonType("취소", ButtonBar.ButtonData.NO);
+
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == buttonTypeYes) {
+                try {
+                    CustomPizza.resetPizza();
+                    Scene previousScene = new Scene(FXMLLoader.load(getClass().getResource("DowAndSizeAndsauce.fxml")));
+                    stage.setScene(previousScene);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+            }
+        });
     }
 
     @FXML
@@ -247,12 +260,13 @@ public class AddToppingsController extends CustomPizzaController{
             System.out.println("New Pizza name : " +custom_name);
 
             // Set the custom_name
-            CustomPizza.setCustomName(custom_name);
-
-            // Optionally, you can show another dialog or perform any other actions here
-            showCustompizzaNameDialog();
+            boolean succss = CustomPizza.setCustomName(custom_name);
+            if (succss){
+                showCustompizzaNameDialog();
+            }
         }
     }
+
     private void showCustompizzaNameDialog() throws IOException{
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("New Pizza has been added under MyPizzas session.");
