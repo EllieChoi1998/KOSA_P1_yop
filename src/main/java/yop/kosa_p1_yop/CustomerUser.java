@@ -678,6 +678,8 @@ public class CustomerUser {
 
     }
 
+
+
     public static double getCurrent_order_price() {
         return current_order_price;
     }
@@ -694,7 +696,47 @@ public class CustomerUser {
         return current_order_id;
     }
 
-    public static void completeOrder(){
+    public static void completeOrder() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String userid = "pizza_admin";
+        String passwd = "admin";
 
+        try {
+            conn = DatabaseConnect.serverConnect(userid, passwd);
+
+            // SQL 쿼리 작성
+            String sql = "UPDATE orders SET status = ? WHERE customer_id = ? AND status = ? AND id = ?";
+            pstmt = conn.prepareStatement(sql);
+
+            // 파라미터 설정
+            pstmt.setInt(1, 3);
+            pstmt.setString(2, getId());
+            pstmt.setInt(3, 2);
+            pstmt.setInt(4, current_order_id);
+
+            // 쿼리 실행
+            int rowsAffected = pstmt.executeUpdate();
+
+            // 업데이트된 행의 수 확인
+            if (rowsAffected > 0) {
+                System.out.println("Order status updated successfully.");
+            } else {
+                System.out.println("No orders were found with status 'Order On Delivery' for the current customer.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // 리소스 해제
+            try {
+                if (pstmt != null) pstmt.close();
+                DatabaseConnect.commit(conn);
+                DatabaseConnect.closeConnection(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
 }
