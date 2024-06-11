@@ -98,8 +98,11 @@ public class StandardPizzaPageWithCaloriesController extends CustomerMyPageContr
                         URL imageUrl = file.toURI().toURL();
                         Image image = new Image(imageUrl.toString());
                         imageView.setImage(image);
-                        imageView.setFitHeight(250);
-                        imageView.setFitWidth(250);
+
+                        imageView.setFitWidth(100); // 이미지 뷰의 너비 설정
+                        imageView.setFitHeight(100);
+                        imageView.setPreserveRatio(true);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

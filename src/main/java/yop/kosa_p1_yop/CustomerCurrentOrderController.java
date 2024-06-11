@@ -38,8 +38,14 @@ public class CustomerCurrentOrderController extends CustomerMainController {
             Button createOrderButton = new Button("Go to Create Order \uD83D\uDC49");
             createOrderButton.setStyle("-fx-font-size: 20px; -fx-background-color: FFEEDD;");
             createOrderButton.setOnAction(e -> {
-                // Handle navigation to create order screen
-                // This might involve changing the scene or switching to a different view
+                Stage stage = (Stage) AppMain.getPrimaryStage();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AppOrderStandard.fxml"));
+                try {
+                    Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+                    stage.setScene(scene);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             });
             orderInfoVBox.getChildren().add(createOrderButton);
             orderInfoVBox.setAlignment(Pos.CENTER);  // Center the text and button
