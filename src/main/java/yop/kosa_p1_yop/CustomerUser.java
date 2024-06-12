@@ -291,21 +291,21 @@ public class CustomerUser {
                 if (key.equals("Pizza")) {
                     Set<Integer> pizza_ids = bucket.get("Pizza").keySet();
                     for (Integer pid : pizza_ids){
-                            boolean result = create_new_order_item_in_database(new_order_id, 1, pid, CustomerUser.getBucket().get("Pizza").get(pid));
-                            if (!result) {
-                                System.out.println("Can not insert order item:\t" + pid);
-                                return false;
-                            }
+                        boolean result = create_new_order_item_in_database(new_order_id, 1, pid, CustomerUser.getBucket().get("Pizza").get(pid));
+                        if (!result) {
+                            System.out.println("Can not insert order item:\t" + pid);
+                            return false;
+                        }
                     }
 
                 } else if (key.equals("Option")) {
                     Set<Integer> option_ids = bucket.get("Option").keySet();
                     for (Integer oid : option_ids){
 
-                            boolean result = create_new_order_item_in_database(new_order_id, 2, oid, CustomerUser.getBucket().get("Option").get(oid));
-                            if (!result) {
-                                System.out.println("Can not insert order item:\t" + oid);
-                                return false;
+                        boolean result = create_new_order_item_in_database(new_order_id, 2, oid, CustomerUser.getBucket().get("Option").get(oid));
+                        if (!result) {
+                            System.out.println("Can not insert order item:\t" + oid);
+                            return false;
 
                         }
                     }
@@ -610,8 +610,8 @@ public class CustomerUser {
 
             // pizza
             String sql1 = "SELECT op.pizza_id, p.name, op.quantity " +
-            "FROM orders_pizza op INNER JOIN pizza p ON op.pizza_id = p.id " +
-            "WHERE op.orders_id = " + order_id;
+                    "FROM orders_pizza op INNER JOIN pizza p ON op.pizza_id = p.id " +
+                    "WHERE op.orders_id = " + order_id;
             rs = DatabaseConnect.getSQLResult(conn, sql1);
 
             Map<Integer, Map<String, Integer>> pizzas = new HashMap<>(); // Map to store pizza details

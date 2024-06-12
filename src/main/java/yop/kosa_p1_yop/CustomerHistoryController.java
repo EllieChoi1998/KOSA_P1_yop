@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import java.util.*;
 
-public class CustomerHistoryController extends CustomerMainController {
+public class CustomerHistoryController extends CustomerMyPageController {
 
     @FXML
     private VBox orderInfoVBox; // FXML에서 정의한 VBox를 가져옵니다.
@@ -93,63 +93,50 @@ public class CustomerHistoryController extends CustomerMainController {
         VBox detailVBox = new VBox();
         detailVBox.setStyle("-fx-padding: 10px;");
 
-        // 상세 정보를 보여주는 내용을 추가합니다.
-        Map<String, Map<Integer, Map<String, Integer>>> detailedInfoList = CustomerUser.getDetailedHistory(orderId);
-        // get pizzas and options
-        Map<Integer, Map<String, Integer>> pizzas = detailedInfoList.get("Pizzas");
-        Map<Integer, Map<String, Integer>> options = detailedInfoList.get("Options");
 
-        // Create a section for Pizzas
-        if (!pizzas.isEmpty()) {
-            Label pizzasLabel = new Label("Pizzas");
-            detailVBox.getChildren().add(pizzasLabel);
-
-            Set<String> printedPizzas = new HashSet<>(); // To track printed pizzas
-
-            for (Map<String, Integer> pizzaname_quantity : pizzas.values()) {
-                for (Map.Entry<String, Integer> entry : pizzaname_quantity.entrySet()) {
-                    String name = entry.getKey();
-                    Integer quantity = entry.getValue();
-
-                    // Print the pizza only if it hasn't been printed already
-                    if (!printedPizzas.contains(name)) {
-                        // Pizza name and quantity
-                        String size = "";
-                            sql = "select pizza_size from pizza where id = (select pizza_id from orders_pizza where orders_id = "+orderId+" AND ROWNUM = 1)";
-                            try {
-                                conn = DatabaseConnect.serverConnect(userid, passwd);
-                                rs = DatabaseConnect.getSQLResult(conn, sql);
-                                if (rs.next()) {
-                                    size = rs.getString("pizza_size");
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
+        sql = "select pizza_id, quantity from orders_pizza where orders_id = " + orderId;
+        try {
+            conn = DatabaseConnect.serverConnect(userid, passwd);
+            rs = DatabaseConnect.getSQLResult(conn, sql);
+            while (rs.next()) {
+                Integer pizza_id = rs.getInt("pizza_id");
+                Integer quantity = rs.getInt("quantity");
+                String sql2 = "select name, pizza_size from pizza where id = " + pizza_id;
+                try {
+                    ResultSet rs2 = DatabaseConnect.getSQLResult(conn, sql2);
+                    if (rs2.next()) {
+                        String name = rs2.getString("name");
+                        String size = rs2.getString("pizza_size");
                         Label pizzaDetailLabel = new Label(name + "\t Size: " + size + "\t Quantity: " + quantity);
                         detailVBox.getChildren().add(pizzaDetailLabel);
-                        printedPizzas.add(name); // Mark this pizza as printed
+
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        // Create a section for Options if they exist
-        if (!options.isEmpty()) {
-            Label optionsLabel = new Label("Options");
-            detailVBox.getChildren().add(optionsLabel);
-
-            for (Map<String, Integer> optionname_quantity : options.values()) {
-                for (Map.Entry<String, Integer> entry : optionname_quantity.entrySet()) {
-                    String name = entry.getKey();
-                    Integer quantity = entry.getValue();
-
-                    // Option name and quantity
-                    Label optionDetailLabel = new Label(name + ", Quantity: " + quantity);
-                    detailVBox.getChildren().add(optionDetailLabel);
-                }
-            }
-        }
+//
+//        // Create a section for Options if they exist
+//        if (!options.isEmpty()) {
+//            Label optionsLabel = new Label("Options");
+//            detailVBox.getChildren().add(optionsLabel);
+//
+//            for (Map<String, Integer> optionname_quantity : options.values()) {
+//                for (Map.Entry<String, Integer> entry : optionname_quantity.entrySet()) {
+//                    String name = entry.getKey();
+//                    Integer quantity = entry.getValue();
+//
+//                    // Option name and quantity
+//                    Label optionDetailLabel = new Label(name + ", Quantity: " + quantity);
+//                    detailVBox.getChildren().add(optionDetailLabel);
+//                }
+//            }
+//        }
 
         return detailVBox;
     }

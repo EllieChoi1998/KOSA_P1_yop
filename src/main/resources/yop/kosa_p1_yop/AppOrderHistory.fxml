@@ -25,7 +25,7 @@
             <Image url="@Images/logo.png" />
          </image>
       </ImageView>
-      <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleInvisibleButtonAction" opacity="0" prefHeight="134.0" prefWidth="450.0" />
+      <Button id="invisiblebutton" layoutX="2.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleMyPageButtonAction" opacity="0" prefHeight="134.0" prefWidth="450.0" />
       <VBox fx:id="orderInfoVBox" layoutY="210.0" prefHeight="515.0" prefWidth="450.0" style="-fx-background-color: #FFFFFF;" />
       <Text layoutX="135.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 30;" text="Order History" />
    </children>
