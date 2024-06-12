@@ -84,89 +84,99 @@ public class CustomerBucketController extends CustomerMyPageController{
         Button checkout = new Button("결제하기");
         checkout.setStyle("-fx-font-size: 20px; -fx-background-color: #ffb3ba;");
         checkout.setOnAction(e -> {
-            // Show payment method selection dialog
-            ChoiceDialog<String> paymentMethodDialog = new ChoiceDialog<>("Card", "Card", "Rewards");
-            paymentMethodDialog.setTitle("Payment Method");
-            paymentMethodDialog.setHeaderText("Select Payment Method");
-            paymentMethodDialog.setContentText("Choose your payment method:");
 
-            Optional<String> result = paymentMethodDialog.showAndWait();
+            // 현재 주문이 있는지 확인
+            if (CustomerUser.getCurrentOrder().size() == 0) {
+                // 결제 메서드 선택 다이얼로그 표시
+                ChoiceDialog<String> paymentMethodDialog = new ChoiceDialog<>("Card", "Card", "Rewards");
+                paymentMethodDialog.setTitle("결제 방법");
+                paymentMethodDialog.setHeaderText("결제 방법 선택");
+                paymentMethodDialog.setContentText("결제 방법을 선택하세요:");
 
-            if (result.isPresent()) {
-                String selectedMethod = result.get();
-                AtomicBoolean checkout_success = new AtomicBoolean(false);
+                Optional<String> result = paymentMethodDialog.showAndWait();
 
-                if (selectedMethod.equals("Card")) {
-                    // Show card payment dialog
-                    Dialog<String[]> cardPaymentDialog = new Dialog<>();
-                    cardPaymentDialog.setTitle("Card Payment");
-                    cardPaymentDialog.setHeaderText("Enter Card Details");
+                if (result.isPresent()) {
+                    String selectedMethod = result.get();
+                    AtomicBoolean checkout_success = new AtomicBoolean(false);
 
-                    // Set the button types
-                    ButtonType confirmButtonType = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
-                    cardPaymentDialog.getDialogPane().getButtonTypes().addAll(confirmButtonType, ButtonType.CANCEL);
+                    if (selectedMethod.equals("Card")) {
+                        // 카드 결제 다이얼로그 표시
+                        Dialog<String[]> cardPaymentDialog = new Dialog<>();
+                        cardPaymentDialog.setTitle("카드 결제");
+                        cardPaymentDialog.setHeaderText("카드 정보 입력");
 
-                    // Create the card number, CVV, and password input fields
-                    TextField cardNumberField = new TextField();
-                    cardNumberField.setPromptText("Card Number");
-                    PasswordField cvvField = new PasswordField();
-                    cvvField.setPromptText("CVV");
-                    PasswordField passwordField = new PasswordField();
-                    passwordField.setPromptText("Password");
+                        // 버튼 유형 설정
+                        ButtonType confirmButtonType = new ButtonType("확인", ButtonBar.ButtonData.OK_DONE);
+                        cardPaymentDialog.getDialogPane().getButtonTypes().addAll(confirmButtonType, ButtonType.CANCEL);
 
-                    // Add the input fields to the dialog
-                    cardPaymentDialog.getDialogPane().setContent(new VBox(10, cardNumberField, cvvField, passwordField));
+                        // 카드 번호, CVV, 비밀번호 입력 필드 생성
+                        TextField cardNumberField = new TextField();
+                        cardNumberField.setPromptText("카드 번호");
+                        PasswordField cvvField = new PasswordField();
+                        cvvField.setPromptText("CVV");
+                        PasswordField passwordField = new PasswordField();
+                        passwordField.setPromptText("비밀번호");
 
-                    // Request focus on the card number field by default
-                    Platform.runLater(cardNumberField::requestFocus);
+                        // 입력 필드를 다이얼로그에 추가
+                        cardPaymentDialog.getDialogPane().setContent(new VBox(10, cardNumberField, cvvField, passwordField));
 
-                    // Convert the result to a string array when the confirm button is clicked
-                    cardPaymentDialog.setResultConverter(dialogButton -> {
-                        if (dialogButton == confirmButtonType) {
-                            return new String[]{cardNumberField.getText(), cvvField.getText(), passwordField.getText()};
-                        }
-                        return null;
-                    });
+                        // 카드 번호 필드에 초점 설정
+                        Platform.runLater(cardNumberField::requestFocus);
 
-                    Optional<String[]> cardDetails = cardPaymentDialog.showAndWait();
-
-                    cardDetails.ifPresent(details -> {
-                        if (details.length == 3) {
-                            try {
-                                checkout_success.set(CustomerUser.payToCheckout_card(details[0], details[1], details[2]));
-                            } catch (Exception ex) {
-                                System.out.println("Error occured");
-                                throw new RuntimeException(ex);
+                        // 확인 버튼 클릭 시 결과를 문자열 배열로 변환
+                        cardPaymentDialog.setResultConverter(dialogButton -> {
+                            if (dialogButton == confirmButtonType) {
+                                return new String[]{cardNumberField.getText(), cvvField.getText(), passwordField.getText()};
                             }
+                            return null;
+                        });
+
+                        Optional<String[]> cardDetails = cardPaymentDialog.showAndWait();
+
+                        cardDetails.ifPresent(details -> {
+                            if (details.length == 3) {
+                                try {
+                                    checkout_success.set(CustomerUser.payToCheckout_card(details[0], details[1], details[2]));
+                                } catch (Exception ex) {
+                                    System.out.println("오류 발생");
+                                    throw new RuntimeException(ex);
+                                }
+                            }
+                        });
+                    } else if (selectedMethod.equals("Rewards")) {
+                        // 리워드 결제 다이얼로그 표시
+                        TextInputDialog rewardsPaymentDialog = new TextInputDialog();
+                        rewardsPaymentDialog.setTitle("리워드 결제");
+                        rewardsPaymentDialog.setHeaderText("리워드 포인트 사용");
+                        rewardsPaymentDialog.setContentText("현재 포인트: " + CustomerUser.getCredits() + "\n리워드 포인트를 사용하시겠습니까? (예/아니오)");
+
+                        Optional<String> useRewards = rewardsPaymentDialog.showAndWait();
+
+                        if (useRewards.isPresent() && useRewards.get().equalsIgnoreCase("yes")) {
+                            checkout_success.set(CustomerUser.payToCheckout_rewards());
                         }
-                    });
-                } else if (selectedMethod.equals("Rewards")) {
-                    // Show rewards payment dialog
-                    TextInputDialog rewardsPaymentDialog = new TextInputDialog();
-                    rewardsPaymentDialog.setTitle("Rewards Payment");
-                    rewardsPaymentDialog.setHeaderText("Use Rewards Points");
-                    rewardsPaymentDialog.setContentText("Your current points: " + CustomerUser.getCredits() + "\nDo you want to use rewards points? (yes/no)");
+                    }
 
-                    Optional<String> useRewards = rewardsPaymentDialog.showAndWait();
-
-                    if (useRewards.isPresent() && useRewards.get().equalsIgnoreCase("yes")) {
-                        checkout_success.set(CustomerUser.payToCheckout_rewards());
+                    if (checkout_success.get()) {
+                        // 주문 확인 화면으로 이동
+                        Stage stage = (Stage) AppMain.getPrimaryStage();
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Customer_CurrentOrder.fxml"));
+                        try {
+                            Scene scene = new Scene(fxmlLoader.load(), 450, 820);
+                            stage.setScene(scene);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
                     }
                 }
-
-                if (checkout_success.get()) {
-                    // Redirect to order confirmation screen
-                    Stage stage = (Stage) AppMain.getPrimaryStage();
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Customer_CurrentOrder.fxml"));
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load(), 450, 820);
-                        stage.setScene(scene);
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("주의");
+                alert.setHeaderText("진행 중인 주문이 이미 존재합니다.");
+                alert.showAndWait();
             }
         });
+
 
 
         Button orderMore = new Button("메뉴 선택으로 돌아가기");

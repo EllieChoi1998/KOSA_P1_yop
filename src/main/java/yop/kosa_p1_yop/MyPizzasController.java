@@ -52,9 +52,12 @@ public class MyPizzasController extends CustomPizzaController{
             PreparedStatement pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
 
+            int pizzacnt = 0;
             while (rs.next()) {
                 String name = rs.getString("name");
                 int id = rs.getInt("id");
+
+                pizzacnt++;
 
                 VBox pizzaBox;
 
@@ -90,7 +93,7 @@ public class MyPizzasController extends CustomPizzaController{
 
                     nameText.setStyle("-fx-font-size: 24px;"); // 텍스트 크기 설정
 
-                    Button deleteButton = new Button("삭제");
+                    Button deleteButton = new Button("Delete My Pizza");
                     deleteButton.setStyle("-fx-font-size: 14px;  -fx-background-color: FEC88E;"); // 삭제 버튼 크기 설정
                     deleteButton.setOnAction(e -> remove(id));
 
@@ -107,6 +110,10 @@ public class MyPizzasController extends CustomPizzaController{
 
                     pizzaBox.getChildren().add(textFlow);
 
+                    Line line = new Line(0, 0, 450, 0); // 가로 선
+                    line.setStroke(Color.LIGHTGRAY);
+                    pizzaBox.getChildren().add(line);
+
                     pizzaPane.getChildren().add(pizzaBox); // pizzaPane에 피자 상자 추가
                     pizzaBox.setLayoutY(initialY); // y 좌표 설정
                     initialY += cellHeight + 35; // 다음 VBox의 y 좌표를 조정
@@ -114,6 +121,7 @@ public class MyPizzasController extends CustomPizzaController{
                     pizzaMap.put(name, pizzaBox);
                 }
             }
+            cnt.setText(Integer.toString(pizzacnt));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -122,12 +130,54 @@ public class MyPizzasController extends CustomPizzaController{
         }
     }
 
+    @FXML
+    private Text cnt;
 
 
     private void remove(Integer pizza_id) {
-        // 삭제 메소드 구현
-        System.out.println(pizza_id + " has been removed.");
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DatabaseConnect.serverConnect("pizza_admin", "admin");
+
+            // 1. 주문에서 해당 피자를 삭제합니다.
+            String deleteOrdersPizzaQuery = "DELETE FROM orders_pizza WHERE pizza_id = ?";
+            pstmt = conn.prepareStatement(deleteOrdersPizzaQuery);
+            pstmt.setInt(1, pizza_id);
+            pstmt.executeUpdate();
+
+            // 2. 재료 항목에서 해당 피자의 재료를 삭제합니다.
+            String deleteIngredientItemQuery = "DELETE FROM ingredient_item WHERE pizza_id = ?";
+            pstmt = conn.prepareStatement(deleteIngredientItemQuery);
+            pstmt.setInt(1, pizza_id);
+            pstmt.executeUpdate();
+
+            // 3. 피자를 삭제합니다.
+            String deletePizzaQuery = "DELETE FROM pizza WHERE id = ?";
+            pstmt = conn.prepareStatement(deletePizzaQuery);
+            pstmt.setInt(1, pizza_id);
+            pstmt.executeUpdate();
+
+            System.out.println("피자가 삭제되었습니다.");
+
+            // 피자 UI를 다시 로드하여 최신 상태를 반영합니다.
+            pizzaPane.getChildren().clear();
+            loadPizzaData();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // 자원 해제
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
 
     @FXML
     private void popup(String name) {
