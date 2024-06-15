@@ -458,4 +458,12 @@ END create_new_pizza;
 /
 
 commit;
-```
+
+```공지: CustomPizza 사진 삭제 안내
+애플리케이션 이용에 불편을 드려 죄송합니다.
+
+본 애플리케이션 소스파일을 다운 받은 후, 아래 경로로 이동하여 .png 파일들을 모두 삭제해 주세요:
+
+경로: src/main/resources/yop/kosa_p1_yop/Custom_Pizzas
+해당 경로에 있는 모든 .png 파일을 삭제해 주시면 됩니다.
+이용에 불편을 드려 다시 한 번 사과드립니다.
