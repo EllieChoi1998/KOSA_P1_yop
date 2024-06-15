@@ -459,7 +459,8 @@ END create_new_pizza;
 
 commit;
 
-```공지: CustomPizza 사진 삭제 안내
+```
+## 공지: CustomPizza 사진 삭제 안내
 애플리케이션 이용에 불편을 드려 죄송합니다.
 
 본 애플리케이션 소스파일을 다운 받은 후, 아래 경로로 이동하여 .png 파일들을 모두 삭제해 주세요:
