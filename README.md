@@ -27,7 +27,7 @@ GRANT SELECT ON SYS.DUAL TO pizza_admin;
 GRANT CREATE SEQUENCE TO pizza_admin;
 GRANT CREATE TABLE TO pizza_admin;
 GRANT DROP ANY TABLE TO pizza_admin;
-
+```
 ## 2. 테이블, 시퀀스, 트리거 및 프로시저 생성
 
 pizza_admin@xe 계정을 사용하여 아래의 SQL 코드를 입력해 주세요.
